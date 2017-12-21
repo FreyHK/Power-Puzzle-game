@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TileMapGenerator {
 
-	static TileType[,] grid;
-
 	public int sourceX { get; private set; }
 	public int sourceY { get; private set; }
 
@@ -39,9 +37,7 @@ public class TileMapGenerator {
 		return randomDirs;
 	}
 
-	public void GenerateMap (int width, int height, Tile[,] tilemap, float breakChance) {
-		breakChance = Mathf.Clamp01 (breakChance);
-
+	public void GenerateMap (int width, int height, Tile[,] tilemap) {
 		bool[,] visited = new bool[width, height];
 
 		for (int x = 0; x < width; x++) {
@@ -56,10 +52,10 @@ public class TileMapGenerator {
 
 		tilemap[sourceX, sourceY].SetTileType(TileType.PowerSource);
 
-		CarvePassagesFrom (sourceX, sourceY, width, height, visited, tilemap, breakChance);
+		CarvePassagesFrom (sourceX, sourceY, width, height, visited, tilemap);
 	}
 
-	void CarvePassagesFrom (int cx, int cy, int width, int height, bool[,] visited, Tile[,] tilemap, float breakChance) {
+	void CarvePassagesFrom (int cx, int cy, int width, int height, bool[,] visited, Tile[,] tilemap) {
 		//Mark this tile as visited
 		visited[cx, cy] = true;
 
@@ -71,10 +67,8 @@ public class TileMapGenerator {
 			int nx = cx + DX[(int)dir];
 			int ny = cy + DY[(int)dir];
 
-			bool cancelPassage = Random.value < breakChance;
-
 			//If not out of map, and we haven't visited this
-			if (cancelPassage == false && nx >= 0 && nx < width && ny >= 0 && ny < height && !visited [nx, ny]) {
+			if (nx >= 0 && nx < width && ny >= 0 && ny < height && !visited [nx, ny]) {
 				visitedAllNeighbors = false;
 
 				//Connect neighbor to current tile
@@ -83,7 +77,7 @@ public class TileMapGenerator {
 				tilemap[cx, cy].outlets[(int)dir.Opposite()] = true;
 
 				//Iterate
-				CarvePassagesFrom(nx, ny, width, height, visited, tilemap, breakChance);
+				CarvePassagesFrom(nx, ny, width, height, visited, tilemap);
 			}
 		}
 

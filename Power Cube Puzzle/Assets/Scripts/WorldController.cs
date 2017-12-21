@@ -37,14 +37,14 @@ public class WorldController : MonoBehaviour {
 	Queue<Tile> tileTargetRotations = new Queue<Tile>();
 
 	//Callback suff
-	Action OnLevelStartCallback;
-	Action OnLevelEndCallback;
+	Action<LevelInfo> OnLevelStartCallback;
+	Action<LevelInfo> OnLevelEndCallback;
 
-	public void RegisterOnLevelStartCallback (Action cb) {
+	public void RegisterOnLevelStartCallback (Action<LevelInfo> cb) {
 		OnLevelStartCallback += cb;
 	}
 
-	public void RegisterOnLevelEndCallback (Action cb) {
+	public void RegisterOnLevelEndCallback (Action<LevelInfo> cb) {
 		OnLevelEndCallback += cb;
 	}
 
@@ -53,17 +53,22 @@ public class WorldController : MonoBehaviour {
 	float halfGridWidth;
 	float halfGridHeight;
 
+	LevelInfo currentLevel;
+	bool levelEnded = false;
+
 	/// <summary>
 	/// Sets up callbacks
 	/// </summary>
 	public void Initialize () {
-		playerInput.OnPlayerInput += OnPlayerInput;
+		playerInput.OnMouseClick += OnPlayerInput;
 	}
 
 	/// <summary>
 	/// Creates and starts a level based on LevelInfo data.
 	/// </summary>
 	public void InitializeLevel (LevelInfo levelInfo) {
+		currentLevel = levelInfo;
+		levelEnded = false;
 
 		//Clear old level
 		if (tileGameObjects != null) {
@@ -107,7 +112,6 @@ public class WorldController : MonoBehaviour {
 					if (shape == WireShape.Empty || shape == WireShape.Single)
 						continue;
 
-					print ("Wireshape is: " + shape.ToString());
 					prefab = WirePrefabs[(int)shape];
 					break;
 				case TileType.Lamp: 
@@ -132,7 +136,7 @@ public class WorldController : MonoBehaviour {
 				for (int i = 0; i < t.childCount; i++) {
 					Transform c = t.GetChild (i);
 					//Dont include UI stuff
-					if (c.name == "UI")
+					if (c.name == "UI" || c.childCount < 2)
 						continue;
 
 					renderers.Add (c.GetChild (0).GetComponent<SpriteRenderer> ());
@@ -146,6 +150,10 @@ public class WorldController : MonoBehaviour {
 
 		tileGrid.UpdateTilePower ();
 		UpdateTileVisuals ();
+
+		//Event Callback
+		if (OnLevelStartCallback != null)
+			OnLevelStartCallback (currentLevel);
 	}
 
 	void UpdateTileVisuals () {
@@ -160,15 +168,26 @@ public class WorldController : MonoBehaviour {
 				//Colors of wires
 				TileGameObjectData goData = tileGameObjects [tile];
 				for (int i = 0; i < goData.renderers.Length; i++) {
-					goData.renderers[i].color = tile.IsPowered ? litWireColor : unlitWireColor;
+					Color c = tile.IsPowered ? litWireColor : unlitWireColor;
+
+					//Unlit while rotating
+					if (currentTileRotating == tile)
+						c = unlitWireColor;
+					goData.renderers[i].color = c;
 				}
-				for (int i = 0; i < goData.renderers.Length; i++) {
-					goData.shadowRenderers[i].color = tile.IsPowered ? litHighlightColor : shadowColor;
+				//Shadows
+				for (int i = 0; i < goData.shadowRenderers.Length; i++) {
+					Color c = tile.IsPowered ? litHighlightColor : shadowColor;
+
+					//Unlit while rotating
+					if (currentTileRotating == tile)
+						c = shadowColor;
+					goData.shadowRenderers [i].color = c;
 				}
 			}
 		}
 	}
-
+		
 	Tile currentTileRotating = null;
 
 	public void UpdateBoard () {
@@ -209,9 +228,10 @@ public class WorldController : MonoBehaviour {
 				if (!lamps [i].IsPowered)
 					allLit = false;
 			}
-			if (allLit) {
+			if (allLit && !levelEnded) {
+				levelEnded = true;
 				if (OnLevelEndCallback != null)
-					OnLevelEndCallback ();
+					OnLevelEndCallback (currentLevel);
 
 				//We don't want to rotate tiles anymore
 				tileTargetRotations.Clear();

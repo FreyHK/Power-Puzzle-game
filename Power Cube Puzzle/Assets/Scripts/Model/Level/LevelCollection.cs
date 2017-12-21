@@ -33,15 +33,5 @@ public class LevelCollection {
 		(←, ↑, →, ↓)
 
 		*/
-
-		levels = new LevelInfo[] { 
-			new LevelInfo(2, 2),
-			new LevelInfo(3, 3),
-			new LevelInfo(5, 5),
-			new LevelInfo(8, 5),
-			new LevelInfo(8, 8),
-			new LevelInfo(10, 8),
-			new LevelInfo(20, 5)
-		};
 	}
 }

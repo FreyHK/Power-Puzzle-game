@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1539083196208498}
+  m_IsPrefabParent: 1
+--- !u!1 &1539083196208498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4512974393091136}
+  - component: {fileID: 114148485045166336}
+  - component: {fileID: 114203669608343504}
+  - component: {fileID: 114408117181621092}
+  m_Layer: 0
+  m_Name: _Scripts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4512974393091136
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539083196208498}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114148485045166336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539083196208498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f1c48657560c6489fd5530a4326331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldController: {fileID: 114203669608343504}
+--- !u!114 &114203669608343504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539083196208498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde2857a44467004283f669d8d7a296a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelWidth: 10
+  levelHeight: 10
+  playerInput: {fileID: 114408117181621092}
+  cameraController: {fileID: 0}
+  background: {fileID: 0}
+  unlitWireColor: {r: 0.6117647, g: 0.90196085, b: 0.5254902, a: 1}
+  shadowColor: {r: 0, g: 0, b: 0, a: 0.209}
+  litWireColor: {r: 0.75687045, g: 1, b: 0.41911763, a: 1}
+  litHighlightColor: {r: 0.86754775, g: 1, b: 0.6838235, a: 1}
+  WirePrefabs:
+  - {fileID: 4241769687076932, guid: f9d5d845cb97bca4fabadb12ffc8ea9b, type: 2}
+  - {fileID: 4120109429044832, guid: 7f6e964b811cf66479561515b60373be, type: 2}
+  - {fileID: 4959353780450840, guid: c56396b6ef8275d42a92810d33513dc7, type: 2}
+  - {fileID: 4540657096687398, guid: 743d05e210d3dd74fbb15a773067b54a, type: 2}
+  PowerSourcePrefab: {fileID: 4679548765513778, guid: afb31df5a1ff7c24083a0ee5b38cea24,
+    type: 2}
+  LampPrefab: {fileID: 4447004463322290, guid: abec494ac99f1144986bf1145d242442, type: 2}
+--- !u!114 &114408117181621092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539083196208498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1342fa6aa64241b4aa382a8ea912547a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

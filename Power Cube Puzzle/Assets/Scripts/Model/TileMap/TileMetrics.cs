@@ -75,6 +75,6 @@ public static class TileMetrics {
 		//There is no case for cross and empty (not necessary)
 
 		//Negative rotation for some reason (I'm not sure why)
-		return -(90f * orientation);
+		return -90f * orientation;
 	}
 }

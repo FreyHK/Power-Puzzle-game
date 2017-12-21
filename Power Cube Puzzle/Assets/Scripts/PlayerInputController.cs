@@ -5,24 +5,26 @@ using System;
 
 public class PlayerInputController : MonoBehaviour {
 
-	public Action<Vector3> OnPlayerInput;
-
-	void Start () {
-		
-	}
+	public Action<Vector3> OnMouseClick;
+	public Action OnSpaceDown;
 
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
-			HandleInput ();
+			HandleMouseInput ();
+		}
+		//FIXME testing
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			if (OnSpaceDown != null)
+				OnSpaceDown();
 		}
 	}
 
-	void HandleInput () {
+	void HandleMouseInput () {
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit)) {
-			if (OnPlayerInput != null)
-				OnPlayerInput (hit.point);
+			if (OnMouseClick != null)
+				OnMouseClick (hit.point);
 		}
 	}
 }

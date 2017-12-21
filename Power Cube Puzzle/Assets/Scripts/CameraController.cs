@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	Camera cam;
-
-	// Use this for initialization
-	void Start () {
-		cam = Camera.main;
-	}
+	[SerializeField] Camera cam;
 
 	float targetOrthographicSize;
 	float zoomCooldown;
@@ -24,7 +19,7 @@ public class CameraController : MonoBehaviour {
 		cam.orthographicSize = targetOrthographicSize + targetOrthographicSize * .4f;
 	}
 
-	void Update () {
+	void LateUpdate () {
 		zoomCooldown -= Time.deltaTime;
 		if (zoomCooldown <= 0f) {
 			if (cam.orthographicSize - targetOrthographicSize > .1f)

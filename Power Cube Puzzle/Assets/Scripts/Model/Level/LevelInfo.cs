@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelInfo {
-
+	
 	public int Width { get; private set; }
 	public int Height { get; private set; }
 

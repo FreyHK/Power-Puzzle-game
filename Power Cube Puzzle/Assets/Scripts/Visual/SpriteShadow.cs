@@ -7,13 +7,15 @@ public class SpriteShadow : MonoBehaviour {
 	[SerializeField] Transform spriteTransform;
 	[SerializeField] Vector2 offset = new Vector2(-.1f, -.1f);
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	[SerializeField] bool mirrorScale = true;
+	[SerializeField] bool lockRotation = false;
+	[SerializeField] Vector3 lockedRotation = Vector3.zero;
 	
-	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		transform.position = spriteTransform.position + new Vector3 (offset.x, offset.y);
+		if (mirrorScale)
+			transform.localScale = spriteTransform.localScale;
+		if (lockRotation)
+			transform.rotation = Quaternion.Euler(lockedRotation);
 	}
 }
