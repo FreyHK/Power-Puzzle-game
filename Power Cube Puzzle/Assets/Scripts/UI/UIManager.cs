@@ -7,23 +7,25 @@ using UnityEngine.UI;
 /// <summary>
 /// The boss of all UI classes.
 /// Manages UI classes like popup-boxes.
-/// GameController communicates with this class.
+/// GameController controls this class.
 /// </summary>
 public class UIManager : MonoBehaviour {
 
-	[SerializeField] Button nextLevelButton;
+	[SerializeField] PanelManager panelManager;
 
-	public Action<LevelInfo> LoadLevelRequest;
+	//Panels
+	[SerializeField] Animator levelWonPanel;
+	[SerializeField] Animator LevelLostPanel;
+
+	[SerializeField] Button nextLevelButton;
 
 	/// <summary>
 	/// Sets up callbacks from UI buttons and classes
-	///Called by GameController
+	/// Called by GameController
 	/// </summary>
 	public void Initialize (WorldController worldController) {
 		worldController.RegisterOnLevelStartCallback (OnLevelStart);
 		worldController.RegisterOnLevelEndCallback (OnLevelEnd);
-
-
 	}
 
 	void Update () {
@@ -36,15 +38,24 @@ public class UIManager : MonoBehaviour {
 		//Remove old calls so we dont call multiple times
 		nextLevelButton.onClick.RemoveAllListeners();
 		nextLevelButton.interactable = false;
+
+		//Close panels
+		panelManager.CloseCurrent ();
 	}
 
 	void OnLevelEnd (LevelInfo level) {
 		//Add listenser to change to next level
 		nextLevelButton.onClick.AddListener(delegate{ SelectLevel (level); });
 		nextLevelButton.interactable = true;
+
+		//Open panel for player to switch level
+		panelManager.OpenPanel (levelWonPanel);
 	}
 
-	//- - - Button events - - -
+	//- - - Outside events - - -
+
+	//GameController hooks onto this callback
+	public Action<LevelInfo> LoadLevelRequest;
 
 	void SelectLevel (LevelInfo lastLevel) {
 		if (LoadLevelRequest != null)

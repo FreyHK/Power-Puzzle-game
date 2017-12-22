@@ -168,21 +168,11 @@ public class WorldController : MonoBehaviour {
 				//Colors of wires
 				TileGameObjectData goData = tileGameObjects [tile];
 				for (int i = 0; i < goData.renderers.Length; i++) {
-					Color c = tile.IsPowered ? litWireColor : unlitWireColor;
-
-					//Unlit while rotating
-					if (currentTileRotating == tile)
-						c = unlitWireColor;
-					goData.renderers[i].color = c;
+					goData.renderers[i].color = tile.IsPowered ? litWireColor : unlitWireColor;
 				}
 				//Shadows
 				for (int i = 0; i < goData.shadowRenderers.Length; i++) {
-					Color c = tile.IsPowered ? litHighlightColor : shadowColor;
-
-					//Unlit while rotating
-					if (currentTileRotating == tile)
-						c = shadowColor;
-					goData.shadowRenderers [i].color = c;
+					goData.shadowRenderers [i].color = tile.IsPowered ? litHighlightColor : shadowColor;
 				}
 			}
 		}

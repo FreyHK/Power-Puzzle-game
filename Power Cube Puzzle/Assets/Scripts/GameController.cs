@@ -26,7 +26,6 @@ public class GameController : MonoBehaviour {
 		uiManager.Initialize (worldController);
 
 		//FIXME just temp
-		//playerInput.OnSpaceDown += StartNextLevel;
 		worldController.InitializeLevel(new LevelInfo(2, 2));
 	}
 
@@ -37,8 +36,6 @@ public class GameController : MonoBehaviour {
 	//Player finished or quit a level
 	void OnLevelEnd (LevelInfo level) {
 		curLevel = null;
-
-		//playerInput.OnSpaceDown += StartNextLevel;
 
 		//TODO return to menu or idk
 
@@ -55,30 +52,15 @@ public class GameController : MonoBehaviour {
 
 	LevelInfo curLevel;
 
-	//FIXME should be startlevel (int level)
-	//THIS IS TEMPORARY
-	//Keep track of last level and use index to launch next
-	//TODO check level is unlocked before starting
-	/*void StartNextLevel () {
-		playerInput.OnSpaceDown -= StartNextLevel;
-		curLevel++;
-
-		if (curLevel >= levelCollection.levels.Length) {
-			//Completed all levels
-			return;
-		}else
-			worldController.InitializeLevel(levelCollection.levels[curLevel]);
-	}*/
-
-	void LoadLevel (LevelInfo level) {
+	void LoadLevel (LevelInfo lastLevel) {
 		//Only switch if we're done with level
 		if (curLevel != null) {
 			Debug.LogError ("Trying to load level before completing current level!");
 			return;
 		}
-		curLevel = level;
-		int nextWidth = Mathf.Clamp(level.Width + 1, 2, 10);
-		int nextHeight = Mathf.Clamp(level.Width + 1, 2, 10);
+		curLevel = lastLevel;
+		int nextWidth = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
+		int nextHeight = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
 
 		worldController.InitializeLevel (new LevelInfo(nextWidth, nextHeight));
 	}
