@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour {
 	[SerializeField] UIManager uiManager;
 	[SerializeField] PlayerInputController playerInput;
 
+	//Temp
+	//TODO multiple levelcollections
+	//Should be selected by player
+	[SerializeField] LevelCollection levelCollection;
+
 	void Start () {
 		//This gameobject should not be destroyed
 		DontDestroyOnLoad (gameObject);
@@ -24,9 +29,10 @@ public class GameController : MonoBehaviour {
 		//Initialization
 		worldController.Initialize ();
 		uiManager.Initialize (worldController);
+		levelCollection.Initialize (worldController);
 
 		//FIXME just temp
-		worldController.InitializeLevel(new LevelInfo(2, 2));
+		worldController.InitializeLevel(levelCollection.GetCurrentLevel());
 	}
 
 	void Update () {
@@ -58,10 +64,10 @@ public class GameController : MonoBehaviour {
 			Debug.LogError ("Trying to load level before completing current level!");
 			return;
 		}
-		curLevel = lastLevel;
-		int nextWidth = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
-		int nextHeight = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
+		curLevel = levelCollection.GetCurrentLevel();
+		//int nextWidth = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
+		//int nextHeight = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
 
-		worldController.InitializeLevel (new LevelInfo(nextWidth, nextHeight));
+		worldController.InitializeLevel (curLevel);
 	}
 }

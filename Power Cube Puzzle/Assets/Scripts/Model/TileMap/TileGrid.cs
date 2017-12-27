@@ -50,7 +50,7 @@ public class TileGrid {
 			TileMapGenerator generator = new TileMapGenerator ();
 
 			//Generate map
-			generator.GenerateMap(width, height, tiles);
+			generator.GenerateMap(width, height, tiles, info.FillAmount);
 
 			//Get source position from generator
 			powerSource = tiles [generator.sourceX, generator.sourceY];

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IntVectors;
 
 public class TileMapGenerator {
 
@@ -37,12 +38,32 @@ public class TileMapGenerator {
 		return randomDirs;
 	}
 
-	public void GenerateMap (int width, int height, Tile[,] tilemap) {
+	public void GenerateMap (int width, int height, Tile[,] tilemap, float fillPercent) {
+
+		//Create visited tiles Map
 		bool[,] visited = new bool[width, height];
+		List<Vector2i> allTiles = new List<Vector2i>();
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				visited [x, y] = false;
+				allTiles.Add (new Vector2i(x, y));
+			}
+		}
+
+		int tileCount = width * height;
+		if (tileCount > 4) {
+			//Fill out random tiles and mark as visited, so we dont place anything there
+			fillPercent = Mathf.Clamp01 (fillPercent);
+			int fillCount = (int)(tileCount * (1f - fillPercent));
+
+			for (int i = 0; i < fillCount; i++) {
+				//Get random tile
+				int t = Random.Range (0, allTiles.Count - 1);
+				//Mark as visited
+				visited [allTiles [t].x, allTiles [t].y] = true;
+				//Remove so we dont pick again
+				allTiles.RemoveAt (t);
 			}
 		}
 

@@ -3,35 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Controls data for levels in the game.
-/// Everything is hardcoded in.
+/// Controls data for a collection of levels in the game.
 /// </summary>
 // TODO misleading name of class
-public class LevelCollection {
+//TODO maybe scriptableObject
+public class LevelCollection : MonoBehaviour {
 
-	public LevelInfo[] levels { get; private set; }
+	const int maxLevelSize = 10;
 
-	public LevelCollection () {
-	//FIXME idk how to do hardcoded level properly yet
+	[SerializeField] int levelCount;
 
-		/*
-		Symbols for tiles
+	[SerializeField] AnimationCurve levelFillAmount;
+	[SerializeField] AnimationCurve levelSize;
 
-		Bridge:
-		(-, |)
+	//TODO save with playerprefs
+	int curLevel = 0;
 
-		T shape:
-		(┬, ┤, ├, ┴)
-
-		Cross:
-		(┼)
-
-		L shape:
-		(┌, ┐, └, ┘)
-
-		Lamps (Arrow pointing to end where lamp is):
-		(←, ↑, →, ↓)
-
-		*/
+	public void Initialize (WorldController worldController) {
+		worldController.RegisterOnLevelEndCallback (OnLevelEnd);
+		print ("Initialize LevelCollection");
 	}
+
+	public LevelInfo GetCurrentLevel () {
+		
+		float sample = (float)curLevel / levelCount;
+		print ("GetCurrentLevel LevelCollection: Sample: " + sample.ToString());
+		int size = (int)(levelSize.Evaluate (sample) * maxLevelSize);
+		float fillAmount = levelFillAmount.Evaluate (sample);
+
+		return new LevelInfo (size, size, fillAmount);
+	}
+
+	void OnLevelEnd (LevelInfo level) {
+		print ("OnLevelEnd LevelCollection");
+		curLevel++;
+	}
+
+	//FIXME idk how to do hardcoded level properly
+	/*
+	Symbols for tiles
+
+	Bridge:
+	(-, |)
+
+	T shape:
+	(┬, ┤, ├, ┴)
+
+	Cross:
+	(┼)
+
+	L shape:
+	(┌, ┐, └, ┘)
+
+	Lamps (Arrow pointing to end where lamp is):
+	(←, ↑, →, ↓)
+
+	*/
 }
