@@ -9,33 +9,36 @@ using UnityEngine;
 //TODO maybe scriptableObject
 public class LevelCollection : MonoBehaviour {
 
-	const int maxLevelSize = 10;
+	const int minLevelWidth = 2;
+	const int minLevelHeight = 3;
+	const int maxLevelWidth = 7;
+	const int maxLevelHeight = 8;
 
 	[SerializeField] int levelCount;
 
-	[SerializeField] AnimationCurve levelFillAmount;
 	[SerializeField] AnimationCurve levelSize;
 
 	//TODO save with playerprefs
 	int curLevel = 0;
 
-	public void Initialize (WorldController worldController) {
-		worldController.RegisterOnLevelEndCallback (OnLevelEnd);
-		print ("Initialize LevelCollection");
+	public void Initialize () {
+		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelEnd);
 	}
 
 	public LevelInfo GetCurrentLevel () {
-		
 		float sample = (float)curLevel / levelCount;
-		print ("GetCurrentLevel LevelCollection: Sample: " + sample.ToString());
-		int size = (int)(levelSize.Evaluate (sample) * maxLevelSize);
-		float fillAmount = levelFillAmount.Evaluate (sample);
 
-		return new LevelInfo (size, size, fillAmount);
+		//We add 2 since minimum value is 2
+		int width = (int)(levelSize.Evaluate (sample) * maxLevelWidth) + minLevelWidth;
+		int height = (int)(levelSize.Evaluate (sample) * maxLevelHeight) + minLevelHeight;
+
+		//Add 0.5 since minimum value is 0.5
+		float fillAmount = .8f;
+			//levelFillAmount.Evaluate (sample) * 0.5f + 0.5f;
+		return new LevelInfo (Mathf.Clamp(width, minLevelWidth, maxLevelWidth), Mathf.Clamp(height, minLevelHeight, maxLevelHeight), fillAmount);
 	}
 
-	void OnLevelEnd (LevelInfo level) {
-		print ("OnLevelEnd LevelCollection");
+	void OnLevelEnd (Notification note) {
 		curLevel++;
 	}
 

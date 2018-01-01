@@ -19,28 +19,37 @@ public class GameController : MonoBehaviour {
 	[SerializeField] LevelCollection levelCollection;
 
 	void Start () {
-		//This gameobject should not be destroyed
-		DontDestroyOnLoad (gameObject);
+		//The manager root gameobject gameobject should not be destroyed
+		DontDestroyOnLoad (transform.root.gameObject);
 
 		//Setup callbacks
-		worldController.RegisterOnLevelEndCallback (OnLevelEnd);
-		uiManager.LoadLevelRequest += LoadLevel;
+		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelEnd);
+		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.UI_LoadLevelRequest);
 
 		//Initialization
 		worldController.Initialize ();
-		uiManager.Initialize (worldController);
-		levelCollection.Initialize (worldController);
+		uiManager.Initialize ();
+		levelCollection.Initialize ();
 
 		//FIXME just temp
-		worldController.InitializeLevel(levelCollection.GetCurrentLevel());
+		LoadCurrentLevel();
 	}
 
 	void Update () {
 		worldController.UpdateBoard ();
 	}
 
+	void LoadCurrentLevel () {
+		curLevel = levelCollection.GetCurrentLevel();
+
+		worldController.InitializeLevel (curLevel);
+	}
+
+
+	// - - - Events - - -
+
 	//Player finished or quit a level
-	void OnLevelEnd (LevelInfo level) {
+	void OnLevelEnd (Notification note) {
 		curLevel = null;
 
 		//TODO return to menu or idk
@@ -56,18 +65,14 @@ public class GameController : MonoBehaviour {
 		//Set add timer to 5 min
 	}
 
-	LevelInfo curLevel;
+	LevelInfo curLevel = null;
 
-	void LoadLevel (LevelInfo lastLevel) {
+	void UI_LoadLevelRequest (Notification data) {
 		//Only switch if we're done with level
 		if (curLevel != null) {
 			Debug.LogError ("Trying to load level before completing current level!");
 			return;
 		}
-		curLevel = levelCollection.GetCurrentLevel();
-		//int nextWidth = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
-		//int nextHeight = Mathf.Clamp(lastLevel.Width + 1, 2, 10);
-
-		worldController.InitializeLevel (curLevel);
+		LoadCurrentLevel ();
 	}
 }

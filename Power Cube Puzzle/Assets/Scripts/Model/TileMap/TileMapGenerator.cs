@@ -39,37 +39,61 @@ public class TileMapGenerator {
 	}
 
 	public void GenerateMap (int width, int height, Tile[,] tilemap, float fillPercent) {
+		//Choose powersource position
+		sourceX = Random.Range(0, width-1);
+		sourceY = Random.Range(0, height-1);
 
 		//Create visited tiles Map
 		bool[,] visited = new bool[width, height];
-		List<Vector2i> allTiles = new List<Vector2i>();
+		List<Tile> allTiles = new List<Tile>();
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
+				if (x == sourceX && y == sourceY)
+					continue;
+				
 				visited [x, y] = false;
-				allTiles.Add (new Vector2i(x, y));
+
+				allTiles.Add (tilemap[x, y]);
 			}
 		}
 
+		//Fill in random spots on map, to add variety in maps
 		int tileCount = width * height;
 		if (tileCount > 4) {
 			//Fill out random tiles and mark as visited, so we dont place anything there
 			fillPercent = Mathf.Clamp01 (fillPercent);
 			int fillCount = (int)(tileCount * (1f - fillPercent));
 
-			for (int i = 0; i < fillCount; i++) {
+			for (int n = 0; n < fillCount; n++) {
+				//There might not be enough tiles left
+				if (allTiles.Count <= 0)
+					break;
+				
 				//Get random tile
-				int t = Random.Range (0, allTiles.Count - 1);
-				//Mark as visited
-				visited [allTiles [t].x, allTiles [t].y] = true;
-				//Remove so we dont pick again
-				allTiles.RemoveAt (t);
+				Tile t = allTiles[Random.Range (0, allTiles.Count - 1)];
+
+				//Mark as visited, so algoritm will go around it
+				visited [t.X, t.Y] = true;
+
+				//Loop through all neighbors
+				for (int x = -1; x < 1; x++) {
+					for (int y = -1; y < 1; y++) {
+
+						int nx = t.X + x;
+						int ny = t.Y + y;
+
+						//If out of map, skip
+						if (nx < 0 || nx > width || ny < 0 || ny > height)
+							continue;
+						
+						//Remove so we dont pick these tiles
+						if (allTiles.Contains(tilemap [nx, ny]))
+							allTiles.Remove(tilemap [nx, ny]);
+					}
+				}
 			}
 		}
-
-		//Get powersource position
-		sourceX = Random.Range(0, width-1);
-		sourceY = Random.Range(0, height-1);
 
 		tilemap[sourceX, sourceY].SetTileType(TileType.PowerSource);
 

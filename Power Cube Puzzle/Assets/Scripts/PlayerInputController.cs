@@ -5,8 +5,6 @@ using System;
 
 public class PlayerInputController : MonoBehaviour {
 
-	public Action<Vector3> OnMouseClick;
-
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			HandleMouseInput ();
@@ -17,8 +15,9 @@ public class PlayerInputController : MonoBehaviour {
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit)) {
-			if (OnMouseClick != null)
-				OnMouseClick (hit.point);
+			Hashtable data = new Hashtable ();
+			data.Add ("point", hit.point);
+			NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.Input_OnWorldClick, data);
 		}
 	}
 }

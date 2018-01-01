@@ -50,6 +50,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4241769687076932}
+  - component: {fileID: 114788094893386038}
   - component: {fileID: 65784427663016280}
   m_Layer: 0
   m_Name: Tile_Wire_I_Bridge2D
@@ -142,6 +143,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114788094893386038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776852499101670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a61b8a5ba91544cab5552361a74465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprites:
+  - sprite: {fileID: 212510042851350318}
+    useDefaultColors: 1
+    litColor: {r: 0, g: 0, b: 0, a: 0}
+    unlitColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowSprites:
+  - sprite: {fileID: 212198575874410972}
+    useDefaultColors: 1
+    litColor: {r: 0, g: 0, b: 0, a: 0}
+    unlitColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114993134426557760
 MonoBehaviour:
   m_ObjectHideFlags: 1

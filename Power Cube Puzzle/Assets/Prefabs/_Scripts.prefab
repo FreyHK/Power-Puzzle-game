@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114148485045166336}
   - component: {fileID: 114203669608343504}
   - component: {fileID: 114408117181621092}
+  - component: {fileID: 114246333696785972}
   m_Layer: 0
   m_Name: _Scripts
   m_TagString: Untagged
@@ -54,6 +55,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldController: {fileID: 114203669608343504}
+  uiManager: {fileID: 114246333696785972}
+  playerInput: {fileID: 114408117181621092}
+  levelCollection: {fileID: 0}
 --- !u!114 &114203669608343504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,7 +75,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   background: {fileID: 0}
   unlitWireColor: {r: 0.6117647, g: 0.90196085, b: 0.5254902, a: 1}
-  shadowColor: {r: 0, g: 0, b: 0, a: 0.209}
+  shadowColor: {r: 0.37254903, g: 0.5803922, b: 0.3019608, a: 1}
   litWireColor: {r: 0.75687045, g: 1, b: 0.41911763, a: 1}
   litHighlightColor: {r: 0.86754775, g: 1, b: 0.6838235, a: 1}
   WirePrefabs:
@@ -82,6 +86,21 @@ MonoBehaviour:
   PowerSourcePrefab: {fileID: 4679548765513778, guid: afb31df5a1ff7c24083a0ee5b38cea24,
     type: 2}
   LampPrefab: {fileID: 4447004463322290, guid: abec494ac99f1144986bf1145d242442, type: 2}
+--- !u!114 &114246333696785972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1539083196208498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5142f47b751b6d4abfda2ef82bbe240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelManager: {fileID: 0}
+  levelWonPanel: {fileID: 0}
+  LevelLostPanel: {fileID: 0}
+  nextLevelButton: {fileID: 0}
 --- !u!114 &114408117181621092
 MonoBehaviour:
   m_ObjectHideFlags: 1

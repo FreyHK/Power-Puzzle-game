@@ -51,6 +51,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4120109429044832}
+  - component: {fileID: 114841513450331570}
   - component: {fileID: 65111401933290508}
   m_Layer: 0
   m_Name: Tile_Wire_L2D
@@ -142,6 +143,27 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 0.95, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114841513450331570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1320775968491900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a61b8a5ba91544cab5552361a74465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainSprites:
+  - sprite: {fileID: 212462515046063818}
+    useDefaultColors: 1
+    litColor: {r: 0, g: 0, b: 0, a: 0}
+    unlitColor: {r: 0, g: 0, b: 0, a: 0}
+  shadowSprites:
+  - sprite: {fileID: 212066808105678896}
+    useDefaultColors: 1
+    litColor: {r: 0, g: 0, b: 0, a: 0}
+    unlitColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114843519191021310
 MonoBehaviour:
   m_ObjectHideFlags: 1
