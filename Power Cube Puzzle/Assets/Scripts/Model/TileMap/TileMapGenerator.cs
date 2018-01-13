@@ -10,7 +10,7 @@ public class TileMapGenerator {
 
 	//Direction coordinates
 	private int[] DX = new int[] {
-		-1, //E
+		-1,//E
 		0, //N
 		1, //W
 		0, //S
@@ -19,7 +19,7 @@ public class TileMapGenerator {
 		0, //E
 		1, //N
 		0, //W
-		-1, //S
+		-1,//S
 	};
 
 	//Maybe this isn't the best way

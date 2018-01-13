@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4909925665136204}
   - component: {fileID: 212180762140333866}
+  - component: {fileID: 114406559880823174}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -36,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4640603468413712}
   - component: {fileID: 212821574114947450}
+  - component: {fileID: 114753269980727006}
   - component: {fileID: 114486065235470598}
   m_Layer: 0
   m_Name: Shadow
@@ -143,6 +145,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.65, y: 0.95, z: 1}
   m_Center: {x: -0.15, y: 0, z: 0}
+--- !u!114 &114406559880823174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262822852357594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114486065235470598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,6 +193,17 @@ MonoBehaviour:
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &114753269980727006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271566343809530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212180762140333866
 SpriteRenderer:
   m_ObjectHideFlags: 1

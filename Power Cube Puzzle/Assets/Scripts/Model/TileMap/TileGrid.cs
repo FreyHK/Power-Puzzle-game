@@ -113,7 +113,7 @@ public class TileGrid {
 					visited.Add (t);
 					//Enqueue to check neighbors
 					toVisit.Enqueue (t);
-					//Set as powered (the point of this)
+					//Mark as powered
 					t.IsPowered = true;
 				}
 			}

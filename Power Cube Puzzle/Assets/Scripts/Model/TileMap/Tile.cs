@@ -16,15 +16,13 @@ public class Tile {
 
 	public bool IsPowered;
 
+	public bool IsRotating;
+
 	public Tile (int X, int Y) {
 		this.X = X;
 		this.Y = Y;
 		tileType = TileType.Wire;
-
-		//FIXME might not be necessary
-		for (int i = 0; i < 4; i++) {
-			outlets [i] = false;
-		}
+		outlets = TileMetrics.EmptyOutlets ();
 	}
 
 	public void SetTileType (TileType tileType) {
@@ -44,6 +42,10 @@ public class Tile {
 		for (int i = 0; i < 4; i++) {
 			Tile neighbor = neighbors [i];
 			if (neighbor == null)
+				continue;
+
+			//Rotating tiles DONT arent connected
+			if (neighbor.IsRotating)
 				continue;
 
 			GridDirection dir = (GridDirection)i;

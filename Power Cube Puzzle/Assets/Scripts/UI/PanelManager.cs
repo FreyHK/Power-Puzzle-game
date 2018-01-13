@@ -8,6 +8,9 @@ public class PanelManager : MonoBehaviour {
 
 	public Animator initiallyOpen;
 
+	//Wait for one panel's animation before starting the next?
+	public bool waitForPanelTransitions;
+
 	private int m_OpenParameterId;
 	private Animator m_Open;
 	private GameObject m_PreviouslySelected;
@@ -19,10 +22,8 @@ public class PanelManager : MonoBehaviour {
 	{
 		m_OpenParameterId = Animator.StringToHash (k_OpenTransitionName);
 
-		if (initiallyOpen == null)
-			return;
-
-		OpenPanel(initiallyOpen);
+		if (initiallyOpen != null)
+			OpenPanel(initiallyOpen);
 	}
 
 	public void OpenPanel (Animator anim)

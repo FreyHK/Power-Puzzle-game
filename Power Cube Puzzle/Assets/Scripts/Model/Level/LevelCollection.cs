@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Controls data for a collection of levels in the game.
+/// Controls data for a certain type of levels in the game.
 /// </summary>
-// TODO misleading name of class
-//TODO maybe scriptableObject
 public class LevelCollection : MonoBehaviour {
 
 	const int minLevelWidth = 2;
@@ -14,35 +12,39 @@ public class LevelCollection : MonoBehaviour {
 	const int maxLevelWidth = 7;
 	const int maxLevelHeight = 8;
 
-	[SerializeField] int levelCount;
+	public string DisplayName = "Basics";
+	public int LevelCount;
 
 	[SerializeField] AnimationCurve levelSize;
 
 	//TODO save with playerprefs
-	int curLevel = 0;
+	public int currentLevelIndex { get; private set; }
 
 	public void Initialize () {
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelEnd);
+		//Load curLevel from playerprefs
+	}
+
+	void OnDestroy () {
+		//Save curLevel to playerprefs
 	}
 
 	public LevelInfo GetCurrentLevel () {
-		float sample = (float)curLevel / levelCount;
+		float sample = (float)currentLevelIndex / LevelCount;
 
 		//We add 2 since minimum value is 2
 		int width = (int)(levelSize.Evaluate (sample) * maxLevelWidth) + minLevelWidth;
 		int height = (int)(levelSize.Evaluate (sample) * maxLevelHeight) + minLevelHeight;
 
-		//Add 0.5 since minimum value is 0.5
+		//Just a number
 		float fillAmount = .8f;
-			//levelFillAmount.Evaluate (sample) * 0.5f + 0.5f;
 		return new LevelInfo (Mathf.Clamp(width, minLevelWidth, maxLevelWidth), Mathf.Clamp(height, minLevelHeight, maxLevelHeight), fillAmount);
 	}
 
-	void OnLevelEnd (Notification note) {
-		curLevel++;
+	public void IncreaseLevel () {
+		currentLevelIndex++;
 	}
 
-	//FIXME idk how to do hardcoded level properly
+	//FIXME idk how to do hardcoded levels properly
 	/*
 	Symbols for tiles
 

@@ -10,19 +10,22 @@ public class ScrollRectSnap : MonoBehaviour {
 	//Used to compare buttons
 	[SerializeField] RectTransform center;
 
-	[SerializeField] RectTransform[] btns;
-
 	//Distance between each button
-	int btnDistance;
+	[SerializeField] int btnDistance = 450;
+
+	RectTransform[] childPanels;
 
 	//Which button to lerp to when not draggin
 	int minBtnIndex = 0;
 
 	bool dragging = false;
 
-	void Start () {
-		//What is the distance between buttons?
-		btnDistance = (int)Mathf.Abs(btns[1].anchoredPosition.x - btns[0].anchoredPosition.x); 
+	public void Initialize (RectTransform[] ChildPanels) {
+		this.childPanels = ChildPanels;
+
+		for (int i = 0; i < childPanels.Length; i++) {
+			childPanels [i].anchoredPosition = new Vector2 (i * btnDistance, 0f);
+		}
 	}
 
 	void Update () {
@@ -46,8 +49,8 @@ public class ScrollRectSnap : MonoBehaviour {
 
 		float minDist = Mathf.Infinity;
 
-		for (int i = 0; i < btns.Length; i++) {
-			float dist = Mathf.Abs (center.transform.position.x - btns[i].transform.position.x);
+		for (int i = 0; i < childPanels.Length; i++) {
+			float dist = Mathf.Abs (center.transform.position.x - childPanels[i].transform.position.x);
 			if (dist < minDist) {
 				minDist = dist;
 				minBtnIndex = i;

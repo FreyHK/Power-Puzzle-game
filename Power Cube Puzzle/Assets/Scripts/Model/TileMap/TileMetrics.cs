@@ -37,7 +37,6 @@ public static class TileMetrics {
 	}
 		
 	public static float GetWireRotation (bool[] outlets) {
-
 		int orientation = 0;
 
 		WireShape shape = GetWireShape (outlets);
@@ -76,5 +75,13 @@ public static class TileMetrics {
 
 		//Negative rotation for some reason (I'm not sure why)
 		return -90f * orientation;
+	}
+
+	public static bool[] EmptyOutlets () {
+		bool[] outlets = new bool[4];
+		//Might not be necessary
+		for (int i = 0; i < 4; i++)
+			outlets [i] = false;
+		return outlets;
 	}
 }

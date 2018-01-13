@@ -10,29 +10,41 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	[SerializeField] WorldController worldController;
+	[SerializeField] CameraController cameraController;
 	[SerializeField] UIManager uiManager;
 	[SerializeField] PlayerInputController playerInput;
 
-	//Temp
-	//TODO multiple levelcollections
-	//Should be selected by player
-	[SerializeField] LevelCollection levelCollection;
+	[SerializeField] LevelCollection[] LevelCollections;
+	int curLevelCollection = -1;
 
 	void Start () {
-		//The manager root gameobject gameobject should not be destroyed
+		//The manager root gameobject should not be destroyed
 		DontDestroyOnLoad (transform.root.gameObject);
 
+		if (LevelCollections.Length == 0) {
+			Debug.LogError ("No level collections assigned");
+			return;
+		}
+
 		//Setup callbacks
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelEnd);
+		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
+		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelQuit);
+
 		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.UI_LoadLevelRequest);
+		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.UI_LoadLevelCollectionRequest);
 
 		//Initialization
 		worldController.Initialize ();
-		uiManager.Initialize ();
-		levelCollection.Initialize ();
+		uiManager.Initialize (LevelCollections);
+		cameraController.Initialize ();
+
+		for (int i = 0; i < LevelCollections.Length; i++) {
+			LevelCollections[i].Initialize ();
+		}
 
 		//FIXME just temp
-		LoadCurrentLevel();
+		//LoadCurrentLevel();
 	}
 
 	void Update () {
@@ -40,7 +52,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void LoadCurrentLevel () {
-		curLevel = levelCollection.GetCurrentLevel();
+		curLevel = LevelCollections[curLevelCollection].GetCurrentLevel();
 
 		worldController.InitializeLevel (curLevel);
 	}
@@ -48,21 +60,21 @@ public class GameController : MonoBehaviour {
 
 	// - - - Events - - -
 
-	//Player finished or quit a level
-	void OnLevelEnd (Notification note) {
+	//Player finished a level
+	void OnLevelComplete (Notification note) {
 		curLevel = null;
 
-		//TODO return to menu or idk
+		//Completed level, increase
+		LevelCollections[curLevelCollection].IncreaseLevel ();
 
-		//We want to open panel showing
-		//Victory or whatever
-		//Next level button
-		//Menu button
-		//Retry button
+		//TODO Ad manager:
+		//Maybe show ad at this point?
+		//Set ad timer to 5 min
+	}
 
-		//TODO add manager:
-		//Maybe show add at this point?
-		//Set add timer to 5 min
+	//Player quit a level
+	void OnLevelQuit (Notification note) {
+		curLevel = null;
 	}
 
 	LevelInfo curLevel = null;
@@ -73,6 +85,19 @@ public class GameController : MonoBehaviour {
 			Debug.LogError ("Trying to load level before completing current level!");
 			return;
 		}
+		LoadCurrentLevel ();
+	}
+
+	void UI_LoadLevelCollectionRequest (Notification note) {
+		LevelCollection collection = (LevelCollection)note.data ["LevelCollection"];
+		//Find index
+		for (int i = 0; i < LevelCollections.Length; i++) {
+			if (LevelCollections [i] == collection) {
+				curLevelCollection = i;
+				break;
+			}
+		}
+
 		LoadCurrentLevel ();
 	}
 }

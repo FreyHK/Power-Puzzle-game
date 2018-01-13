@@ -15,10 +15,6 @@ public class WorldController : MonoBehaviour {
 
 	float tileRotateSpeed = 360;
 
-	[Header("Controllers")]
-	[SerializeField] CameraController cameraController;
-
-	[Header("Visual")]
 	[SerializeField] Transform environmentRoot;
 	[SerializeField] SpriteRenderer background;
 	[SerializeField] Color unlitWireColor = Color.green;
@@ -79,10 +75,6 @@ public class WorldController : MonoBehaviour {
 
 		//Make board correct size
 		background.size = new Vector2(levelWidth + 1f, levelHeight + 1f);
-
-		//Set view width
-		//TODO lerp or do movetowards
-		cameraController.SetViewMinSize(levelWidth + 2f, levelHeight + 2f);
 
 		tileGrid = new TileGrid (levelWidth, levelHeight, levelInfo);
 
@@ -183,6 +175,9 @@ public class WorldController : MonoBehaviour {
 				//Set to exact rotation
 				t.rotation = target;
 
+				//Mark not rotating (makes sure it can pass power on)
+				currentTileRotating.IsRotating = false;
+
 				//Set current tile to null to mark that we need a new one
 				currentTileRotating = null;
 
@@ -204,7 +199,7 @@ public class WorldController : MonoBehaviour {
 				levelEnded = true;
 
 				Hashtable data = new Hashtable () { { "level", currentLevel } };
-				NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnLevelEnd, data);
+				NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnLevelComplete, data);
 
 				//We don't want to rotate tiles anymore
 				tileTargetRotations.Clear();
@@ -234,8 +229,14 @@ public class WorldController : MonoBehaviour {
 		//Rotate tile at point
 		hit.Rotate(true);
 
+		//Mark as rotating (makes sure it doesn't pass power on)
+		hit.IsRotating = true;
+
 		//Mark visual to be rotated
 		tileTargetRotations.Enqueue(hit);
+
+		//Update power
+		tileGrid.UpdateTilePower ();
 	}
 
 	//Debugging grid in scene window (Don't remove its really useful)
