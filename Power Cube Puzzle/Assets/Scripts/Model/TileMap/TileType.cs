@@ -1,5 +1,6 @@
 ﻿public enum TileType {
 	Wire,	
 	PowerSource,
-	Lamp
+	Lamp,
+	Empty
 }

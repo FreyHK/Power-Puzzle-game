@@ -12,24 +12,18 @@ public class LevelCollection : MonoBehaviour {
 	const int maxLevelWidth = 7;
 	const int maxLevelHeight = 8;
 
+	[Header("Visual")]
 	public string DisplayName = "Basics";
-	public int LevelCount;
-
+	public Color DisplayColor = Color.red;
+	[Space()]
 	[SerializeField] AnimationCurve levelSize;
+	[SerializeField] [Range(0f, 1f)] float timedTilePercentage = 0f;
 
-	//TODO save with playerprefs
-	public int currentLevelIndex { get; private set; }
+	//How many levels to comlete before they dont get harder
+	int levelsToMax = 10;
 
-	public void Initialize () {
-		//Load curLevel from playerprefs
-	}
-
-	void OnDestroy () {
-		//Save curLevel to playerprefs
-	}
-
-	public LevelInfo GetCurrentLevel () {
-		float sample = (float)currentLevelIndex / LevelCount;
+	public LevelInfo GetLevel (int levelNumber) {
+		float sample = Mathf.Clamp01((float)levelNumber / levelsToMax);
 
 		//We add 2 since minimum value is 2
 		int width = (int)(levelSize.Evaluate (sample) * maxLevelWidth) + minLevelWidth;
@@ -37,11 +31,11 @@ public class LevelCollection : MonoBehaviour {
 
 		//Just a number
 		float fillAmount = .8f;
-		return new LevelInfo (Mathf.Clamp(width, minLevelWidth, maxLevelWidth), Mathf.Clamp(height, minLevelHeight, maxLevelHeight), fillAmount);
-	}
 
-	public void IncreaseLevel () {
-		currentLevelIndex++;
+		//Clamp values
+		width = Mathf.Clamp (width, minLevelWidth, maxLevelWidth);
+		height = Mathf.Clamp (height, minLevelHeight, maxLevelHeight);
+		return new LevelInfo (width, height, fillAmount, timedTilePercentage);
 	}
 
 	//FIXME idk how to do hardcoded levels properly

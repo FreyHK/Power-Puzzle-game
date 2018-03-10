@@ -9,31 +9,10 @@ using UnityEngine;
 /// </summary>
 public class WorldController : MonoBehaviour {
 
-	[Header("Game Info")]
-	[SerializeField] int levelWidth = 10;
-	[SerializeField] int levelHeight = 10;
-
-	float tileRotateSpeed = 360;
-
 	[SerializeField] Transform environmentRoot;
 	[SerializeField] SpriteRenderer background;
-	[SerializeField] Color unlitWireColor = Color.green;
-	[SerializeField] Color shadowColor = Color.black;
-	[SerializeField] Color litWireColor = Color.white;
-	[SerializeField] Color litHighlightColor = Color.black;
-	[SerializeField] [Range(0f, 1f)] float decorationChance = .3f;
 
-	[Header("Prefabs")]
-	[SerializeField] Transform[] WirePrefabs;
-	[SerializeField] Transform[] DecorationPrefabs;
-
-	[SerializeField] Transform PowerSourcePrefab;
-	[SerializeField] Transform LampPrefab;
-
-	Dictionary<Tile, TileColorController> tileGameObjects = new Dictionary<Tile, TileColorController>();
-
-	Queue<Tile> tileTargetRotations = new Queue<Tile>();
-
+	TileController tileController;
 	TileGrid tileGrid;
 
 	float halfGridWidth;
@@ -45,7 +24,8 @@ public class WorldController : MonoBehaviour {
 	/// <summary>
 	/// Sets up callbacks
 	/// </summary>
-	public void Initialize () {
+	public void Initialize (TileController tileController) {
+		this.tileController = tileController;
 		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.Input_OnWorldClick);
 	}
 
@@ -56,140 +36,74 @@ public class WorldController : MonoBehaviour {
 		currentLevel = levelInfo;
 		levelEnded = false;
 
-		//Clear old level
-		if (tileGameObjects != null) {
-			//Destroy gameobjects
-			foreach (KeyValuePair<Tile, TileColorController> pair in tileGameObjects) {
-				GameObject go = pair.Value.transform.gameObject;
-				Destroy (go);
-			}
-			//Clear gameObject data (We will be creating new gameobjects)
-			tileGameObjects.Clear ();
-		}
-
 		//Setup values
-		this.levelWidth = levelInfo.Width;
-		this.levelHeight = levelInfo.Height;
 		halfGridWidth = (levelInfo.Width - 1) / 2f;
 		halfGridHeight = (levelInfo.Height - 1) / 2f;
 
-		//Make board correct size
-		background.size = new Vector2(levelWidth + 1f, levelHeight + 1f);
+		//Make background board correct size
+		background.size = new Vector2(levelInfo.Width + 1f, levelInfo.Height + 1f);
+		background.enabled = true;
 
-		tileGrid = new TileGrid (levelWidth, levelHeight, levelInfo);
-
-		//Spawn tile gameobjects
-		for (int x = 0; x < levelWidth; x++) {
-			for (int y = 0; y < levelHeight; y++) {
-				Tile tile = tileGrid.tiles [x, y];
-
-				//Spawn right type of tile based on tile type
-				Transform prefab = null;
-				switch (tile.tileType) {
-				case TileType.Wire: 
-					WireShape shape = TileMetrics.GetWireShape (tile.outlets);
-
-					//If its empty, we might want to spawn a decoration
-					if (shape == WireShape.Single)
-						continue;
-
-					if (shape == WireShape.Empty) {
-						if (UnityEngine.Random.value < decorationChance) {
-							int i = UnityEngine.Random.Range (0, DecorationPrefabs.Length);
-							prefab = DecorationPrefabs[i];
-							break;
-						} else
-							continue;
-					}
-
-					prefab = WirePrefabs[(int)shape];
-					break;
-				case TileType.Lamp: 
-					prefab = LampPrefab;
-					break;
-				case TileType.PowerSource: 
-					prefab = PowerSourcePrefab;
-					break;
-				}
-
-				Transform t = Instantiate (prefab, environmentRoot);
-				t.position = new Vector3 (x - halfGridWidth, y - halfGridHeight, 0f);
-
-				//Match transform rotation with tile rotation
-				t.rotation = Quaternion.Euler(0f, 0f, TileMetrics.GetWireRotation(tile.outlets));
-
-				TileColorController colorController = t.GetComponentInChildren<TileColorController>();
-				if (colorController != null) {
-					colorController.Initialize (litWireColor, unlitWireColor, litHighlightColor, shadowColor);
-					tileGameObjects.Add (tile, colorController);
-				}
-			}
-		}
-
+		//Create grid (generates level too)
+		tileGrid = new TileGrid (levelInfo);
 		tileGrid.UpdateTilePower ();
-		UpdateTileVisuals ();
+
+		//Setup board
+		tileController.CreateTiles (tileGrid, environmentRoot);
+		tileController.UpdateTileVisuals (tileGrid);
 
 		//Event Callback
 		Hashtable data = new Hashtable() {
-			{ "level", levelInfo }
+			{ "level", levelInfo },
+			{ "tileGrid", tileGrid }
 		};
 		NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
+
+		//Stop all previous invokes
+		CancelInvoke ();
+		timeSinceLevelStart = 0;
+		InvokeRepeating ("GridUpdate", 0f, 1f);
 	}
 
-	void UpdateTileVisuals () {
-		for (int x = 0; x < tileGrid.width; x++) {
-			for (int y = 0; y < tileGrid.height; y++) {
-				Tile tile = tileGrid.tiles [x, y];
-
-				//Gameobject might not exist (empty tiles)
-				if (!tileGameObjects.ContainsKey (tile))
-					continue;
-
-				//Colors of wires
-				if (tileGameObjects.ContainsKey(tile))
-					tileGameObjects[tile].UpdateVisuals (tile.IsPowered);
-			}
-		}
+	public void DestroyLevel () {
+		levelEnded = true;
+		background.enabled = false;
+		CancelInvoke ();
+		tileController.ClearTileGameObjects ();
 	}
-		
-	Tile currentTileRotating = null;
 
 	public void UpdateBoard () {
 		if (tileGrid == null)
 			return;
 
-		//Rotating wires
-		if (currentTileRotating == null && tileTargetRotations.Count > 0) {
-			//Get a new tile
-			currentTileRotating = tileTargetRotations.Dequeue ();
-		}
-		if (currentTileRotating != null) {
-			Quaternion target = Quaternion.Euler (0f, 0f, TileMetrics.GetWireRotation (currentTileRotating.outlets));
-			Transform t = tileGameObjects [currentTileRotating].transform;
+		tileController.UpdateTiles (tileGrid);
+		CheckForVictory ();
+	}
 
-			//If we aren't at target rotation yet
-			if (Quaternion.Angle (t.rotation, target) > .5f) {
-				//Rotate
-				t.rotation = Quaternion.RotateTowards (t.rotation, target, tileRotateSpeed * Time.deltaTime);
-			} else {
-				//Set to exact rotation
-				t.rotation = target;
+	int timeSinceLevelStart = 0;
 
-				//Mark not rotating (makes sure it can pass power on)
-				currentTileRotating.IsRotating = false;
+	void GridUpdate () {
+		if (tileGrid == null)
+			return;
 
-				//Set current tile to null to mark that we need a new one
-				currentTileRotating = null;
+		Hashtable data = new Hashtable() {
+			{ "time", timeSinceLevelStart }
+		};
+		NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnGridUpdate, data);
 
-				//Update power
-				tileGrid.UpdateTilePower ();
-			}
+		timeSinceLevelStart++;
+	}
+
+	void CheckForVictory () {
+		Tile[] lamps = tileGrid.Lamps;
+
+		if (lamps.Length == 0) {
+			Debug.LogError ("No lamps on map!");
+			return;
 		}
 
-		//Check for victory
-		Tile[] lamps = tileGrid.lamps;
 		//Make sure we aren't still rotating tiles
-		if (lamps.Length > 0 && tileTargetRotations.Count == 0) {
+		if (tileController.IsRotatingTiles() == false) {
 			bool allLit = true;
 			for (int i = 0; i < lamps.Length; i++) {
 				if (!lamps [i].IsPowered)
@@ -200,15 +114,8 @@ public class WorldController : MonoBehaviour {
 
 				Hashtable data = new Hashtable () { { "level", currentLevel } };
 				NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnLevelComplete, data);
-
-				//We don't want to rotate tiles anymore
-				tileTargetRotations.Clear();
-				currentTileRotating = null;
 			}
 		}
-
-		//Update visuals
-		UpdateTileVisuals();
 	}
 
 	void Input_OnWorldClick (Notification note) {
@@ -217,29 +124,20 @@ public class WorldController : MonoBehaviour {
 		int hitX = Mathf.RoundToInt(hitPoint.x + halfGridWidth);
 		int hitY = Mathf.RoundToInt(hitPoint.y + halfGridHeight);
 
-		Tile hit = tileGrid.tiles [hitX, hitY];
+		Tile hit = tileGrid.Tiles [hitX, hitY];
 
 		//Check if valid
-		if (hitX < 0 || hitX > levelWidth - 1 || hitY < 0 || hitY > levelHeight - 1)
+		if (hitX < 0 || hitX > tileGrid.Width - 1 || hitY < 0 || hitY > tileGrid.Height - 1)
 			return;
 
 		if (hit.tileType != TileType.Wire)
 			return;
-		
-		//Rotate tile at point
-		hit.Rotate(true);
 
-		//Mark as rotating (makes sure it doesn't pass power on)
-		hit.IsRotating = true;
-
-		//Mark visual to be rotated
-		tileTargetRotations.Enqueue(hit);
-
-		//Update power
-		tileGrid.UpdateTilePower ();
+		//Mark tile to be rotated
+		tileController.RotateTile(hit);
 	}
 
-	//Debugging grid in scene window (Don't remove its really useful)
+/*	//Debugging grid in scene window (Don't remove its really useful)
 	bool debug = true;
 
 	void OnDrawGizmos () {
@@ -248,9 +146,9 @@ public class WorldController : MonoBehaviour {
 
 		Gizmos.color = Color.red;
 
-		for (int x = 0; x < tileGrid.width; x++) {
-			for (int y = 0; y < tileGrid.height; y++) {
-				Tile t = tileGrid.tiles [x, y];
+		for (int x = 0; x < tileGrid.Width; x++) {
+			for (int y = 0; y < tileGrid.Height; y++) {
+				Tile t = tileGrid.Tiles [x, y];
 				Vector3 centre = new Vector3 (x - halfGridWidth, y - halfGridHeight, 1f);
 
 				for (int i = 0; i < 4; i++) {
@@ -277,5 +175,5 @@ public class WorldController : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 }

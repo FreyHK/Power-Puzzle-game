@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ScrollMenuTest.unity
+- path: Assets/Scenes/Main_New.unity
   isLoaded: 1
   isActive: 1

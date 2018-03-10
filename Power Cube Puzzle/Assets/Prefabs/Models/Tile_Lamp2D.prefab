@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4547507907521554}
   - component: {fileID: 212561439775073332}
-  - component: {fileID: 114371889321003178}
   - component: {fileID: 114772490615686870}
   m_Layer: 0
   m_Name: Shadow
@@ -38,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4447004463322290}
   - component: {fileID: 114623346703026660}
+  - component: {fileID: 114025800590498048}
   m_Layer: 0
   m_Name: Tile_Lamp2D
   m_TagString: Untagged
@@ -54,7 +54,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4909137149607430}
   - component: {fileID: 212746986642136398}
-  - component: {fileID: 114655600390907368}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -118,7 +117,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4839614358622070}
   - component: {fileID: 212943763710774682}
-  - component: {fileID: 114971480402612166}
   - component: {fileID: 114980209215309350}
   m_Layer: 0
   m_Name: Shadow
@@ -136,7 +134,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4190201285867222}
   - component: {fileID: 212703957433893958}
-  - component: {fileID: 114199685933056864}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -151,7 +148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890547412106956}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071067, w: 0.70710695}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4877258410555504}
@@ -195,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113639076980008}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0.02}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 4877258410555504}
@@ -255,26 +252,15 @@ Transform:
   m_Father: {fileID: 4418950146740250}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114199685933056864
+--- !u!114 &114025800590498048
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1890547412106956}
+  m_GameObject: {fileID: 1160251760356088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114371889321003178
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113639076980008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
+  m_Script: {fileID: 11500000, guid: da6fe7a3db362ef44a234a983568ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114623346703026660
@@ -306,17 +292,6 @@ MonoBehaviour:
     useDefaultColors: 0
     litColor: {r: 0.38431376, g: 0.38431376, b: 0.2392157, a: 1}
     unlitColor: {r: 0.38431373, g: 0.38431373, b: 0.23921569, a: 1}
---- !u!114 &114655600390907368
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1264816074683290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114762787833892312
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,17 +324,6 @@ MonoBehaviour:
   mirrorScale: 1
   lockRotation: 0
   lockedRotation: {x: 0, y: 0, z: 0}
---- !u!114 &114971480402612166
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1640185090209994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114980209215309350
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -38,17 +38,14 @@ public class TileMapGenerator {
 		return randomDirs;
 	}
 
-	public void GenerateMap (int width, int height, Tile[,] tilemap, float fillPercent) {
-		//Choose powersource position
-		sourceX = Random.Range(0, width-1);
-		sourceY = Random.Range(0, height-1);
+	public void GenerateMap (LevelInfo info, Tile[,] tilemap) {
 
 		//Create visited tiles Map
-		bool[,] visited = new bool[width, height];
+		bool[,] visited = new bool[info.Width, info.Height];
 		List<Tile> allTiles = new List<Tile>();
 
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x < info.Width; x++) {
+			for (int y = 0; y < info.Height; y++) {
 				if (x == sourceX && y == sourceY)
 					continue;
 				
@@ -58,14 +55,15 @@ public class TileMapGenerator {
 			}
 		}
 
-		//Fill in random spots on map, to add variety in maps
-		int tileCount = width * height;
+		int tileCount = info.Width * info.Height;
+
+		//Leave random spots on map empty to add variety
 		if (tileCount > 4) {
 			//Fill out random tiles and mark as visited, so we dont place anything there
-			fillPercent = Mathf.Clamp01 (fillPercent);
-			int fillCount = (int)(tileCount * (1f - fillPercent));
+			float fillPercent = Mathf.Clamp01 (info.FillAmount);
+			int emptyCount = (int)(tileCount * (1f - fillPercent));
 
-			for (int n = 0; n < fillCount; n++) {
+			for (int n = 0; n < emptyCount; n++) {
 				//There might not be enough tiles left
 				if (allTiles.Count <= 0)
 					break;
@@ -84,7 +82,7 @@ public class TileMapGenerator {
 						int ny = t.Y + y;
 
 						//If out of map, skip
-						if (nx < 0 || nx > width || ny < 0 || ny > height)
+						if (nx < 0 || nx > info.Width || ny < 0 || ny > info.Height)
 							continue;
 						
 						//Remove so we dont pick these tiles
@@ -95,14 +93,40 @@ public class TileMapGenerator {
 			}
 		}
 
+		//Choose powersource position
+		sourceX = Random.Range(0, info.Width-1);
+		sourceY = Random.Range(0, info.Height-1);
+			
+		//Start algoritm
+		CarvePassagesFrom (sourceX, sourceY, info.Width, info.Height, visited, tilemap);
+
 		tilemap[sourceX, sourceY].SetTileType(TileType.PowerSource);
 
-		CarvePassagesFrom (sourceX, sourceY, width, height, visited, tilemap);
+		//Find all wires
+		allTiles.Clear();
+		for (int x = 0; x < info.Width; x++) {
+			for (int y = 0; y < info.Height; y++) {
+				if (tilemap [x, y].tileType == TileType.Wire)
+					allTiles.Add (tilemap [x, y]);
+			}	
+		}
+
+		//Set timed tiles
+		int timedCount = (int)(tileCount * (info.TimedTileAmount));
+		for (int n = 0; n < timedCount; n++) {
+			if (allTiles.Count <= 0)
+				break;
+			Tile t = allTiles[Random.Range (0, allTiles.Count - 1)];
+			t.IsTimedTile = true;
+			allTiles.Remove (t);
+		}
 	}
 
 	void CarvePassagesFrom (int cx, int cy, int width, int height, bool[,] visited, Tile[,] tilemap) {
 		//Mark this tile as visited
 		visited[cx, cy] = true;
+		//Set correct tiletype
+		tilemap[cx, cy].SetTileType(TileType.Wire);
 
 		GridDirection[] directions = RandomDirections ();
 
@@ -118,6 +142,7 @@ public class TileMapGenerator {
 
 				//Connect neighbor to current tile
 				tilemap [nx, ny].outlets [(int)dir] = true;
+
 				//Connect current tile to neighbor
 				tilemap[cx, cy].outlets[(int)dir.Opposite()] = true;
 

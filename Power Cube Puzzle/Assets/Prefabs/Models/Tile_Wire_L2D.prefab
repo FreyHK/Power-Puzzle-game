@@ -35,7 +35,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4604937914280110}
   - component: {fileID: 212066808105678896}
-  - component: {fileID: 114171851397003614}
   - component: {fileID: 114843519191021310}
   m_Layer: 0
   m_Name: Shadow
@@ -54,6 +53,7 @@ GameObject:
   - component: {fileID: 4120109429044832}
   - component: {fileID: 114841513450331570}
   - component: {fileID: 65111401933290508}
+  - component: {fileID: 114111907212369202}
   m_Layer: 0
   m_Name: Tile_Wire_L2D
   m_TagString: Untagged
@@ -70,7 +70,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4329351827179222}
   - component: {fileID: 212462515046063818}
-  - component: {fileID: 114733274839106832}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -145,26 +144,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 0.95, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114171851397003614
+--- !u!114 &114111907212369202
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1105139960965266}
+  m_GameObject: {fileID: 1320775968491900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114733274839106832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1744096496071018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 647767ed95dda4a4487c54d054789653, type: 3}
+  m_Script: {fileID: 11500000, guid: da6fe7a3db362ef44a234a983568ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114841513450331570

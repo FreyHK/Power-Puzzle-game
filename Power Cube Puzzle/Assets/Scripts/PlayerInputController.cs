@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class PlayerInputController : MonoBehaviour {
 
@@ -12,6 +13,9 @@ public class PlayerInputController : MonoBehaviour {
 	}
 
 	void HandleMouseInput () {
+		if (EventSystem.current.IsPointerOverGameObject ())
+			return;
+		
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit)) {

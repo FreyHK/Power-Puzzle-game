@@ -21,11 +21,11 @@ public class TileColorController : MonoBehaviour {
 	Color defaultLitHighlightColor;
 	Color defaultUnlitHighlightColor;
 
-	public void Initialize (Color defaultLitColor, Color defaultUnlitColor, Color defaultLitHighlightColor, Color defaultUnlitHighlightColor) {
-		this.defaultLitColor = defaultLitColor;
-		this.defaultUnlitColor = defaultUnlitColor;
-		this.defaultLitHighlightColor = defaultLitHighlightColor;
-		this.defaultUnlitHighlightColor = defaultUnlitHighlightColor;
+	public void Initialize (TileColorData tileColors) {
+		this.defaultLitColor = tileColors.litWireColor;
+		this.defaultUnlitColor = tileColors.unlitWireColor;
+		this.defaultLitHighlightColor = tileColors.litHighlightColor;
+		this.defaultUnlitHighlightColor = tileColors.shadowColor;
 	}
 
 	public void UpdateVisuals (bool powered) {

@@ -18,10 +18,14 @@ public class Tile {
 
 	public bool IsRotating;
 
-	public Tile (int X, int Y) {
+	//Maybe make an enum (in case of other additions)
+	public bool IsTimedTile;
+
+	public Tile (int X, int Y, bool timedTile = false) {
 		this.X = X;
 		this.Y = Y;
-		tileType = TileType.Wire;
+		this.IsTimedTile = timedTile;
+		tileType = TileType.Empty;
 		outlets = TileMetrics.EmptyOutlets ();
 	}
 
@@ -44,9 +48,9 @@ public class Tile {
 			if (neighbor == null)
 				continue;
 
-			//Rotating tiles DONT arent connected
+			//Rotating tiles are NOT connected
 			if (neighbor.IsRotating)
-				continue;
+			continue;
 
 			GridDirection dir = (GridDirection)i;
 			// && neighbor.outlets[(int)dir.Opposite()]
@@ -69,8 +73,9 @@ public class Tile {
 		bool[] o = new bool[4];
 
 		for (int i = 0; i < 4; i++) {
-			int next = (clockwise ? i + 1 : i - 1) % 4;
-			o[i] = outlets[next];
+			//Add 4 because it may not be negative
+			int next = (clockwise ? i + 1 : i - 1) + 4;
+			o[i] = outlets[next % 4];
 		}
 		outlets = o;
 	}

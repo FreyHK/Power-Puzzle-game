@@ -4,103 +4,110 @@ using UnityEngine;
 
 public class TileGrid {
 
-	public Tile[,] tiles { get; private set; }
-	public Tile[] lamps { get; private set; }
+	public Tile[,] Tiles { get; private set; }
+	public Tile[] Lamps { get; private set; }
 
-	public Tile powerSource { get; private set; }
+	public Tile PowerSource { get; private set; }
 
-	public int width { get; private set; }
-	public int height { get; private set; }
+	public int Width { get; private set; }
+	public int Height { get; private set; }
 
-	public TileGrid (int width, int height, LevelInfo info) {
-		this.width = width;
-		this.height = height;
+	public TileGrid (LevelInfo info) {
+		this.Width = info.Width;
+		this.Height = info.Height;
 
-		tiles = new Tile[width, height];
-
-		//Make tiles
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		//Make and fill tilemap
+		Tiles = new Tile[Width, Height];
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
 				Tile t = new Tile (x, y);
-				tiles [x, y] = t;
+				Tiles [x, y] = t;
 			}
 		}
 
 		//Set neighbors
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Tile t = tiles [x, y];
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
+				Tile t = Tiles [x, y];
 				if (x > 0) {
-					t.neighbors[(int)GridDirection.W] = tiles[x - 1, y];
+					t.neighbors[(int)GridDirection.W] = Tiles[x - 1, y];
 				}
-				if (x < width-1) {
-					t.neighbors[(int)GridDirection.E] = tiles[x + 1, y];
+				if (x < Width-1) {
+					t.neighbors[(int)GridDirection.E] = Tiles[x + 1, y];
 				}
 				if (y > 0) {
-					t.neighbors[(int)GridDirection.N] = tiles[x, y - 1];
+					t.neighbors[(int)GridDirection.N] = Tiles[x, y - 1];
 				}
-				if (y < height-1) {
-					t.neighbors[(int)GridDirection.S] = tiles[x, y + 1];
+				if (y < Height-1) {
+					t.neighbors[(int)GridDirection.S] = Tiles[x, y + 1];
 				}
 			}
 		}
 
+		FillMap (info);
+		ScrambleTileRotations ();
+
+		//Add lamp tiles to list, so they can be used by worldcontroller
+		List<Tile> lampList = new List<Tile>();
+
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
+				if (Tiles[x, y].tileType == TileType.Lamp) {
+					lampList.Add (Tiles[x, y]);
+				}
+			}
+		}
+		Lamps = lampList.ToArray ();
+	}
+
+	void FillMap (LevelInfo info) {
 		//Level is procedurally generated
 		if (info.Procedural) {
 			TileMapGenerator generator = new TileMapGenerator ();
 
 			//Generate map
-			generator.GenerateMap(width, height, tiles, info.FillAmount);
+			generator.GenerateMap(info, Tiles);
 
 			//Get source position from generator
-			powerSource = tiles [generator.sourceX, generator.sourceY];
+			PowerSource = Tiles [generator.sourceX, generator.sourceY];
 		} else {
-			//Load map from info
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					tiles [x, y] = info.Tiles [x, y];
-				}
-			}
+			Debug.LogError ("Not implemented yet!");
 		}
+	}
 
+	void ScrambleTileRotations () {
 		//Rotate tiles randomly
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
 				//Don't rotate powersources
-				if (tiles [x, y].tileType == TileType.PowerSource || tiles [x, y].tileType == TileType.Lamp)
+				if (Tiles [x, y].tileType == TileType.PowerSource || Tiles [x, y].tileType == TileType.Lamp)
 					continue;
 
-				//Rotate between 1 and 3 times(0 or 4 would mean level could possibly be solved)
-				int r = Random.Range(1, 3);
+				WireShape shape = TileMetrics.GetWireShape (Tiles[x, y].outlets);
+				int rots = 0;
+				if (shape == WireShape.Bridge) {
+					rots = (Random.value < .5f) ? 1 : 3;
+				} else if (shape == WireShape.LShape || shape == WireShape.TShape) {
+					//Rotate between 1 and 3 times(0 or 4 would mean level could possibly be solved)
+					rots = Random.Range (1, 3);
+				}
 
-				for (int i = 0; i < r; i++) {
-					tiles [x, y].Rotate (true);
+				for (int i = 0; i < rots; i++) {
+					Tiles [x, y].Rotate (true);
 				}
 			}
 		}
-
-		//Add lamp tiles to list, so they can be used by worldcontroller
-		List<Tile> lampList = new List<Tile>();
-
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				if (tiles[x, y].tileType == TileType.Lamp) {
-					lampList.Add (tiles[x, y]);
-				}
-			}
-		}
-		lamps = lampList.ToArray ();
 	}
 		
 	//Applies power to tiles connected to power sources
 	public void UpdateTilePower () {
-		ClearTilePower ();
+		ResetTilePower ();
 
 		Queue<Tile> toVisit = new Queue<Tile>();
 		List<Tile> visited = new List<Tile> ();
 
-		toVisit.Enqueue (powerSource);
-		visited.Add (powerSource);
+		toVisit.Enqueue (PowerSource);
+		visited.Add (PowerSource);
 
 		while (toVisit.Count > 0) {
 			Tile sourceTile = toVisit.Dequeue ();
@@ -120,12 +127,11 @@ public class TileGrid {
 		}
 	}
 
-	//Sets all lamps and wires power value to false
-	//Terrible name
-	void ClearTilePower () {
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				Tile t = tiles [x, y];
+	//Sets all lamps' and wires' power value to false
+	void ResetTilePower () {
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
+				Tile t = Tiles [x, y];
 
 				if (t.tileType != TileType.PowerSource)
 					t.IsPowered = false;
