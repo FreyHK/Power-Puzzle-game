@@ -12,6 +12,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
 	[SerializeField] GameController gameController;
+	[SerializeField] AdManager adManager; 
+
+	[SerializeField] PanelAnimator PauseMenu;
 
 	public void Initialize () {
 		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
@@ -21,11 +24,20 @@ public class UIManager : MonoBehaviour {
 	//- - - Game Events - - -
 
 	void OnLevelStart (Notification note) {
-	
+		PauseMenu.SetButtonEnabled(true);
 	}
 
 	void OnLevelComplete (Notification note) {
+		Invoke("ShowNextLevelUI", 2f);
+		//Lock UI elements
+		PauseMenu.SetButtonEnabled(false);
+	}
 
+	void ShowNextLevelUI () {
+		PauseMenu.ToggleOpen();
+
+		//Maybe show ad
+		adManager.TryShowAd();
 	}
 
 	//- - - Button events - - -

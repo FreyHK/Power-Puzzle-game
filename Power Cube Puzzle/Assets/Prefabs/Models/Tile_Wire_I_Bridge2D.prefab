@@ -35,6 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4746164795500328}
   - component: {fileID: 212510042851350318}
+  - component: {fileID: 114331077449871478}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -70,6 +71,7 @@ GameObject:
   - component: {fileID: 4742924910582952}
   - component: {fileID: 212198575874410972}
   - component: {fileID: 114993134426557760}
+  - component: {fileID: 114953702345673880}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -144,6 +146,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114331077449871478
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1365456579375538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 212510042851350318}
 --- !u!114 &114788094893386038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,15 +170,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSprites:
-  - sprite: {fileID: 212510042851350318}
+  - sprite: {fileID: 0}
+    lerpSprite: {fileID: 114331077449871478}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   shadowSprites:
-  - sprite: {fileID: 212198575874410972}
+  - sprite: {fileID: 0}
+    lerpSprite: {fileID: 114953702345673880}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
+  sparkParticles: {fileID: 0}
+--- !u!114 &114953702345673880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1905868530556618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 212198575874410972}
 --- !u!114 &114980907969102042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,6 +230,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -216,6 +246,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -243,6 +274,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -258,6 +290,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

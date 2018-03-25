@@ -37,19 +37,28 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (curLevel != null)
+		if (curLevel != null) {
 			worldController.UpdateBoard ();
+			CurrentLevelTime += Time.deltaTime;
+		}
 	}
 
 	LevelInfo curLevel;
-	int levelCount = -1;
+	int levelCount = 0;
+
+	public static float CurrentLevelTime;
+	public static bool GameOver = false;
 
 	public void StartCurrentLevel () {
+		GameOver = false;
+		CurrentLevelTime = 0f;
 		curLevel = levelCollection.GetLevel (levelCount);
 		worldController.InitializeLevel (curLevel);
 	}
 
 	public void StartNextLevel () {
+		GameOver = false;
+		CurrentLevelTime = 0f;
 		levelCount++;
 		curLevel = levelCollection.GetLevel (levelCount);
 		worldController.InitializeLevel (curLevel);
@@ -63,8 +72,9 @@ public class GameController : MonoBehaviour {
 
 	//Player finished a level
 	void OnLevelComplete (Notification note) {
+		print ("Game over");
 		curLevel = null;
-
+		GameOver = true;
 		//TODO Ad manager:
 		//Maybe show ad at this point?
 		//Set ad timer to 5 min

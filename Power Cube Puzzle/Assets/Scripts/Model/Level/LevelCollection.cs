@@ -7,35 +7,31 @@ using UnityEngine;
 /// </summary>
 public class LevelCollection : MonoBehaviour {
 
-	const int minLevelWidth = 2;
-	const int minLevelHeight = 3;
-	const int maxLevelWidth = 7;
-	const int maxLevelHeight = 8;
+	[System.Serializable]
+	class LevelPreset {
+		[Range(LevelCollection.minLevelWidth, LevelCollection.maxLevelWidth)]
+		public int width = LevelCollection.minLevelWidth;
+		[Range(LevelCollection.minLevelHeight, LevelCollection.maxLevelHeight)]
+		public int height = LevelCollection.minLevelHeight;
+	}
 
-	[Header("Visual")]
-	public string DisplayName = "Basics";
-	public Color DisplayColor = Color.red;
-	[Space()]
-	[SerializeField] AnimationCurve levelSize;
+	public const int minLevelWidth = 2;
+	public const int minLevelHeight = 3;
+	public const int maxLevelWidth = 7;
+	public const int maxLevelHeight = 8;
+
 	[SerializeField] [Range(0f, 1f)] float timedTilePercentage = 0f;
 
-	//How many levels to comlete before they dont get harder
-	int levelsToMax = 10;
+	[SerializeField] LevelPreset[] levels;
 
 	public LevelInfo GetLevel (int levelNumber) {
-		float sample = Mathf.Clamp01((float)levelNumber / levelsToMax);
-
-		//We add 2 since minimum value is 2
-		int width = (int)(levelSize.Evaluate (sample) * maxLevelWidth) + minLevelWidth;
-		int height = (int)(levelSize.Evaluate (sample) * maxLevelHeight) + minLevelHeight;
+		int i = Mathf.Clamp (levelNumber, 0, levels.Length);
 
 		//Just a number
 		float fillAmount = .8f;
 
 		//Clamp values
-		width = Mathf.Clamp (width, minLevelWidth, maxLevelWidth);
-		height = Mathf.Clamp (height, minLevelHeight, maxLevelHeight);
-		return new LevelInfo (width, height, fillAmount, timedTilePercentage);
+		return new LevelInfo (levels [i].width, levels [i].height, fillAmount, timedTilePercentage);
 	}
 
 	//FIXME idk how to do hardcoded levels properly

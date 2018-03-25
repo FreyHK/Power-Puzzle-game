@@ -85,16 +85,13 @@ public class TileGrid {
 
 				WireShape shape = TileMetrics.GetWireShape (Tiles[x, y].outlets);
 				int rots = 0;
-				if (shape == WireShape.Bridge) {
-					rots = (Random.value < .5f) ? 1 : 3;
-				} else if (shape == WireShape.LShape || shape == WireShape.TShape) {
+
+				if (shape != WireShape.Empty && shape != WireShape.Cross)
 					//Rotate between 1 and 3 times(0 or 4 would mean level could possibly be solved)
 					rots = Random.Range (1, 3);
-				}
 
-				for (int i = 0; i < rots; i++) {
+				for (int i = 0; i < rots; i++)
 					Tiles [x, y].Rotate (true);
-				}
 			}
 		}
 	}

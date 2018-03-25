@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4604937914280110}
   - component: {fileID: 212066808105678896}
   - component: {fileID: 114843519191021310}
+  - component: {fileID: 114458731225982414}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -70,6 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4329351827179222}
   - component: {fileID: 212462515046063818}
+  - component: {fileID: 114213668303398980}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -155,6 +157,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6fe7a3db362ef44a234a983568ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114213668303398980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1744096496071018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 212462515046063818}
+--- !u!114 &114458731225982414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1105139960965266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 212066808105678896}
 --- !u!114 &114841513450331570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,15 +193,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSprites:
-  - sprite: {fileID: 212462515046063818}
+  - sprite: {fileID: 0}
+    lerpSprite: {fileID: 114213668303398980}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   shadowSprites:
-  - sprite: {fileID: 212066808105678896}
+  - sprite: {fileID: 0}
+    lerpSprite: {fileID: 114458731225982414}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
+  sparkParticles: {fileID: 0}
 --- !u!114 &114843519191021310
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,6 +230,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -216,6 +246,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -243,6 +274,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -258,6 +290,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Also does other shit than control colour.
+/// </summary>
 public class TileColorController : MonoBehaviour {
 
 	[System.Serializable]
 	public class SpriteColor
 	{
 		public SpriteRenderer sprite;
+		public LerpSprite lerpSprite;
 		public bool useDefaultColors = true;
 		public Color litColor = Color.black;
 		public Color unlitColor;
@@ -15,13 +19,17 @@ public class TileColorController : MonoBehaviour {
 
 	[SerializeField] SpriteColor[] mainSprites;
 	[SerializeField] SpriteColor[] shadowSprites;
+	[SerializeField] ParticleSystem sparkParticles;
 
 	Color defaultLitColor;
 	Color defaultUnlitColor;
 	Color defaultLitHighlightColor;
 	Color defaultUnlitHighlightColor;
 
-	public void Initialize (TileColorData tileColors) {
+	Tile tile;
+
+	public void Initialize (TileColorData tileColors, Tile tile) {
+		this.tile = tile;
 		this.defaultLitColor = tileColors.litWireColor;
 		this.defaultUnlitColor = tileColors.unlitWireColor;
 		this.defaultLitHighlightColor = tileColors.litHighlightColor;
@@ -31,15 +39,24 @@ public class TileColorController : MonoBehaviour {
 	public void UpdateVisuals (bool powered) {
 		foreach (SpriteColor sc in mainSprites) {
 			if (sc.useDefaultColors)
-				sc.sprite.color = powered ? defaultLitColor : defaultUnlitColor;
+				//sc.sprite.color = powered ? defaultLitColor : defaultUnlitColor;
+				sc.lerpSprite.SetColor(powered ? defaultLitColor : defaultUnlitColor);
 			else
-				sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
+				//sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
+				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
 		}
 		foreach (SpriteColor sc in shadowSprites) {
 			if (sc.useDefaultColors)
-				sc.sprite.color = powered ? defaultLitHighlightColor : defaultUnlitHighlightColor;
+				//sc.sprite.color = powered ? defaultLitHighlightColor : defaultUnlitHighlightColor;
+				sc.lerpSprite.SetColor(powered ? defaultLitHighlightColor : defaultUnlitHighlightColor);
 			else
-				sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
+				//sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
+				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
 		}
+	}
+
+	void Update () {
+		if (tile.tileType == TileType.Lamp && GameController.GameOver && !sparkParticles.isPlaying)
+			sparkParticles.Play ();
 	}
 }
