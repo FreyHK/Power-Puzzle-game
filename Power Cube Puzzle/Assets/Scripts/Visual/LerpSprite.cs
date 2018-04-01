@@ -25,7 +25,7 @@ public class LerpSprite : MonoBehaviour {
 	void Update () {
 		
 		if (sprite.color != targetColor) {
-			sprite.color = Color.Lerp (sprite.color, targetColor, Time.deltaTime * 10f);
+			sprite.color = Color.Lerp (sprite.color, targetColor, Time.deltaTime * 15f);
 		}
 	}
 }

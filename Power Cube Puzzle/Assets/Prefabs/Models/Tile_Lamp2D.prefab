@@ -367,7 +367,7 @@ MonoBehaviour:
     useDefaultColors: 0
     litColor: {r: 0.38431376, g: 0.38431376, b: 0.2392157, a: 1}
     unlitColor: {r: 0.38431373, g: 0.38431373, b: 0.23921569, a: 1}
-  sparkParticles: {fileID: 198851016592386272}
+  gameoverSparks: {fileID: 198851016592386272}
 --- !u!114 &114762787833892312
 MonoBehaviour:
   m_ObjectHideFlags: 1

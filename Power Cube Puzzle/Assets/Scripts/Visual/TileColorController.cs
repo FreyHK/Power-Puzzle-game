@@ -19,7 +19,7 @@ public class TileColorController : MonoBehaviour {
 
 	[SerializeField] SpriteColor[] mainSprites;
 	[SerializeField] SpriteColor[] shadowSprites;
-	[SerializeField] ParticleSystem sparkParticles;
+	[SerializeField] ParticleSystem gameoverSparks;
 
 	Color defaultLitColor;
 	Color defaultUnlitColor;
@@ -56,7 +56,7 @@ public class TileColorController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (tile.tileType == TileType.Lamp && GameController.GameOver && !sparkParticles.isPlaying)
-			sparkParticles.Play ();
+		if (tile.tileType == TileType.Lamp && GameController.GameOver && !gameoverSparks.isPlaying)
+			gameoverSparks.Play ();
 	}
 }

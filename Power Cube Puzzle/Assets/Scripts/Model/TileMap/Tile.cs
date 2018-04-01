@@ -65,10 +65,6 @@ public class Tile {
 		neighbors [(int)direction] = tile;
 	}
 
-	public Tile GetNeighbor (GridDirection direction) {
-		return neighbors [(int)direction];
-	}
-
 	public void Rotate (bool clockwise) {
 		bool[] o = new bool[4];
 

@@ -72,12 +72,8 @@ public class GameController : MonoBehaviour {
 
 	//Player finished a level
 	void OnLevelComplete (Notification note) {
-		print ("Game over");
 		curLevel = null;
 		GameOver = true;
-		//TODO Ad manager:
-		//Maybe show ad at this point?
-		//Set ad timer to 5 min
 	}
 
 	//Player quit a level

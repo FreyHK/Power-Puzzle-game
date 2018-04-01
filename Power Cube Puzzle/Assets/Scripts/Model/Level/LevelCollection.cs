@@ -25,7 +25,7 @@ public class LevelCollection : MonoBehaviour {
 	[SerializeField] LevelPreset[] levels;
 
 	public LevelInfo GetLevel (int levelNumber) {
-		int i = Mathf.Clamp (levelNumber, 0, levels.Length);
+		int i = Mathf.Clamp (levelNumber, 0, levels.Length-1);
 
 		//Just a number
 		float fillAmount = .8f;
