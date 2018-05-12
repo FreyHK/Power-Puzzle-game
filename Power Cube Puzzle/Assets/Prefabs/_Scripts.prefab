@@ -107,6 +107,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1554600910836282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4822952254118874}
+  - component: {fileID: 114555960282485258}
+  m_Layer: 0
+  m_Name: AdManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1723872837371160
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +297,7 @@ Transform:
   - {fileID: 4194629586884706}
   - {fileID: 4275399533312432}
   - {fileID: 4250295342643284}
+  - {fileID: 4822952254118874}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,6 +313,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4512974393091136}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4822952254118874
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1554600910836282}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4512974393091136}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4880266898942022
 Transform:
@@ -339,54 +369,69 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - serializedVersion: 2
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - serializedVersion: 2
+    - serializedVersion: 3
       time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
@@ -479,11 +524,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d82d0c1dd751f0940a88580548d09384, type: 3}
   - name: SwitchTile
     clips:
-    - {fileID: 8300000, guid: 01ba6bec1bab99b4da3d0d9be78632c0, type: 3}
-    - {fileID: 8300000, guid: 4d43966bde9253a449914b1f6a69aceb, type: 3}
-    - {fileID: 8300000, guid: e467528913de1cc4a9bc799a98d3e85f, type: 3}
-    - {fileID: 8300000, guid: 8ee7a0fd3039c87428255176b1b33bb7, type: 3}
-    - {fileID: 8300000, guid: 3e9560d9dc0b41d40a7af21feca6e554, type: 3}
+    - {fileID: 8300000, guid: afc8641eb8c37ee4aac5c3574b6d6275, type: 3}
+    - {fileID: 8300000, guid: 0e85fb8f5534fe64f8fef72012262f51, type: 3}
+    - {fileID: 8300000, guid: 93e84edaeed99e4449ec875428d525fa, type: 3}
+    - {fileID: 8300000, guid: 8d4446334a9d80a4ea5ae2a56f843210, type: 3}
+    - {fileID: 8300000, guid: f08cf57cd9f87f54f8529e6641baaa6f, type: 3}
   - name: Button
     clips:
     - {fileID: 8300000, guid: e8e8e58a340e79b4e8979270426e5556, type: 3}
@@ -491,6 +536,11 @@ MonoBehaviour:
   - name: PowerUp
     clips:
     - {fileID: 8300000, guid: 47cfd1d0658a6e84a80bf37000543e0f, type: 3}
+  - name: RotateTile
+    clips:
+    - {fileID: 8300000, guid: d98956f2334aaf34ca4d82557e31f6a5, type: 3}
+    - {fileID: 8300000, guid: 4dbec06637df4a041816f7a47f123320, type: 3}
+    - {fileID: 8300000, guid: acf1eadcbca279d45abfb004ea2e0cf4, type: 3}
 --- !u!114 &114275131241190306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -500,6 +550,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f1163c56a451e5438aa0634811f6efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114555960282485258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1554600910836282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6219627e2e301347b6b42893078b1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114577536907280102
@@ -527,7 +588,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 114834365777231750}
-  levelEndPanel: {fileID: 0}
+  adManager: {fileID: 114555960282485258}
+  PauseMenu: {fileID: 0}
 --- !u!114 &114834365777231750
 MonoBehaviour:
   m_ObjectHideFlags: 1

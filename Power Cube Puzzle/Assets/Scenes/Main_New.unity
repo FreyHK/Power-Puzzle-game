@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -113,48 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &4022869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1433564306132586, guid: da9716d5709c3e541830c72a788e37a7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4022870}
-  - component: {fileID: 4022871}
-  m_Layer: 0
-  m_Name: AdManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4022870
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4250295342643284, guid: da9716d5709c3e541830c72a788e37a7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 4022869}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 835384660}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4022871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 4022869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6219627e2e301347b6b42893078b1c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &49063938
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +233,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!222 &122250796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -800,16 +759,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114834365777231750, guid: da9716d5709c3e541830c72a788e37a7,
-        type: 2}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 1814625997}
-    - target: {fileID: 114587193408082878, guid: da9716d5709c3e541830c72a788e37a7,
-        type: 2}
-      propertyPath: levelEndPanel
-      value: 
-      objectReference: {fileID: 122250797}
     - target: {fileID: 114974869936439768, guid: da9716d5709c3e541830c72a788e37a7,
         type: 2}
       propertyPath: environmentRoot
@@ -820,21 +769,16 @@ Prefab:
       propertyPath: background
       value: 
       objectReference: {fileID: 1046998984}
-    - target: {fileID: 114974869936439768, guid: da9716d5709c3e541830c72a788e37a7,
+    - target: {fileID: 114834365777231750, guid: da9716d5709c3e541830c72a788e37a7,
         type: 2}
-      propertyPath: gridBackground
+      propertyPath: cameraController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1814625997}
     - target: {fileID: 114587193408082878, guid: da9716d5709c3e541830c72a788e37a7,
         type: 2}
       propertyPath: PauseMenu
       value: 
       objectReference: {fileID: 122250797}
-    - target: {fileID: 114587193408082878, guid: da9716d5709c3e541830c72a788e37a7,
-        type: 2}
-      propertyPath: adManager
-      value: 
-      objectReference: {fileID: 4022871}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: da9716d5709c3e541830c72a788e37a7, type: 2}
   m_IsPrefabParent: 0
@@ -1316,11 +1260,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 829156787}
---- !u!4 &835384660 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4512974393091136, guid: da9716d5709c3e541830c72a788e37a7,
-    type: 2}
-  m_PrefabInternal: {fileID: 589546260}
 --- !u!1 &918207450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1538,6 +1477,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1956,6 +1896,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!225 &1260234965
 CanvasGroup:
   m_ObjectHideFlags: 0

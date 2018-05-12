@@ -36,6 +36,8 @@ public class TileColorController : MonoBehaviour {
 		this.defaultUnlitHighlightColor = tileColors.shadowColor;
 	}
 
+    bool isPowered = false;
+
 	public void UpdateVisuals (bool powered) {
 		foreach (SpriteColor sc in mainSprites) {
 			if (sc.useDefaultColors)
@@ -53,6 +55,11 @@ public class TileColorController : MonoBehaviour {
 				//sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
 				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
 		}
+
+        if (tile.tileType == TileType.Lamp && powered && !isPowered)
+            SoundManager.Instance.Play("PowerUp");
+
+        isPowered = powered;
 	}
 
 	void Update () {

@@ -78,8 +78,9 @@ public class TileController : MonoBehaviour {
 	public void RotateTile (Tile t) {
 		if (tileGameObjects.ContainsKey (t)) {
 			tileTargetRotations.Enqueue (t);
-			SoundManager.Instance.Play ("SwitchTile");
-		} else
+            //Play sound
+            SoundManager.Instance.Play("RotateTile");
+        } else
 			Debug.LogError ("Tile doesn't exist in dictionary");
 	}
 
@@ -112,19 +113,26 @@ public class TileController : MonoBehaviour {
 			if (Quaternion.Angle (t.rotation, target) > .5f) {
 				t.rotation = Quaternion.RotateTowards (t.rotation, target, tileRotateSpeed * Time.deltaTime);
 			} else {
-				//Set to exact rotation
-				t.rotation = target;
 
-				//Mark not rotating (makes sure it can pass power on)
-				currentTileRotating.IsRotating = false;
+                //Set to exact rotation
+                t.rotation = target;
 
-				//Set current tile to null to mark that we need a new one
-				currentTileRotating = null;
+                //Mark not rotating (makes sure it can pass power on)
+                currentTileRotating.IsRotating = false;
 
-				tileGrid.UpdateTilePower ();
+                tileGrid.UpdateTilePower();
 
-				UpdateTileVisuals (tileGrid);
-			}
+                int c = currentTileRotating.GetConnectedNeighbors().Length;
+                //Play sound(s)
+                for (int i = 0; i < c; i++) {
+                   SoundManager.Instance.Play("SwitchTile");
+                }
+
+                //Set current tile to null to mark that we need a new one
+                currentTileRotating = null;
+
+                UpdateTileVisuals(tileGrid);
+            }
 		}
 	}
 
