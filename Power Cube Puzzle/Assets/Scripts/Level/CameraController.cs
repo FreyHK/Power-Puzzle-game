@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour {
 	public Camera cam;
 
 	float zoomedOutPercentage = .4f;
-	float viewMargin = 2f;
+	float viewMargin = 1.25f;
 
 	public void Initialize () {
 		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);

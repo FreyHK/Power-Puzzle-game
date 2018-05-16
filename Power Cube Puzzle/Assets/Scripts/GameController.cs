@@ -19,7 +19,11 @@ public class GameController : MonoBehaviour {
 
 	[SerializeField] LevelCollection levelCollection;
 
+    public static GameController Instance;
+
 	void Start () {
+        Instance = this;
+
 		//The manager root gameobject should not be destroyed
 		DontDestroyOnLoad (transform.root.gameObject);
 
@@ -43,8 +47,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	LevelInfo curLevel;
-	int levelCount = 0;
+	public LevelInfo curLevel;
+	public int LevelCount = 0;
 
 	public static float CurrentLevelTime;
 	public static bool GameOver = false;
@@ -52,15 +56,15 @@ public class GameController : MonoBehaviour {
 	public void StartCurrentLevel () {
 		GameOver = false;
 		CurrentLevelTime = 0f;
-		curLevel = levelCollection.GetLevel (levelCount);
+		curLevel = levelCollection.GetLevel (LevelCount);
 		worldController.InitializeLevel (curLevel);
 	}
 
 	public void StartNextLevel () {
 		GameOver = false;
 		CurrentLevelTime = 0f;
-		levelCount++;
-		curLevel = levelCollection.GetLevel (levelCount);
+		LevelCount++;
+		curLevel = levelCollection.GetLevel (LevelCount);
 		worldController.InitializeLevel (curLevel);
 	}
 
