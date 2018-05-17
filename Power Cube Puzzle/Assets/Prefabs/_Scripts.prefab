@@ -589,7 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 114834365777231750}
   adManager: {fileID: 114555960282485258}
-  PauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 0}
 --- !u!114 &114834365777231750
 MonoBehaviour:
   m_ObjectHideFlags: 1

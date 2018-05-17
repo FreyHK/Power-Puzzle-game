@@ -47,7 +47,13 @@ public class WorldController : MonoBehaviour {
 
 		//Create grid (generates level too)
 		tileGrid = new TileGrid (levelInfo);
-		tileGrid.UpdateTilePower ();
+        if (tileGrid.Lamps.Length == 0) {
+            //No lamps, try again
+            InitializeLevel(levelInfo);
+            return;
+        }
+
+        tileGrid.UpdateTilePower ();
 
 		//Setup board
 		tileController.CreateTiles (tileGrid, environmentRoot);

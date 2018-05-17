@@ -14,35 +14,34 @@ public class UIManager : MonoBehaviour {
 	[SerializeField] GameController gameController;
 	[SerializeField] AdManager adManager; 
 
-	[SerializeField] PanelAnimator PauseMenu;
+	[SerializeField] PauseMenu pauseMenu;
 
 	public void Initialize () {
 		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
 		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
 	}
 
-	//- - - Game Events - - -
-
-	void OnLevelStart (Notification note) {
-		PauseMenu.SetButtonEnabled(true);
+    #region Game Events
+    void OnLevelStart (Notification note) {
+		pauseMenu.SetButtonEnabled(true);
 	}
 
 	void OnLevelComplete (Notification note) {
 		Invoke("ShowNextLevelUI", 2f);
 		//Lock UI elements
-		PauseMenu.SetButtonEnabled(false);
+		pauseMenu.SetButtonEnabled(false);
 	}
 
 	void ShowNextLevelUI () {
-		PauseMenu.ToggleOpen();
+		pauseMenu.Toggle(true);
 
 		//Maybe show ad
 		adManager.TryShowAd();
 	}
+    #endregion
 
-	//- - - Button events - - -
-
-	public void CurrentLevel () {
+    #region Button events
+    public void CurrentLevel () {
 		gameController.StartCurrentLevel ();
 	}
 
@@ -53,4 +52,5 @@ public class UIManager : MonoBehaviour {
 	public void QuitLevel () {
 		gameController.QuitLevel ();
 	}
+    #endregion
 }

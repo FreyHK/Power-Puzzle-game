@@ -7,7 +7,7 @@ public class PanelAnimator : MonoBehaviour {
 
 	[SerializeField] Animator anim;
 	[SerializeField] Button OpenButton;
-	[SerializeField] bool isOpen = false;
+	public bool isOpen = false;
 
 	void Awake () {
 		if (!isOpen) {
