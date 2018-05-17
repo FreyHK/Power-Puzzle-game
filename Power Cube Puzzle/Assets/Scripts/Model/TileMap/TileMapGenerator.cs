@@ -45,8 +45,8 @@ public class TileMapGenerator {
 
 		for (int x = 0; x < info.Width; x++) {
 			for (int y = 0; y < info.Height; y++) {
-				if (x == sourceX && y == sourceY)
-					continue;
+				//if (x == sourceX && y == sourceY)
+				//	continue;
 				
 				visited [x, y] = false;
 
@@ -92,9 +92,10 @@ public class TileMapGenerator {
 			}
 		}
 
-		//Choose powersource position
-		sourceX = Random.Range(0, info.Width-1);
-		sourceY = Random.Range(0, info.Height-1);
+        //Choose powersource position
+        Tile powerSourceTile = allTiles[Random.Range(0, allTiles.Count - 1)];
+        sourceX = powerSourceTile.X;
+		sourceY = powerSourceTile.Y;
 			
 		//Start algoritm
 		CarvePassagesFrom (sourceX, sourceY, info.Width, info.Height, visited, tilemap);
