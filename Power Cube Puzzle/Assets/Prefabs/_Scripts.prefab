@@ -451,6 +451,8 @@ MonoBehaviour:
   - width: 2
     height: 3
   - width: 2
+    height: 3
+  - width: 2
     height: 4
   - width: 2
     height: 4
@@ -459,16 +461,28 @@ MonoBehaviour:
   - width: 3
     height: 4
   - width: 3
-    height: 5
+    height: 4
+  - width: 4
+    height: 4
   - width: 4
     height: 5
   - width: 4
     height: 5
-  - width: 4
+  - width: 5
+    height: 6
+  - width: 5
+    height: 6
+  - width: 5
     height: 6
   - width: 5
     height: 7
-  - width: 6
+  - width: 5
+    height: 7
+  - width: 5
+    height: 7
+  - width: 5
+    height: 8
+  - width: 5
     height: 8
 --- !u!114 &114006710973604382
 MonoBehaviour:
@@ -608,6 +622,7 @@ MonoBehaviour:
   uiManager: {fileID: 114587193408082878}
   playerInput: {fileID: 114006710973604382}
   levelCollection: {fileID: 114000221235022324}
+  LevelCount: 0
 --- !u!114 &114974869936439768
 MonoBehaviour:
   m_ObjectHideFlags: 1
