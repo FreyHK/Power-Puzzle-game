@@ -71,7 +71,39 @@ public class TileGrid {
 			//Get source position from generator
 			PowerSource = Tiles [generator.sourceX, generator.sourceY];
 		} else {
-			Debug.LogError ("Not implemented yet!");
+
+            for (int x = 0; x < info.Width; x++)
+            {
+                for (int y = 0; y < info.Height; y++)
+                {
+                    Tiles[x, y].SetTileType(info.Tiles[x, y]);
+                }
+            }
+
+            for (int x = 0; x < info.Width; x++)
+            {
+                for (int y = 0; y < info.Height; y++)
+                {
+                    TileType type = info.Tiles[x, y];
+                    Tile t = Tiles[x, y];
+                    
+                    if (type != TileType.Empty)
+                    {
+                        //Connect neighbors
+                        for (int i = 0; i < 4; i++)
+                        {
+                            //Should we put an outlet to this tile? (Is it wire, lamp or a source?)
+                            if (t.neighbors[i] != null && t.neighbors[i].tileType != TileType.Empty)
+                            {
+                                t.outlets[i] = true;
+                            }
+                        }
+                    }
+
+                    if (type == TileType.PowerSource)
+                        PowerSource = t;
+                }
+            }
 		}
 	}
 

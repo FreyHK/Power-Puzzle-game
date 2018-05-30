@@ -34,7 +34,10 @@ public class WorldController : MonoBehaviour {
 	/// Creates and starts a level based on LevelInfo data.
 	/// </summary>
 	public void InitializeLevel (LevelInfo levelInfo) {
-		currentLevel = levelInfo;
+        //TESTING
+        levelInfo = new LevelInfo(0);
+
+        currentLevel = levelInfo;
 		levelEnded = false;
 
 		//Setup values
@@ -45,8 +48,9 @@ public class WorldController : MonoBehaviour {
 		background.size = new Vector2(levelInfo.Width + 1f, levelInfo.Height + 1f);
 		background.enabled = true;
 
-		//Create grid (generates level too)
-		tileGrid = new TileGrid (levelInfo);
+        //Create grid (generates level too)
+        tileGrid = new TileGrid (levelInfo);
+
         if (tileGrid.Lamps.Length == 0) {
             //No lamps, try again
             InitializeLevel(levelInfo);
