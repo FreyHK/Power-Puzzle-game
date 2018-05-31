@@ -34,9 +34,6 @@ public class WorldController : MonoBehaviour {
 	/// Creates and starts a level based on LevelInfo data.
 	/// </summary>
 	public void InitializeLevel (LevelInfo levelInfo) {
-        //TESTING
-        levelInfo = new LevelInfo(0);
-
         currentLevel = levelInfo;
 		levelEnded = false;
 

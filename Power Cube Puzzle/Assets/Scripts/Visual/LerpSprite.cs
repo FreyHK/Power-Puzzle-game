@@ -2,30 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LerpSprite : MonoBehaviour {
+public class LerpSprite : MonoBehaviour
+{
 
-	public SpriteRenderer sprite;
+    SpriteRenderer sprite;
 
-	Color lastColor;
-	Color targetColor;
+    Color lastColor;
+    Color targetColor;
 
-	public void SetHidden (bool hidden) {
-		if (hidden) {
-			lastColor = sprite.color;
-			targetColor = Color.clear;
-		} else {
-			targetColor = lastColor;
-		}
-	}
+    private void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
-	public void SetColor (Color c) {
-		targetColor = c;
-	}
+    public void SetHidden(bool hidden)
+    {
+        if (hidden)
+        {
+            lastColor = sprite.color;
+            targetColor = Color.clear;
+        }
+        else
+        {
+            targetColor = lastColor;
+        }
+    }
 
-	void Update () {
-		
-		if (sprite.color != targetColor) {
-			sprite.color = Color.Lerp (sprite.color, targetColor, Time.deltaTime * 15f);
-		}
-	}
+    public void SetColor(Color c)
+    {
+        targetColor = c;
+    }
+
+    void Update()
+    {
+
+        if (sprite.color != targetColor)
+        {
+            sprite.color = Color.Lerp(sprite.color, targetColor, Time.deltaTime * 15f);
+        }
+    }
 }

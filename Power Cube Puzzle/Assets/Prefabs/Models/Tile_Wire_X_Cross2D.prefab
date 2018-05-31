@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183937543844246}
   - component: {fileID: 212127628875848838}
-  - component: {fileID: 114652275737460440}
+  - component: {fileID: 114859255260587254}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -69,8 +69,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4091826339723886}
   - component: {fileID: 212284446234263786}
+  - component: {fileID: 114986562117862860}
   - component: {fileID: 114518033315182836}
-  - component: {fileID: 114669371334260746}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -173,18 +173,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSprites:
   - sprite: {fileID: 212127628875848838}
-    lerpSprite: {fileID: 114652275737460440}
+    lerpSprite: {fileID: 114859255260587254}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   shadowSprites:
-  - sprite: {fileID: 0}
-    lerpSprite: {fileID: 114669371334260746}
+  - sprite: {fileID: 212284446234263786}
+    lerpSprite: {fileID: 114986562117862860}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
-  sparkParticles: {fileID: 0}
---- !u!114 &114652275737460440
+  gameoverSparks: {fileID: 0}
+--- !u!114 &114859255260587254
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -192,11 +192,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1153187068828734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 212127628875848838}
---- !u!114 &114669371334260746
+--- !u!114 &114986562117862860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -204,10 +203,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1891109024281620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 212284446234263786}
 --- !u!212 &212127628875848838
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -221,6 +219,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -265,6 +264,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
