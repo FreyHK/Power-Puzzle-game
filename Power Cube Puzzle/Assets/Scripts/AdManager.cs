@@ -5,8 +5,10 @@ using UnityEngine.Advertisements;
 
 public class AdManager : MonoBehaviour {
 
-	void Start () {
-		cooldown = PlayerPrefs.GetFloat ("AdCooldown", 200f);
+    const float AdWaitTime = 200f;
+
+    void Start () {
+        cooldown = PlayerPrefs.GetFloat ("AdCooldown", AdWaitTime);
 	}
 	
 	float cooldown = 0;
@@ -18,7 +20,7 @@ public class AdManager : MonoBehaviour {
 	public void TryShowAd () {
 		if (cooldown <= 0 && Advertisement.IsReady ()) {
 			Advertisement.Show ();
-			cooldown = 200f;
+			cooldown = AdWaitTime;
 		}
 	}
 }
