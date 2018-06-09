@@ -16,7 +16,7 @@ public class TileGrid {
 		this.Width = info.Width;
 		this.Height = info.Height;
 
-		//Make and fill tilemap
+		//Make and fill array
 		Tiles = new Tile[Width, Height];
 		for (int x = 0; x < Width; x++) {
 			for (int y = 0; y < Height; y++) {
@@ -45,7 +45,7 @@ public class TileGrid {
 		}
 
 		FillMap (info);
-		ScrambleTileRotations ();
+		ScrambleTileRotations (info.RotationIgnore);
 
 		//Add lamp tiles to list, so they can be used by worldcontroller
 		List<Tile> lampList = new List<Tile>();
@@ -71,16 +71,51 @@ public class TileGrid {
 			//Get source position from generator
 			PowerSource = Tiles [generator.sourceX, generator.sourceY];
 		} else {
-			Debug.LogError ("Not implemented yet!");
+
+            for (int x = 0; x < info.Width; x++)
+            {
+                for (int y = 0; y < info.Height; y++)
+                {
+                    Tiles[x, y].SetTileType(info.Tiles[x, y]);
+                }
+            }
+
+            for (int x = 0; x < info.Width; x++)
+            {
+                for (int y = 0; y < info.Height; y++)
+                {
+                    TileType type = info.Tiles[x, y];
+                    Tile t = Tiles[x, y];
+                    
+                    if (type != TileType.Empty)
+                    {
+                        //Connect neighbors
+                        for (int i = 0; i < 4; i++)
+                        {
+                            //Should we put an outlet to this tile? (Is it wire, lamp or a source?)
+                            if (t.neighbors[i] != null && t.neighbors[i].tileType != TileType.Empty)
+                            {
+                                t.outlets[i] = true;
+                            }
+                        }
+                    }
+
+                    if (type == TileType.PowerSource)
+                        PowerSource = t;
+                }
+            }
 		}
 	}
 
-	void ScrambleTileRotations () {
+	void ScrambleTileRotations (bool[,] ignore) {
 		//Rotate tiles randomly
 		for (int x = 0; x < Width; x++) {
 			for (int y = 0; y < Height; y++) {
 				//Don't rotate powersources
-				if (Tiles [x, y].tileType == TileType.PowerSource || Tiles [x, y].tileType == TileType.Lamp)
+				if (Tiles [x, y].tileType == TileType.PowerSource || 
+                    Tiles [x, y].tileType == TileType.Lamp || 
+                    ignore != null && ignore[x, y] == true)
+
 					continue;
 
 				WireShape shape = TileMetrics.GetWireShape (Tiles[x, y].outlets);

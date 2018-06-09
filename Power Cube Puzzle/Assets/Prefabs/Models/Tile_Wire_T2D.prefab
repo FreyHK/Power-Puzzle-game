@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4909925665136204}
   - component: {fileID: 212180762140333866}
-  - component: {fileID: 114144522931688048}
+  - component: {fileID: 114818063648060844}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -37,8 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4640603468413712}
   - component: {fileID: 212821574114947450}
+  - component: {fileID: 114440636578721668}
   - component: {fileID: 114486065235470598}
-  - component: {fileID: 114157393309477604}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
@@ -157,19 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da6fe7a3db362ef44a234a983568ccbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114144522931688048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1262822852357594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 212180762140333866}
---- !u!114 &114157393309477604
+--- !u!114 &114440636578721668
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -177,10 +165,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1271566343809530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddc00605b4d48148aedd32a629753a1, type: 3}
+  m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 212821574114947450}
 --- !u!114 &114486065235470598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,18 +196,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainSprites:
-  - sprite: {fileID: 0}
-    lerpSprite: {fileID: 114144522931688048}
+  - sprite: {fileID: 212180762140333866}
+    lerpSprite: {fileID: 114818063648060844}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   shadowSprites:
-  - sprite: {fileID: 0}
-    lerpSprite: {fileID: 114157393309477604}
+  - sprite: {fileID: 212821574114947450}
+    lerpSprite: {fileID: 114440636578721668}
     useDefaultColors: 1
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
-  sparkParticles: {fileID: 0}
+  gameoverSparks: {fileID: 0}
+--- !u!114 &114818063648060844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262822852357594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212180762140333866
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -234,6 +232,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -278,6 +277,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

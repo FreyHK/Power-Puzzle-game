@@ -121,10 +121,9 @@ public class TileController : MonoBehaviour {
                 currentTileRotating.IsRotating = false;
 
                 tileGrid.UpdateTilePower();
-
-                int c = currentTileRotating.GetConnectedNeighbors().Length;
+                
                 //Play sound(s)
-                for (int i = 0; i < c; i++) {
+                if (currentTileRotating.GetConnectedNeighbors().Length > 0) {
                    SoundManager.Instance.Play("SwitchTile");
                 }
 
