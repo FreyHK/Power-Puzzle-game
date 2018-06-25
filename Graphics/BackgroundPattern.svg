@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="BackgroundPattern.svg"
+   inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+   inkscape:export-xdpi="65.024002"
+   inkscape:export-ydpi="65.024002">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="263.27806"
+     inkscape:cy="156.23038"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4495" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:#666666;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       id="rect3680"
+       width="100"
+       height="100"
+       x="4.5563601e-007"
+       y="197"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002" />
+    <path
+       style="fill:none;stroke:#787878;stroke-width:3;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       d="m 7.5595235,235.0119 5.2916665,5.29166 h 26.458333"
+       id="path4497"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499"
+       cx="7.671669"
+       cy="234.58156"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+    <path
+       style="fill:none;stroke:#787878;stroke-width:3;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       d="m 47.247024,211.76637 h 18.520833 l 7.937499,5.29167 v 39.68749 l 5.291667,5.29167"
+       id="path4516"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002" />
+    <path
+       style="fill:none;stroke:#787878;stroke-width:3;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       d="m 63.311011,281.69197 -5.291667,5.29166 h -23.8125 V 276.4003 l -5.291666,-5.29167"
+       id="path4548"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499-4"
+       cx="38.931545"
+       cy="240.30357"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499-3"
+       cx="28.348213"
+       cy="271.10864"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499-0"
+       cx="63.877972"
+       cy="281.314"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499-0-8"
+       cx="80.508926"
+       cy="263.5491"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+    <circle
+       style="opacity:1;fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:2.78659582;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:square"
+       id="path4499-0-0"
+       cx="48.002979"
+       cy="212.14435"
+       inkscape:export-filename="D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle\Assets\Graphics\Background\BackgroundBattern.png"
+       inkscape:export-xdpi="65.024002"
+       inkscape:export-ydpi="65.024002"
+       r="2.6067021" />
+  </g>
+</svg>
