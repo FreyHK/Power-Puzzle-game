@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 0
-  controlID: 4786
+  controlID: 49
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 606, y: 492}
   m_MaxSize: {x: 12006, y: 14042}
   vertical: 1
-  controlID: 4765
+  controlID: 112
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_MinSize: {x: 606, y: 221}
   m_MaxSize: {x: 12006, y: 4021}
   vertical: 0
-  controlID: 4766
+  controlID: 113
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -315,15 +315,15 @@ MonoBehaviour:
   m_MaximizeOnPlay: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 00000000000000000e00000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 00000000000000000900000000000000000000000000000000000000000000000000000000000000
   m_TargetDisplay: 0
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
-    m_HBaseRangeMin: -562.5
-    m_HBaseRangeMax: 562.5
-    m_VBaseRangeMin: -1218
-    m_VBaseRangeMax: 1218
+    m_HBaseRangeMin: -178.33334
+    m_HBaseRangeMax: 178.33334
+    m_VBaseRangeMin: -267.5
+    m_VBaseRangeMax: 267.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -342,7 +342,7 @@ MonoBehaviour:
       y: 17
       width: 522
       height: 535
-    m_Scale: {x: 0.21962231, y: 0.21962233}
+    m_Scale: {x: 1, y: 1}
     m_Translation: {x: 261, y: 267.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -350,12 +350,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1188.4038
-      y: -1218
-      width: 2376.8076
-      height: 2436
+      x: -261
+      y: -267.5
+      width: 522
+      height: 535
     m_MinimalGUI: 1
-  m_defaultScale: 0.21962233
+  m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
   m_LastWindowPixelSize: {x: 522, y: 552}
@@ -391,7 +391,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 385bfffff0fbffff000000000e3700002e37000036370000
+    m_ExpandedIDs: 34fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -636,20 +636,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Graphics
+    - Assets/TextMesh Pro
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Graphics
+  - Assets/TextMesh Pro
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 80300000
-    m_LastClickedID: 12416
-    m_ExpandedIDs: 00000000c22b0000ca2b0000de2d00009a2e0000fe30000040310000de390000e0390000e2390000e4390000ffffff7f
+    m_SelectedIDs: 74350000
+    m_LastClickedID: 13684
+    m_ExpandedIDs: 00000000082c0000102c0000222e0000dc2e00003e31000080310000403a0000423a0000443a0000463a0000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -677,7 +677,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c22b0000ca2b0000de2d00009a2e0000fe30000040310000de390000e0390000e2390000e4390000ffffff7f
+    m_ExpandedIDs: 00000000082c0000102c0000222e0000dc2e00003e31000080310000403a0000423a0000443a0000463a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
