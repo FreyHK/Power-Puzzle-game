@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 114722641266998110}
   - component: {fileID: 65729020469088570}
   - component: {fileID: 114035286753915576}
+  - component: {fileID: 95911250827321070}
   m_Layer: 0
   m_Name: Tile_Wire_T2D
   m_TagString: Untagged
@@ -146,6 +147,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.65, y: 0.95, z: 1}
   m_Center: {x: -0.15, y: 0, z: 0}
+--- !u!95 &95911250827321070
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389655792239542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccb9702028e363541bf66edaeb813202, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114035286753915576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +227,9 @@ MonoBehaviour:
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   gameoverSparks: {fileID: 0}
+  anim: {fileID: 95911250827321070}
+  graphics: {fileID: 4468120465105242}
+  IsRotating: 0
 --- !u!114 &114818063648060844
 MonoBehaviour:
   m_ObjectHideFlags: 1

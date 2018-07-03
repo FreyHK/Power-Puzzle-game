@@ -7,7 +7,7 @@ public class TileController : MonoBehaviour {
 	[SerializeField] TilePrefabManager prefabManager;
 	[SerializeField] TileColorData tileColors;
 
-	Dictionary<Tile, TileColorController> tileGameObjects = new Dictionary<Tile, TileColorController>();
+	Dictionary<Tile, TileVisualController> tileGameObjects = new Dictionary<Tile, TileVisualController>();
 
 	public void CreateTiles (TileGrid tileGrid, Transform environmentRoot) {
 		ClearTileGameObjects ();
@@ -26,12 +26,10 @@ public class TileController : MonoBehaviour {
 					continue;
 
 				Transform t = Instantiate (prefab, environmentRoot);
-				t.position = new Vector3 (x - halfWidth, y - halfHeight, 0f);
+				t.localPosition = new Vector3 (x - halfWidth, y - halfHeight, 0f);
+                
 
-				//Match transform rotation with tile rotation
-				t.rotation = Quaternion.Euler(0f, 0f, TileMetrics.GetWireRotation(tile.outlets));
-
-				TileColorController colorController = t.GetComponentInChildren<TileColorController>();
+                TileVisualController colorController = t.GetComponentInChildren<TileVisualController>();
 				if (colorController != null) {
 					colorController.Initialize (tileColors, tile);
 					tileGameObjects.Add (tile, colorController);
@@ -44,23 +42,20 @@ public class TileController : MonoBehaviour {
 		//Clear old level
 		if (tileGameObjects != null) {
 			//Destroy gameobjects
-			foreach (KeyValuePair<Tile, TileColorController> pair in tileGameObjects) {
+			foreach (KeyValuePair<Tile, TileVisualController> pair in tileGameObjects) {
 				GameObject go = pair.Value.transform.gameObject;
 				Destroy (go);
 			}
 			//Clear gameObject data (We will be creating new gameobjects)
 			tileGameObjects.Clear ();
 		}
-	}
+        currentTileRotating = null;
+    }
 
-	public void UpdateTileVisuals (TileGrid grid) {
+	public void UpdateTileColors (TileGrid grid) {
 		for (int x = 0; x < grid.Width; x++) {
 			for (int y = 0; y < grid.Height; y++) {
 				Tile tile = grid.Tiles [x, y];
-
-				//Gameobject might not exist (empty tiles)
-				if (!tileGameObjects.ContainsKey (tile))
-					continue;
 
 				//Colors of wires
 				if (tileGameObjects.ContainsKey(tile)) {
@@ -70,24 +65,24 @@ public class TileController : MonoBehaviour {
 		}
 	}
 
-	Queue<Tile> tileTargetRotations = new Queue<Tile>();
+    Queue<Tile> toRotate = new Queue<Tile>();
 	Tile currentTileRotating = null;
 
 	float tileRotateSpeed = 360;
 
 	public void RotateTile (Tile t) {
 		if (tileGameObjects.ContainsKey (t)) {
-			tileTargetRotations.Enqueue (t);
+            toRotate.Enqueue (t);
             //Play sound
             SoundManager.Instance.Play("RotateTile");
         } else
 			Debug.LogError ("Tile doesn't exist in dictionary");
 	}
 
-	public void UpdateTiles (TileGrid tileGrid) {
-		if (currentTileRotating == null && tileTargetRotations.Count > 0) {
+	public void OnUpdateBoard (TileGrid tileGrid) {
+		if (currentTileRotating == null && toRotate.Count > 0) {
 			//Get a new tile
-			currentTileRotating = tileTargetRotations.Dequeue ();
+			currentTileRotating = toRotate.Dequeue ();
 
 			//Rotate tile at point
 			currentTileRotating.Rotate(true);
@@ -97,26 +92,14 @@ public class TileController : MonoBehaviour {
 
 			tileGrid.UpdateTilePower ();
 
-			//Update visuals
-			UpdateTileVisuals(tileGrid);
+			//Update color
+			UpdateTileColors(tileGrid);
+
+            //Rotate visuals
+            tileGameObjects[currentTileRotating].Rotate();
 		}
-		if (currentTileRotating != null) {
-			if (!tileGameObjects.ContainsKey (currentTileRotating)) {
-				currentTileRotating = null;
-				return;
-			}
-
-			Quaternion target = Quaternion.Euler (0f, 0f, TileMetrics.GetWireRotation (currentTileRotating.outlets));
-			Transform t = tileGameObjects [currentTileRotating].transform;
-
-			//If we aren't at target rotation yet
-			if (Quaternion.Angle (t.rotation, target) > .5f) {
-				t.rotation = Quaternion.RotateTowards (t.rotation, target, tileRotateSpeed * Time.deltaTime);
-			} else {
-
-                //Set to exact rotation
-                t.rotation = target;
-
+		if (currentTileRotating != null && tileGameObjects[currentTileRotating].IsRotating == false) {
+            
                 //Mark not rotating (makes sure it can pass power on)
                 currentTileRotating.IsRotating = false;
 
@@ -130,12 +113,13 @@ public class TileController : MonoBehaviour {
                 //Set current tile to null to mark that we need a new one
                 currentTileRotating = null;
 
-                UpdateTileVisuals(tileGrid);
-            }
-		}
-	}
+                UpdateTileColors(tileGrid);
 
+                currentTileRotating = null;
+        }
+	}
+    
 	public bool IsRotatingTiles () {
-		return tileTargetRotations.Count > 0;
+		return toRotate.Count > 0 || currentTileRotating != null;
 	}
 }

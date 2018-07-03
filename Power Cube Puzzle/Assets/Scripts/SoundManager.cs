@@ -42,8 +42,10 @@ public class SoundManager : MonoBehaviour {
 
     void UpdateSound()
     {
-        MusicSource.mute = !musicOn;
-        MasterSource.mute = !soundOn;
+        if (MusicSource != null)
+            MusicSource.mute = !musicOn;
+        if (MasterSource != null)
+            MasterSource.mute = !soundOn;
 
         musicToggleImage.sprite = musicToggleSprites[musicOn ? 0 : 1];
         soundToggleImage.sprite = soundToggleSprites[soundOn ? 0 : 1];
