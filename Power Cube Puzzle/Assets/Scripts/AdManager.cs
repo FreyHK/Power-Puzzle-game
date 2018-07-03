@@ -11,12 +11,11 @@ public class AdManager : MonoBehaviour {
     #elif UNITY_ANDROID
     private string gameId = "1735020";
     #endif
-
-
+    
     public const float AdWaitTime = 200f;
 
     void Start() {
-	if (Advertisement.isSupported) {
+	    if (Advertisement.isSupported) {
             Advertisement.Initialize (gameId, true);
         }
         cooldown = (float)PlayerPrefs.GetInt("AdCooldown", 0);
