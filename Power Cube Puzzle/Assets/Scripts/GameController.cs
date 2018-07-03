@@ -74,7 +74,6 @@ public class GameController : MonoBehaviour {
 	public void StartNextLevel () {
 		GameOver = false;
 		CurrentLevelTime = 0f;
-		LevelCount++;
 		curLevel = levelCollection.GetLevel (LevelCount);
 		worldController.InitializeLevel (curLevel);
 	}
@@ -88,7 +87,8 @@ public class GameController : MonoBehaviour {
 	//Player finished a level
 	void OnLevelComplete (Notification note) {
 		curLevel = null;
-		GameOver = true;
+        GameOver = true;
+        LevelCount++;
 	}
 
 	//Player quit a level
