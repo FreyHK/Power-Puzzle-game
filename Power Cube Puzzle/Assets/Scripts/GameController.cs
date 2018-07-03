@@ -38,9 +38,20 @@ public class GameController : MonoBehaviour {
 
 		uiManager.Initialize ();
 		cameraController.Initialize ();
+
+        LevelCount = PlayerPrefs.GetInt("CurrentLevelIndex", 0);
 	}
 
-	void Update () {
+    private void OnDestroy() {
+        PlayerPrefs.SetInt("CurrentLevelIndex", LevelCount);
+    }
+
+    public void ClearSaveData () {
+        PlayerPrefs.SetInt("CurrentLevelIndex", 0);
+        LevelCount = 0;
+    }
+
+    void Update () {
 		if (curLevel != null) {
 			worldController.UpdateBoard ();
 			CurrentLevelTime += Time.deltaTime;
@@ -48,7 +59,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public LevelInfo curLevel;
-	public int LevelCount = 0;
+	public int LevelCount;
 
 	public static float CurrentLevelTime;
 	public static bool GameOver = false;

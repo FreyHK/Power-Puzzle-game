@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 114841513450331570}
   - component: {fileID: 65111401933290508}
   - component: {fileID: 114111907212369202}
+  - component: {fileID: 95055446655651614}
   m_Layer: 0
   m_Name: Tile_Wire_L2D
   m_TagString: Untagged
@@ -99,7 +100,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022553499408584}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -107,7 +108,7 @@ Transform:
   - {fileID: 4604937914280110}
   m_Father: {fileID: 4120109429044832}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!4 &4329351827179222
 Transform:
   m_ObjectHideFlags: 1
@@ -146,6 +147,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.95, y: 0.95, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &95055446655651614
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1320775968491900}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccb9702028e363541bf66edaeb813202, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114111907212369202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,6 +222,9 @@ MonoBehaviour:
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   gameoverSparks: {fileID: 0}
+  anim: {fileID: 95055446655651614}
+  graphics: {fileID: 4221337799628858}
+  IsRotating: 0
 --- !u!114 &114843519191021310
 MonoBehaviour:
   m_ObjectHideFlags: 1

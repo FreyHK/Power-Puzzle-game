@@ -71,11 +71,11 @@ public static class TileMetrics {
 			}
 			break;
 		}
-		//There is no case for cross and empty (not necessary)
+        //There is no case for cross and empty (not necessary)
 
-		//Negative rotation for some reason (I'm not sure why)
-		return -90f * orientation;
-	}
+        //Negative rotation for some reason (I'm not sure why)
+        return -90f * orientation;
+    }
 
 	public static bool[] EmptyOutlets () {
 		bool[] outlets = new bool[4];

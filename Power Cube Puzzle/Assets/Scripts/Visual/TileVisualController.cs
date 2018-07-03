@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Also does other shit than control colour.
 /// </summary>
-public class TileColorController : MonoBehaviour {
+public class TileVisualController : MonoBehaviour {
 
 	[System.Serializable]
 	public class SpriteColor
@@ -21,20 +21,31 @@ public class TileColorController : MonoBehaviour {
 	[SerializeField] SpriteColor[] shadowSprites;
 	[SerializeField] ParticleSystem gameoverSparks;
 
+    //Color
 	Color defaultLitColor;
 	Color defaultUnlitColor;
 	Color defaultLitHighlightColor;
 	Color defaultUnlitHighlightColor;
 
-	Tile tile;
+    //Rotating
+    public Animator anim;
+    public Transform graphics;
+
+    Tile tile;
 
 	public void Initialize (TileColorData tileColors, Tile tile) {
 		this.tile = tile;
+        //Color
 		this.defaultLitColor = tileColors.litWireColor;
 		this.defaultUnlitColor = tileColors.unlitWireColor;
 		this.defaultLitHighlightColor = tileColors.litHighlightColor;
 		this.defaultUnlitHighlightColor = tileColors.shadowColor;
-	}
+
+        //Rotation
+        //Match transform rotation with tile rotation
+        if (graphics != null)
+            graphics.rotation = Quaternion.Euler(0f, 0f, TileMetrics.GetWireRotation(tile.outlets));
+    }
 
     bool isPowered = false;
 
@@ -62,8 +73,32 @@ public class TileColorController : MonoBehaviour {
         isPowered = powered;
 	}
 
-	void Update () {
+    public bool IsRotating = false;
+
+    float cooldown;
+
+    void Update () {
 		if (tile.tileType == TileType.Lamp && GameController.GameOver && !gameoverSparks.isPlaying)
 			gameoverSparks.Play ();
-	}
+
+        if (IsRotating) {
+            cooldown -= Time.deltaTime;
+            if (cooldown <= 0f)
+                IsRotating = false;
+
+        } else if (Input.GetKeyDown(KeyCode.Space))
+            Rotate();
+
+    }
+
+    //Rotates counter-clockwise
+    public void Rotate() {
+        IsRotating = true;
+        cooldown = .5f;
+
+        //Rotate graphics
+        graphics.Rotate(0f, 0f, 90f);
+        //Start animation
+        anim.SetTrigger("Rotate");
+    }
 }

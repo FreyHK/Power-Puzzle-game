@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 114788094893386038}
   - component: {fileID: 65784427663016280}
   - component: {fileID: 114980907969102042}
+  - component: {fileID: 95009661632292810}
   m_Layer: 0
   m_Name: Tile_Wire_I_Bridge2D
   m_TagString: Untagged
@@ -146,6 +147,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &95009661632292810
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1776852499101670}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccb9702028e363541bf66edaeb813202, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114486767999729102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,7 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
 --- !u!114 &114506688384707944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3224831ecebf940830b094c8e2a11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
 --- !u!114 &114788094893386038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,6 +211,9 @@ MonoBehaviour:
     litColor: {r: 0, g: 0, b: 0, a: 0}
     unlitColor: {r: 0, g: 0, b: 0, a: 0}
   gameoverSparks: {fileID: 0}
+  anim: {fileID: 95009661632292810}
+  graphics: {fileID: 4633356835704384}
+  IsRotating: 0
 --- !u!114 &114980907969102042
 MonoBehaviour:
   m_ObjectHideFlags: 1

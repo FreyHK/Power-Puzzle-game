@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
 		cam.orthographicSize = size + size * zoomedOutPercentage;
 			
 		//We want to zoom in
-		LerpToViewSize(size, .75f);
+		LerpToViewSize(size, 2.5f);
 	}
 
 	void OnLevelComplete (Notification note) {

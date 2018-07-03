@@ -28,7 +28,9 @@ public class WorldController : MonoBehaviour {
 		this.tileController = tileController;
 		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.Input_OnWorldClick);
 		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.OnLevelComplete);
-	}
+
+        background.enabled = false;
+    }
 
 	/// <summary>
 	/// Creates and starts a level based on LevelInfo data.
@@ -58,7 +60,7 @@ public class WorldController : MonoBehaviour {
 
 		//Setup board
 		tileController.CreateTiles (tileGrid, environmentRoot);
-		tileController.UpdateTileVisuals (tileGrid);
+		tileController.UpdateTileColors (tileGrid);
 
 		//Event Callback
 		Hashtable data = new Hashtable() {
@@ -88,7 +90,7 @@ public class WorldController : MonoBehaviour {
 		if (tileGrid == null)
 			return;
 
-		tileController.UpdateTiles (tileGrid);
+		tileController.OnUpdateBoard(tileGrid);
 		CheckForVictory ();
 	}
 
@@ -149,7 +151,7 @@ public class WorldController : MonoBehaviour {
 		tileController.RotateTile(hit);
 	}
 
-/*	//Debugging grid in scene window (Don't remove its really useful)
+	//Debugging grid in scene window (Don't remove its really useful)
 	bool debug = true;
 
 	void OnDrawGizmos () {
@@ -187,5 +189,5 @@ public class WorldController : MonoBehaviour {
 				}
 			}
 		}
-	}*/
+	}
 }
