@@ -6,15 +6,12 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour {
 
-	[SerializeField] PanelAnimator anim;
+    [SerializeField] SaveDataManager saveData;
+    [SerializeField] PanelAnimator anim;
     [SerializeField] TextMeshProUGUI headerText;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] GameObject nextButton;
 
-    void Start () {
-		
-	}
-	
 	void Update () {
 		if (!GameController.GameOver)
 			UpdateTimer ();
@@ -35,10 +32,10 @@ public class PauseMenu : MonoBehaviour {
 	public void Toggle (bool nextLevel) {
         //Change text depending on game context
         if (nextLevel) {
-            headerText.text = "Level " + (GameController.Instance.LevelCount + 1).ToString() + " Completed!";
+            headerText.text = "Level " + (saveData.GetLevelIndex()).ToString() + " Completed!";
             nextButton.SetActive(true);
         } else {
-            headerText.text = "Level " + (GameController.Instance.LevelCount + 1).ToString();
+            headerText.text = "Level " + (saveData.GetLevelIndex() + 1).ToString();
             nextButton.SetActive(false);
         }
 

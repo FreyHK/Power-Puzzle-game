@@ -19,15 +19,13 @@ public class WorldController : MonoBehaviour {
 	float halfGridHeight;
 
 	LevelInfo currentLevel;
-	bool levelEnded = false;
+	public bool levelEnded { get; private set; }
 
 	/// <summary>
 	/// Sets up callbacks
 	/// </summary>
 	public void Initialize (TileController tileController) {
 		this.tileController = tileController;
-		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.Input_OnWorldClick);
-		NotificationCenter.DefaultCenter.AddObserver (this, NotificationMessage.OnLevelComplete);
 
         background.enabled = false;
     }
@@ -61,18 +59,6 @@ public class WorldController : MonoBehaviour {
 		//Setup board
 		tileController.CreateTiles (tileGrid, environmentRoot);
 		tileController.UpdateTileColors (tileGrid);
-
-		//Event Callback
-		Hashtable data = new Hashtable() {
-			{ "level", levelInfo },
-			{ "tileGrid", tileGrid }
-		};
-		NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
-
-		//Stop all previous invokes
-		CancelInvoke ();
-		timeSinceLevelStart = 0;
-		InvokeRepeating ("GridUpdate", 0f, 1f);
 	}
 
 	public void DestroyLevel () {
@@ -82,30 +68,12 @@ public class WorldController : MonoBehaviour {
 		tileController.ClearTileGameObjects ();
 	}
 
-	void OnLevelComplete () {
-		
-	}
-
 	public void UpdateBoard () {
 		if (tileGrid == null)
 			return;
 
 		tileController.OnUpdateBoard(tileGrid);
 		CheckForVictory ();
-	}
-
-	int timeSinceLevelStart = 0;
-
-	void GridUpdate () {
-		if (tileGrid == null)
-			return;
-
-		Hashtable data = new Hashtable() {
-			{ "time", timeSinceLevelStart }
-		};
-		NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnGridUpdate, data);
-
-		timeSinceLevelStart++;
 	}
 
 	void CheckForVictory () {
@@ -125,18 +93,15 @@ public class WorldController : MonoBehaviour {
 			}
 			if (allLit && !levelEnded) {
 				levelEnded = true;
-
-				Hashtable data = new Hashtable () { { "level", currentLevel } };
-				NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.OnLevelComplete, data);
 			}
 		}
 	}
 
-	void Input_OnWorldClick (Notification note) {
-		Vector3 hitPoint = (Vector3)note.data ["point"];
+    //From input class
+	public void OnWorldClick (Vector3 point) {
 
-		int hitX = Mathf.RoundToInt(hitPoint.x + halfGridWidth);
-		int hitY = Mathf.RoundToInt(hitPoint.y + halfGridHeight);
+		int hitX = Mathf.RoundToInt(point.x + halfGridWidth);
+		int hitY = Mathf.RoundToInt(point.y + halfGridHeight);
 
 		Tile hit = tileGrid.Tiles [hitX, hitY];
 
@@ -152,7 +117,7 @@ public class WorldController : MonoBehaviour {
 	}
 
 	//Debugging grid in scene window (Don't remove its really useful)
-	bool debug = true;
+	bool debug = false;
 
 	void OnDrawGizmos () {
 		if (tileGrid == null || !debug)

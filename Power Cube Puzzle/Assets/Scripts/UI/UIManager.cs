@@ -41,12 +41,8 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     #region Button events
-    public void CurrentLevel () {
-		gameController.StartCurrentLevel ();
-	}
-
 	public void NextLevel () {
-		gameController.StartNextLevel ();
+		gameController.StartCurrentLevel ();
 	}
 
 	public void QuitLevel () {

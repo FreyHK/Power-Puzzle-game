@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TutorialController : MonoBehaviour {
-    
-	void Start () {
+
+    SaveDataManager saveData;
+
+    public void Init(SaveDataManager saveData) {
+        this.saveData = saveData;
+
         NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
         NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
 
@@ -24,7 +28,7 @@ public class TutorialController : MonoBehaviour {
     //Player starts a level
     void OnLevelStart(Notification note)
     {
-        i = GameController.Instance.LevelCount;
+        i = saveData.GetLevelIndex();
         //Check if tutorial for this level
 
         if (i < tutorials.Length)

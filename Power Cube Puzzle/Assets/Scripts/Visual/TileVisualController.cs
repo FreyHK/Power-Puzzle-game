@@ -86,19 +86,20 @@ public class TileVisualController : MonoBehaviour {
             if (cooldown <= 0f)
                 IsRotating = false;
 
-        } else if (Input.GetKeyDown(KeyCode.Space))
-            Rotate();
-
+        }
     }
 
     //Rotates counter-clockwise
     public void Rotate() {
         IsRotating = true;
         cooldown = .5f;
-
-        //Rotate graphics
-        graphics.Rotate(0f, 0f, 90f);
         //Start animation
         anim.SetTrigger("Rotate");
+    }
+
+    //Called from animation when it starts rotating
+    public void OnRotationStart () {
+        //Rotate graphics
+        graphics.Rotate(0f, 0f, 90f);
     }
 }
