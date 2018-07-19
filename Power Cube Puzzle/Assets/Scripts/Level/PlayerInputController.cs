@@ -6,6 +6,12 @@ using UnityEngine.EventSystems;
 
 public class PlayerInputController : MonoBehaviour {
 
+    WorldController worldController;
+
+    public void Init (WorldController worldController) {
+        this.worldController = worldController;
+    }
+
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			HandleMouseInput ();
@@ -19,9 +25,7 @@ public class PlayerInputController : MonoBehaviour {
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (ray, out hit)) {
-			Hashtable data = new Hashtable ();
-			data.Add ("point", hit.point);
-			NotificationCenter.DefaultCenter.PostNotification (this, NotificationMessage.Input_OnWorldClick, data);
-		}
+            worldController.OnWorldClick(hit.point);
+        }
 	}
 }

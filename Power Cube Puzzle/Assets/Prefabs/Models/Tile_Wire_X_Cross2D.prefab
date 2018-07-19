@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114637670663425184}
   - component: {fileID: 114104982149148604}
   - component: {fileID: 95021383878303044}
+  - component: {fileID: 65500774297998264}
   m_Layer: 0
   m_Name: Tile_Wire_X_Cross2D
   m_TagString: Untagged
@@ -134,6 +135,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65500774297998264
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1278903152293584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.95, y: 0.95, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95021383878303044
 Animator:
   serializedVersion: 3

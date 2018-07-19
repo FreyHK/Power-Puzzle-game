@@ -5,7 +5,7 @@ using TMPro;
 
 public class LevelNumberText : MonoBehaviour {
 
-    public GameController GameController;
+    public SaveDataManager saveData;
 
     public TextMeshPro text;
 
@@ -16,7 +16,7 @@ public class LevelNumberText : MonoBehaviour {
 
     void OnLevelStart () {
         text.enabled = true;
-        text.text = (GameController.LevelCount + 1).ToString();
+        text.text = (saveData.GetLevelIndex() + 1).ToString();
     }
 
     void OnLevelComplete () {
