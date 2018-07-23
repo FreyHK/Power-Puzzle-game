@@ -18,13 +18,9 @@ public class Tile {
 
 	public bool IsRotating;
 
-	//Maybe make an enum (in case of other additions)
-	public bool IsTimedTile;
-
-	public Tile (int X, int Y, bool timedTile = false) {
+	public Tile (int X, int Y) {
 		this.X = X;
 		this.Y = Y;
-		this.IsTimedTile = timedTile;
 		tileType = TileType.Empty;
 		outlets = TileMetrics.EmptyOutlets ();
 	}

@@ -7,22 +7,26 @@ using UnityEngine;
 /// </summary>
 public class LevelCollection : MonoBehaviour {
 
-	[System.Serializable]
+
+    public const int minLevelWidth = 2;
+    public const int minLevelHeight = 3;
+    public const int maxLevelWidth = 7;
+    public const int maxLevelHeight = 8;
+
+    [System.Serializable]
 	class LevelPreset {
+
 		[Range(LevelCollection.minLevelWidth, LevelCollection.maxLevelWidth)]
 		public int width = LevelCollection.minLevelWidth;
+
 		[Range(LevelCollection.minLevelHeight, LevelCollection.maxLevelHeight)]
 		public int height = LevelCollection.minLevelHeight;
+
+        public LevelPreset(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
 	}
-
-	public const int minLevelWidth = 2;
-	public const int minLevelHeight = 3;
-	public const int maxLevelWidth = 7;
-	public const int maxLevelHeight = 8;
-
-	[SerializeField] [Range(0f, 1f)] float timedTilePercentage = 0f;
-
-	[SerializeField] LevelPreset[] levels;
 
 	public LevelInfo GetLevel (int levelNumber) {
         if (levelNumber < LevelInfo.PresetCount)
@@ -31,33 +35,46 @@ public class LevelCollection : MonoBehaviour {
             return new LevelInfo(levelNumber);
         }
 
-        int i = Mathf.Clamp (levelNumber, 0, LevelInfo.PresetCount + levels.Length-1);
+        int i = Mathf.Clamp (levelNumber, 0, LevelInfo.PresetCount + levelPresets.Length-1);
 
 		//Just a number
 		float fillAmount = .8f;
 
 		//Clamp values
-		return new LevelInfo (levels [i].width, levels [i].height, fillAmount, timedTilePercentage);
+		return new LevelInfo (levelPresets[i].width, levelPresets[i].height, fillAmount);
 	}
 
-	//FIXME idk how to do hardcoded levels properly
-	/*
-	Symbols for tiles
+    LevelPreset[] levelPresets = new LevelPreset[] {
+        new LevelPreset(2, 3),
+        new LevelPreset(2, 3),
 
-	Bridge:
-	(-, |)
+        new LevelPreset(2, 4),
+        new LevelPreset(2, 4),
+        new LevelPreset(2, 4),
 
-	T shape:
-	(┬, ┤, ├, ┴)
+        new LevelPreset(3, 4),
+        new LevelPreset(3, 4),
+        new LevelPreset(3, 4),
 
-	Cross:
-	(┼)
+        new LevelPreset(4, 4),
+        new LevelPreset(4, 4),
+        new LevelPreset(4, 4),
 
-	L shape:
-	(┌, ┐, └, ┘)
+        new LevelPreset(4, 5),
+        new LevelPreset(4, 5),
+        new LevelPreset(4, 5),
 
-	Lamps (Arrow pointing to end where lamp is):
-	(←, ↑, →, ↓)
+        new LevelPreset(5, 5),
+        new LevelPreset(5, 5),
 
-	*/
+        new LevelPreset(5, 6),
+        new LevelPreset(5, 6),
+        new LevelPreset(5, 6),
+
+        new LevelPreset(5, 7),
+        new LevelPreset(5, 7),
+        new LevelPreset(5, 7),
+
+        new LevelPreset(5, 8)
+    };
 }
