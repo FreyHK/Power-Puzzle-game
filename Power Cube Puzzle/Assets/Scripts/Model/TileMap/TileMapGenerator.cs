@@ -101,25 +101,6 @@ public class TileMapGenerator {
 		CarvePassagesFrom (sourceX, sourceY, info.Width, info.Height, visited, tilemap);
 
 		tilemap[sourceX, sourceY].SetTileType(TileType.PowerSource);
-
-		//Find all wires
-		allTiles.Clear();
-		for (int x = 0; x < info.Width; x++) {
-			for (int y = 0; y < info.Height; y++) {
-				if (tilemap [x, y].tileType == TileType.Wire)
-					allTiles.Add (tilemap [x, y]);
-			}	
-		}
-
-		//Set timed tiles
-		int timedCount = (int)(tileCount * (info.TimedTileAmount));
-		for (int n = 0; n < timedCount; n++) {
-			if (allTiles.Count <= 0)
-				break;
-			Tile t = allTiles[Random.Range (0, allTiles.Count - 1)];
-			t.IsTimedTile = true;
-			allTiles.Remove (t);
-		}
 	}
 
 	void CarvePassagesFrom (int cx, int cy, int width, int height, bool[,] visited, Tile[,] tilemap) {
