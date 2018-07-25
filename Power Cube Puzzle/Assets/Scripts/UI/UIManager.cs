@@ -12,36 +12,33 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
 	[SerializeField] GameController gameController;
-	[SerializeField] AdManager adManager; 
 
 	[SerializeField] PauseMenu pauseMenu;
 
-	public void Initialize () {
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+    AdManager adManager;
+
+    public void Initialize (AdManager adManager) {
+        this.adManager = adManager;
 	}
 
     #region Game Events
-    void OnLevelStart (Notification note) {
+    public void LevelStart () {
 		pauseMenu.SetButtonEnabled(true);
 	}
 
-	void OnLevelComplete (Notification note) {
-		Invoke("ShowNextLevelUI", 2f);
+	public void LevelComplete () {
 		//Lock UI elements
 		pauseMenu.SetButtonEnabled(false);
-	}
+        pauseMenu.SetOpen(true, true);
 
-	void ShowNextLevelUI () {
-		pauseMenu.Toggle(true);
-
-		//Maybe show ad
-		adManager.TryShowAd();
-	}
+        //Show ad
+        adManager.TryShowAd();
+    }
     #endregion
 
     #region Button events
 	public void NextLevel () {
+        print("StartLevel UI Request");
 		gameController.StartCurrentLevel ();
 	}
 

@@ -19,7 +19,6 @@ public class WorldController : MonoBehaviour {
 	float halfGridHeight;
 
 	LevelInfo currentLevel;
-	public bool levelEnded { get; private set; }
 
 	/// <summary>
 	/// Sets up callbacks
@@ -35,7 +34,6 @@ public class WorldController : MonoBehaviour {
 	/// </summary>
 	public void InitializeLevel (LevelInfo levelInfo) {
         currentLevel = levelInfo;
-		levelEnded = false;
 
 		//Setup values
 		halfGridWidth = (levelInfo.Width - 1) / 2f;
@@ -49,6 +47,7 @@ public class WorldController : MonoBehaviour {
         tileGrid = new TileGrid (levelInfo);
 
         if (tileGrid.Lamps.Length == 0) {
+            print("Generator created no lamps, trying again");
             //No lamps, try again
             InitializeLevel(levelInfo);
             return;
@@ -61,27 +60,23 @@ public class WorldController : MonoBehaviour {
 		tileController.UpdateTileColors (tileGrid);
 	}
 
+    /*
 	public void DestroyLevel () {
-		levelEnded = true;
 		background.enabled = false;
-		CancelInvoke ();
 		tileController.ClearTileGameObjects ();
 	}
+    */
 
 	public void UpdateBoard () {
-		if (tileGrid == null)
-			return;
-
 		tileController.OnUpdateBoard(tileGrid);
-		CheckForVictory ();
 	}
 
-	void CheckForVictory () {
+	public bool IsGameOver () {
 		Tile[] lamps = tileGrid.Lamps;
 
 		if (lamps.Length == 0) {
 			Debug.LogError ("No lamps on map!");
-			return;
+			return true;
 		}
 
 		//Make sure we aren't still rotating tiles
@@ -91,15 +86,14 @@ public class WorldController : MonoBehaviour {
 				if (!lamps [i].IsPowered)
 					allLit = false;
 			}
-			if (allLit && !levelEnded) {
-				levelEnded = true;
-			}
+			if (allLit)
+				return true;
 		}
+        return false;
 	}
 
     //From input class
 	public void OnWorldClick (Vector3 point) {
-
 		int hitX = Mathf.RoundToInt(point.x + halfGridWidth);
 		int hitY = Mathf.RoundToInt(point.y + halfGridHeight);
 
