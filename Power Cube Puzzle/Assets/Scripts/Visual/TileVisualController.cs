@@ -34,7 +34,10 @@ public class TileVisualController : MonoBehaviour {
     Tile tile;
 
 	public void Initialize (TileColorData tileColors, Tile tile) {
-		this.tile = tile;
+        //Subscribe
+        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+
+        this.tile = tile;
         //Color
 		this.defaultLitColor = tileColors.litWireColor;
 		this.defaultUnlitColor = tileColors.unlitWireColor;
@@ -47,7 +50,7 @@ public class TileVisualController : MonoBehaviour {
             graphics.rotation = Quaternion.Euler(0f, 0f, TileMetrics.GetWireRotation(tile.outlets));
     }
 
-    bool isPowered = false;
+    bool poweredLastUpdate = false;
 
 	public void UpdateVisuals (bool powered) {
 		foreach (SpriteColor sc in mainSprites) {
@@ -67,10 +70,10 @@ public class TileVisualController : MonoBehaviour {
 				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
 		}
 
-        if (tile.tileType == TileType.Lamp && powered && !isPowered)
+        if (tile.tileType == TileType.Lamp && powered && !poweredLastUpdate)
             SoundManager.Instance.Play("PowerUp");
 
-        isPowered = powered;
+        poweredLastUpdate = powered;
 	}
 
     public bool IsRotating = false;
@@ -78,14 +81,10 @@ public class TileVisualController : MonoBehaviour {
     float cooldown;
 
     void Update () {
-		if (tile.tileType == TileType.Lamp && GameController.GameOver && !gameoverSparks.isPlaying)
-			gameoverSparks.Play ();
-
         if (IsRotating) {
             cooldown -= Time.deltaTime;
             if (cooldown <= 0f)
                 IsRotating = false;
-
         }
     }
 
@@ -101,5 +100,11 @@ public class TileVisualController : MonoBehaviour {
     public void OnRotationStart () {
         //Rotate graphics
         graphics.Rotate(0f, 0f, 90f);
+    }
+
+    //Called by event callback
+    void OnLevelComplete() {
+        if (tile.tileType == TileType.Lamp)
+            gameoverSparks.Play();
     }
 }

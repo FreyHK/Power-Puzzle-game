@@ -24,7 +24,7 @@ public class LevelInfo {
     public TileType[,] Tiles;
     public bool[,] RotationIgnore;
 
-    public const int PresetCount = 1;
+    public const int TutorialCount = 1;
 
     /// <summary>
     /// Level is predefined.

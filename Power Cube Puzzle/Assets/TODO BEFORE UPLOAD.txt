@@ -1,0 +1,9 @@
+BEFORE YOU UPLOAD MUDDAFUCKA:
+
+bool testMode = false in AdManager
+
+No input glitch
+
+-No more levels (after lvl 23?)
+
+-Check what enables/disables pause panel button

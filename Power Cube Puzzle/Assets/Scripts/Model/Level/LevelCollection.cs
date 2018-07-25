@@ -7,20 +7,10 @@ using UnityEngine;
 /// </summary>
 public class LevelCollection : MonoBehaviour {
 
-
-    public const int minLevelWidth = 2;
-    public const int minLevelHeight = 3;
-    public const int maxLevelWidth = 7;
-    public const int maxLevelHeight = 8;
-
     [System.Serializable]
 	class LevelPreset {
-
-		[Range(LevelCollection.minLevelWidth, LevelCollection.maxLevelWidth)]
-		public int width = LevelCollection.minLevelWidth;
-
-		[Range(LevelCollection.minLevelHeight, LevelCollection.maxLevelHeight)]
-		public int height = LevelCollection.minLevelHeight;
+		public int width;
+		public int height;
 
         public LevelPreset(int width, int height) {
             this.width = width;
@@ -28,14 +18,23 @@ public class LevelCollection : MonoBehaviour {
         }
 	}
 
-	public LevelInfo GetLevel (int levelNumber) {
-        if (levelNumber < LevelInfo.PresetCount)
+    private void Awake() {
+        print("Level presets: " + levelPresets.Length);
+    }
+
+    public LevelInfo GetLevel (int levelIndex) {
+        if (levelIndex < LevelInfo.TutorialCount)
         {
             //This is a preset/tutorial level
-            return new LevelInfo(levelNumber);
+            return new LevelInfo(levelIndex);
         }
 
-        int i = Mathf.Clamp (levelNumber, 0, LevelInfo.PresetCount + levelPresets.Length-1);
+        int i = levelIndex;
+        if (i > levelPresets.Length-1)
+            i = levelPresets.Length-1;
+
+
+        print("GetLevel: " + levelIndex.ToString() + " using preset " + i.ToString());
 
 		//Just a number
 		float fillAmount = .8f;
