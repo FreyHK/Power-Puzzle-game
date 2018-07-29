@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveDataManager : MonoBehaviour {
 
@@ -27,5 +28,7 @@ public class SaveDataManager : MonoBehaviour {
         print("ClearSaveData");
 
         SaveLevelIndex(0);
+        //Reset game
+        SceneManager.LoadScene(0);
     }
 }

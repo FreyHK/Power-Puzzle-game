@@ -40,7 +40,7 @@ public class GameController : MonoBehaviour {
                 
                 break;
             case GameState.InGame:
-                StateInGame();
+                State_InGame();
                 break;
             case GameState.FinishedLevel:
                 
@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-    void StateInGame () {
+    void State_InGame () {
         worldController.UpdateBoard();
         CurrentLevelTime += Time.deltaTime;
 
@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour {
     }
 
 	public void QuitLevel () {
-        if (state != GameState.InGame) {
+        if (state != GameState.InGame && state != GameState.FinishedLevel) {
             Debug.LogError("Trying to quit level whilst not in game.");
             return;
         }
