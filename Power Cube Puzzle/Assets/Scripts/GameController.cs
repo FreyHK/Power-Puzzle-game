@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour {
 	}
 
     void State_InGame () {
+        playerInput.DoUpdate();
         worldController.UpdateBoard();
         CurrentLevelTime += Time.deltaTime;
 

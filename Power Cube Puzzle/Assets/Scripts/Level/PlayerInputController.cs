@@ -12,7 +12,7 @@ public class PlayerInputController : MonoBehaviour {
         this.worldController = worldController;
     }
 
-	void Update () {
+	public void DoUpdate () {
 		if (Input.GetMouseButtonDown (0)) {
 			HandleMouseInput ();
 		}
