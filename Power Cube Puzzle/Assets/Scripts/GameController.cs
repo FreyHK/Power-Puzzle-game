@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour {
             return;
         }
         print("QuitLevel");
-        //worldController.DestroyLevel ();
+        worldController.DestroyLevel ();
         state = GameState.InMenu;
     }
 }

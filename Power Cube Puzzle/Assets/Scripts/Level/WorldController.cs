@@ -60,12 +60,12 @@ public class WorldController : MonoBehaviour {
 		tileController.UpdateTileColors (tileGrid);
 	}
 
-    /*
 	public void DestroyLevel () {
 		background.enabled = false;
 		tileController.ClearTileGameObjects ();
-	}
-    */
+        tileGrid = null;
+        currentLevel = null;
+    }
 
 	public void UpdateBoard () {
 		tileController.OnUpdateBoard(tileGrid);
@@ -97,11 +97,11 @@ public class WorldController : MonoBehaviour {
 		int hitX = Mathf.RoundToInt(point.x + halfGridWidth);
 		int hitY = Mathf.RoundToInt(point.y + halfGridHeight);
 
-		Tile hit = tileGrid.Tiles [hitX, hitY];
+        //Check if valid
+        if (hitX < 0 || hitX > tileGrid.Width - 1 || hitY < 0 || hitY > tileGrid.Height - 1)
+            return;
 
-		//Check if valid
-		if (hitX < 0 || hitX > tileGrid.Width - 1 || hitY < 0 || hitY > tileGrid.Height - 1)
-			return;
+        Tile hit = tileGrid.Tiles [hitX, hitY];
 
 		if (hit.tileType != TileType.Wire)
 			return;

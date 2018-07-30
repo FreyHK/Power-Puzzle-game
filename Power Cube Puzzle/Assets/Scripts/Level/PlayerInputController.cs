@@ -21,11 +21,8 @@ public class PlayerInputController : MonoBehaviour {
 	void HandleMouseInput () {
 		if (EventSystem.current.IsPointerOverGameObject ())
 			return;
-		
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-		if (Physics.Raycast (ray, out hit)) {
-            worldController.OnWorldClick(hit.point);
-        }
+
+        Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        worldController.OnWorldClick(point);
 	}
 }
