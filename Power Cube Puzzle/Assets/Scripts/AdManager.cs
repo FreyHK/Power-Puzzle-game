@@ -7,9 +7,9 @@ using UnityEngine.Advertisements;
 public class AdManager : MonoBehaviour {
 
     #if UNITY_IOS
-    private string gameId = "1735021";
+    private string gameId = "2710323";
     #elif UNITY_ANDROID
-    private string gameId = "1735020";
+    private string gameId = "2710324";
     #endif
     
     public const float AdWaitTime = 200f;
