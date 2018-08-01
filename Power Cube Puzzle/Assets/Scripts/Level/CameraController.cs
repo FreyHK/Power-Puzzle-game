@@ -6,32 +6,38 @@ public class CameraController : MonoBehaviour {
 
 	public Camera cam;
 
-	float zoomedOutPercentage = .4f;
-	float viewMargin = 1.25f;
+	float zoomedOutPercentage = .5f; //We add a little extra margin
+	float viewMargin = 1.1f; //1.25f;
 
 	public void Initialize () {
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
-		NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+		
 	}
+    
+    public void ZoomOut (int width, int height) {
+        float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
 
-	void OnLevelStart (Notification note) {
-		LevelInfo level = (LevelInfo)note.data ["level"];
-		float size = GetOrthographicSize (level.Width + viewMargin, level.Height + viewMargin);
+        //Make sure camera starts ZOOMED IN
+        cam.orthographicSize = size;
 
-		//Set view to zoomed out in case it isn't already
-		cam.orthographicSize = size + size * zoomedOutPercentage;
-			
-		//We want to zoom in
-		LerpToViewSize(size, 2.5f);
-	}
+        //We want to zoom out
+        LerpToViewSize(size * (1f + zoomedOutPercentage));
+    }
 
-	void OnLevelComplete (Notification note) {
-		LevelInfo level = (LevelInfo)note.data ["level"];
-		float size = GetOrthographicSize (level.Width + viewMargin, level.Height + viewMargin);
+    public void ZoomIn(int width, int height) {
+        float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
 
-		//We want to zoom out a bit
-		LerpToViewSize(size + size * zoomedOutPercentage, 0f);
-	}
+        //We want to zoom in
+        LerpToViewSize(size);
+    }
+
+    public void SetZoom (int width, int height, bool zoomIn) {
+        float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
+
+        if (!zoomIn)
+            size *= 1f + zoomedOutPercentage;
+        //print("Set zoom: zoomIn:" + zoomIn);
+        cam.orthographicSize = size;
+    }
 
 	float GetOrthographicSize (float minViewWidth, float minViewHeight) {
 		//We want the half of the width and height
@@ -43,36 +49,20 @@ public class CameraController : MonoBehaviour {
 
 	//Zooming stuff
 	float targetOrthographicSize = -1;
-	float zoomCooldown;
+    bool isZooming = false;
 
-	void LerpToViewSize (float size, float delay) {
+	void LerpToViewSize (float size) {
 		targetOrthographicSize = size;
-		zoomCooldown = delay;
-	}
-
-	//Smooth moving stuff
-	float moveDuration;
-
-	Vector3 targetPos;
-	Vector3 velocity = Vector3.zero;
-
-	public void MovePosition (Vector2 target, float duration) {
-		targetPos = new Vector3(target.x, target.y, -10);
-		moveDuration = duration;
-		velocity = Vector3.zero;
-	}
+        isZooming = true;
+    }
 
 	void LateUpdate () {
-		//Wait for cooldown
-		if (zoomCooldown <= 0f) {
-			//Lerp to target zoom
-			if (targetOrthographicSize > 0 && Mathf.Abs(cam.orthographicSize - targetOrthographicSize) > .05f)
-				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, targetOrthographicSize, Time.deltaTime * 2f);
-		}else
-			zoomCooldown -= Time.deltaTime;
+        if (isZooming) {
+            //Lerp to target zoom
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetOrthographicSize, Time.deltaTime * 2f);
 
-		//Smoothly moves towards target position
-		if (targetPos != Vector3.zero)
-			transform.position = Vector3.SmoothDamp (transform.position, targetPos, ref velocity, moveDuration);
+            if (Mathf.Abs(cam.orthographicSize - targetOrthographicSize) <= .05f)
+                isZooming = false;
+        }
 	}
 }

@@ -15,24 +15,19 @@ public class UIManager : MonoBehaviour {
 
 	[SerializeField] PauseMenu pauseMenu;
 
-    AdManager adManager;
+    public void Initialize () {
 
-    public void Initialize (AdManager adManager) {
-        this.adManager = adManager;
 	}
 
     #region Game Events
-    public void LevelStart () {
+    public void HidePausePanel () {
 		pauseMenu.SetButtonEnabled(true);
 	}
 
-	public void LevelComplete () {
+	public void ShowPausePanel () {
 		//Lock UI elements
 		pauseMenu.SetButtonEnabled(false);
         pauseMenu.SetOpen(true, true);
-
-        //Show ad
-        adManager.TryShowAd();
     }
     #endregion
 

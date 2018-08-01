@@ -16,11 +16,27 @@ public class GameController : MonoBehaviour {
 	[SerializeField] CameraController cameraController;
 	[SerializeField] UIManager uiManager;
 	[SerializeField] PlayerInputController playerInput;
-    [Space()]
+    [Header("Data")]
     [SerializeField] SaveDataManager saveData;
     [SerializeField] LevelCollection levelCollection;
     [Space()]
     [SerializeField] AdManager adManager;
+    [Header("Scene")]
+    [SerializeField] LevelSlide levelSlide;
+
+    enum GameState {
+        //Inside the main menu
+        InMenu,
+        //Playing a level (but hasn't completed it)
+        InGame,
+        //Completed a level and is waiting to go to menu or new level
+        FinishedLevel
+    }
+
+    [SerializeField] GameState state;
+
+    public LevelInfo curLevel { get; private set; }
+    public static float CurrentLevelTime { get; private set; }
 
     void Start () {
 		//Initialization
@@ -28,7 +44,7 @@ public class GameController : MonoBehaviour {
         playerInput.Init(worldController);
         tutorialController.Init(saveData);
 
-        uiManager.Initialize (adManager);
+        uiManager.Initialize ();
 		cameraController.Initialize ();
 
         state = GameState.InMenu;
@@ -60,6 +76,57 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void StartCurrentLevel() {
+        if (state == GameState.InGame) {
+            Debug.LogError("Trying to quit level whilst already in level.");
+            return;
+        }
+        print("StartCurrentLevel");
+
+        StartCoroutine(StartLevel());
+    }
+
+    public IEnumerator StartLevel() {
+        //Did we just play a level?
+        if (state == GameState.FinishedLevel) {
+            //Hide panel
+            uiManager.HidePausePanel();
+
+            //Hide previous level (animation)
+            levelSlide.SlideOut();
+
+            //Wait for animation
+            yield return new WaitForSeconds(2f);
+        }
+        
+        //Create tile map + puzzle
+        curLevel = levelCollection.GetLevel(saveData.GetLevelIndex());
+        worldController.InitializeLevel(curLevel);
+
+        //Camera needs to be zoomed out (in order to reset correctly)
+        cameraController.SetZoom(curLevel.Width, curLevel.Height, false);
+
+        //Broadcast event
+        Hashtable data = new Hashtable() {
+            { "level", curLevel }
+        };
+        NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
+
+        //Show level (takes 2 sec.)
+        levelSlide.SlideIn(); 
+
+        //Wait
+        yield return new WaitForSeconds(2.5f);
+
+        //Camera zoom in
+        cameraController.ZoomIn(curLevel.Width, curLevel.Height);
+
+        //Set correct state
+        state = GameState.InGame;
+
+        CurrentLevelTime = 0f;
+    }
+
     IEnumerator LevelComplete () {
         state = GameState.FinishedLevel;
 
@@ -72,49 +139,19 @@ public class GameController : MonoBehaviour {
         //Increase level index
         saveData.SaveLevelIndex(saveData.GetLevelIndex() + 1);
 
-        //Wait
+        //Wait for animations
         yield return new WaitForSeconds(2f);
-
+        //Zoom out
+        cameraController.ZoomOut(curLevel.Width, curLevel.Height);
+        //Wait for zoom
+        yield return new WaitForSeconds(1f);
         //Inform UI (opens panel)
-        uiManager.LevelComplete();
-    }
+        uiManager.ShowPausePanel();
+        //Wait for UI
+        yield return new WaitForSeconds(1f);
 
-	public LevelInfo curLevel { get; private set; }
-
-	public static float CurrentLevelTime { get; private set; }
-    
-    enum GameState {
-        //Inside the main menu
-        InMenu,
-        //Playing a level (but hasn't completed it)
-        InGame,
-        //Completed a level and is waiting to go to menu or new level
-        FinishedLevel
-    }
-
-    [SerializeField] GameState state;
-
-    public void StartCurrentLevel () {
-        if (state == GameState.InGame) {
-            Debug.LogError("Trying to quit level whilst already in level.");
-            return;
-        }
-        print("StartCurrentLevel");
-
-        //Start level
-        curLevel = levelCollection.GetLevel (saveData.GetLevelIndex());
-		worldController.InitializeLevel (curLevel);
-        //Set flags
-        CurrentLevelTime = 0f;
-        state = GameState.InGame;
-
-        uiManager.LevelStart();
-
-        //Event Callback
-        Hashtable data = new Hashtable() {
-            { "level", curLevel }
-        };
-        NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
+        //Show ad?
+        adManager.TryShowAd();
     }
 
 	public void QuitLevel () {
@@ -124,6 +161,7 @@ public class GameController : MonoBehaviour {
         }
         print("QuitLevel");
         worldController.DestroyLevel ();
+
         state = GameState.InMenu;
     }
 }

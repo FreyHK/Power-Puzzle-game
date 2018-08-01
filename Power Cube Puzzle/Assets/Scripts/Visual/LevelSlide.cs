@@ -6,16 +6,11 @@ public class LevelSlide : MonoBehaviour {
 
     public Animator anim;
 
-    void Start() {
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
-    }
-
-    void OnLevelStart () {
+    public void SlideIn() {
         anim.SetTrigger("SlideIn");
     }
 
-    void OnLevelComplete() {
+    public void SlideOut() {
         anim.SetTrigger("SlideOut");
     }
 }

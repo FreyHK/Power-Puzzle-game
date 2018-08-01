@@ -19,19 +19,22 @@ public class PauseMenu : MonoBehaviour {
 	public void SetOpen (bool open, bool nextLevel) {
         //Change text depending on game context
         if (nextLevel) {
-            headerText.text = "Level " + (saveData.GetLevelIndex()).ToString() + " Completed!";
+            headerText.text = "LEVEL " + (saveData.GetLevelIndex()).ToString() + " COMPLETE";
             nextButton.SetActive(true);
         } else {
-            headerText.text = "Level " + (saveData.GetLevelIndex() + 1).ToString();
+            headerText.text = "LEVEL " + (saveData.GetLevelIndex() + 1).ToString();
             nextButton.SetActive(false);
         }
-        //Show timer
-        if (open)
-            UpdateTimer();
 
         //Display animation
         anim.SetBool("Open", open);
         isOpen = open;
+    }
+
+    private void Update() {
+        //Show timer
+        if (isOpen)
+            UpdateTimer();
     }
 
     void UpdateTimer () {
@@ -43,7 +46,7 @@ public class PauseMenu : MonoBehaviour {
         int s = (int)(t % 60);
         string sec = (s < 10 ? "0" : "") + s.ToString();
 
-        timerText.text = "Time: " + min + ":" + sec;
+        timerText.text = "TIME: " + min + ":" + sec;
     }
 
 	public void SetButtonEnabled (bool v) {
