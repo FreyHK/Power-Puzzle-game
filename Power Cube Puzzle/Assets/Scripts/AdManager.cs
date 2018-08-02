@@ -12,7 +12,7 @@ public class AdManager : MonoBehaviour {
     private string gameId = "2710324";
     #endif
     
-    public const float AdWaitTime = 200f;
+    public const float AdWaitTime = 300f;
 
     void Start() {
 	    if (Advertisement.isSupported) {

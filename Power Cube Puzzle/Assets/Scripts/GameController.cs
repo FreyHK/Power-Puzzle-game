@@ -43,8 +43,7 @@ public class GameController : MonoBehaviour {
 		worldController.Initialize (tileController);
         playerInput.Init(worldController);
         tutorialController.Init(saveData);
-
-        uiManager.Initialize ();
+        
 		cameraController.Initialize ();
 
         state = GameState.InMenu;
@@ -147,8 +146,6 @@ public class GameController : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         //Inform UI (opens panel)
         uiManager.ShowPausePanel();
-        //Wait for UI
-        yield return new WaitForSeconds(1f);
 
         //Show ad?
         adManager.TryShowAd();

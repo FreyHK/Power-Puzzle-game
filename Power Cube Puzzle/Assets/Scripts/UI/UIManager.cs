@@ -13,11 +13,9 @@ public class UIManager : MonoBehaviour {
 
 	[SerializeField] GameController gameController;
 
-	[SerializeField] PauseMenu pauseMenu;
+    [SerializeField] CameraController cameraController;
 
-    public void Initialize () {
-
-	}
+    [SerializeField] PauseMenu pauseMenu;
 
     #region Game Events
     public void HidePausePanel () {
@@ -40,5 +38,18 @@ public class UIManager : MonoBehaviour {
 	public void QuitLevel () {
 		gameController.QuitLevel ();
 	}
+
+    public void TogglePauseOverlay () {
+
+        if (pauseMenu.IsOpen) {
+            pauseMenu.SetOpen(false, false);
+            cameraController.ZoomIn(gameController.curLevel.Width, gameController.curLevel.Height);
+        } else {
+            pauseMenu.SetOpen(true, false);
+            cameraController.ZoomOut(gameController.curLevel.Width, gameController.curLevel.Height);
+        }
+
+    }
+
     #endregion
 }

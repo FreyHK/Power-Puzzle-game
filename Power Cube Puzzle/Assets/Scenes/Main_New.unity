@@ -614,6 +614,11 @@ Prefab:
       propertyPath: levelSlide
       value: 
       objectReference: {fileID: 1663291069}
+    - target: {fileID: 114587193408082878, guid: da9716d5709c3e541830c72a788e37a7,
+        type: 2}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 1814625997}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da9716d5709c3e541830c72a788e37a7, type: 2}
   m_IsPrefabAsset: 0
@@ -665,7 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -734,7 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -931,7 +936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 157.12686, y: -65}
+  m_AnchoredPosition: {x: 156.87498, y: -65}
   m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &392005002
@@ -2829,7 +2834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4444,8 +4449,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1957443202}
-        m_MethodName: ToggleOpen
+      - m_Target: {fileID: 635940790}
+        m_MethodName: TogglePauseOverlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4811,7 +4816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 451.38058, y: -65}
+  m_AnchoredPosition: {x: 450.62494, y: -65}
   m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &2124805544

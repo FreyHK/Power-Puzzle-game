@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour {
         float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
 
         //Make sure camera starts ZOOMED IN
-        cam.orthographicSize = size;
+        //cam.orthographicSize = size;
 
         //We want to zoom out
         LerpToViewSize(size * (1f + zoomedOutPercentage));

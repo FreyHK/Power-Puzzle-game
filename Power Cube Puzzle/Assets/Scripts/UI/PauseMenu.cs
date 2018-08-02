@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour {
     [SerializeField] Button OpenButton;
     [SerializeField] GameObject nextButton;
 
-    bool isOpen;
+    public bool IsOpen { get; private set; }
 
 	public void SetOpen (bool open, bool nextLevel) {
         //Change text depending on game context
@@ -28,12 +28,12 @@ public class PauseMenu : MonoBehaviour {
 
         //Display animation
         anim.SetBool("Open", open);
-        isOpen = open;
+        IsOpen = open;
     }
 
     private void Update() {
         //Show timer
-        if (isOpen)
+        if (IsOpen)
             UpdateTimer();
     }
 
@@ -53,9 +53,11 @@ public class PauseMenu : MonoBehaviour {
         OpenButton.interactable = v;
     }
 
+    /*
     //Called by the open/close button
     public void ToggleOpen () {
         SetOpen(!isOpen, false);
     }
+    */
 }
 
