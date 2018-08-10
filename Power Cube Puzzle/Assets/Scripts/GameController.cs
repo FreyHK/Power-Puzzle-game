@@ -88,8 +88,6 @@ public class GameController : MonoBehaviour {
     public IEnumerator StartLevel() {
         //Did we just play a level?
         if (state == GameState.FinishedLevel) {
-            //Hide panel
-            uiManager.HidePausePanel();
 
             //Hide previous level (animation)
             levelSlide.SlideOut();
@@ -97,6 +95,8 @@ public class GameController : MonoBehaviour {
             //Wait for animation
             yield return new WaitForSeconds(2f);
         }
+        //Hide panel
+        uiManager.HidePausePanel();
         
         //Create tile map + puzzle
         curLevel = levelCollection.GetLevel(saveData.GetLevelIndex());
