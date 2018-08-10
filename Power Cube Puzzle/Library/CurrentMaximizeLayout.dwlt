@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 887, y: 492}
   m_MaxSize: {x: 16012, y: 14042}
   vertical: 0
-  controlID: 415
+  controlID: 29
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -52,17 +52,17 @@ MonoBehaviour:
   m_MaximizeOnPlay: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 00000000000000000f00000000000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 00000000000000001000000000000000000000000000000000000000000000000000000000000000
   m_TargetDisplay: 0
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -621
-    m_HBaseRangeMax: 621
-    m_VBaseRangeMin: -1104
-    m_VBaseRangeMax: 1104
+    m_HBaseRangeMin: -1024
+    m_HBaseRangeMax: 1024
+    m_VBaseRangeMin: -1366
+    m_VBaseRangeMax: 1366
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
       y: 17
       width: 474
       height: 572
-    m_Scale: {x: 0.25905797, y: 0.25905797}
+    m_Scale: {x: 0.20937043, y: 0.20937045}
     m_Translation: {x: 237, y: 286}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -90,10 +90,10 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -914.85315
-      y: -1104
-      width: 1829.7063
-      height: 2208
+      x: -1131.965
+      y: -1365.9999
+      width: 2263.93
+      height: 2731.9998
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_MinSize: {x: 610, y: 492}
   m_MaxSize: {x: 12010, y: 14042}
   vertical: 1
-  controlID: 416
+  controlID: 30
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 610, y: 221}
   m_MaxSize: {x: 12010, y: 4021}
   vertical: 0
-  controlID: 417
+  controlID: 31
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -204,9 +204,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a6340000
-    m_LastClickedID: 13478
-    m_ExpandedIDs: e4fbffffe6fbffff00000000
+    m_SelectedIDs: 94330000
+    m_LastClickedID: 13204
+    m_ExpandedIDs: e6fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -248,8 +248,8 @@ MonoBehaviour:
     y: 0
     width: 808
     height: 610
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -513,20 +513,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Documents\Unity\Power Puzzle game\Power Cube Puzzle
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 8}
-    m_SelectedIDs: ca2b0000
-    m_LastClickedID: 11210
-    m_ExpandedIDs: 000000007c2a0000ca2b00004a2c0000682c00004a2d0000d02d0000ea2e0000782f00009e2f00006831000096310000d2360000d4360000d6360000d8360000da360000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 62310000
+    m_LastClickedID: 12642
+    m_ExpandedIDs: 000000007c2a0000ca2b00004a2c0000682c00004a2d0000d02d0000ea2e0000782f0000982f000090310000cc360000ce360000d0360000d2360000d4360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -554,7 +554,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007c2a0000ca2b00004a2c0000682c00004a2d0000d02d0000ea2e0000782f00009e2f00006831000096310000d2360000d4360000d6360000d8360000da360000
+    m_ExpandedIDs: 000000007c2a0000ca2b00004a2c0000682c00004a2d0000d02d0000ea2e0000782f0000982f00006231000090310000cc360000ce360000d0360000d2360000d4360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -579,9 +579,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: a6340000
-    m_LastClickedInstanceID: 13478
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 94330000
+    m_LastClickedInstanceID: 13204
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 662c0000902d0000d85cfdffd82e0000e0490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
