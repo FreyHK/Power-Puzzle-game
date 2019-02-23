@@ -18,10 +18,6 @@ public class LevelCollection : MonoBehaviour {
         }
 	}
 
-    private void Awake() {
-        print("Level presets: " + levelPresets.Length);
-    }
-
     public LevelInfo GetLevel (int levelIndex) {
         if (levelIndex < LevelInfo.TutorialCount)
         {
@@ -34,7 +30,7 @@ public class LevelCollection : MonoBehaviour {
             i = levelPresets.Length-1;
 
 
-        print("GetLevel: " + levelIndex.ToString() + " using preset " + i.ToString());
+        //print("GetLevel: " + levelIndex.ToString() + " using preset " + i.ToString());
 
 		//Just a number
 		float fillAmount = .8f;

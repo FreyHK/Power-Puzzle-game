@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour {
         CurrentLevelTime += Time.deltaTime;
 
         if (worldController.IsGameOver() || Input.GetKeyDown(KeyCode.Space)) {
-            print("Finished level");
+            //print("Finished level");
 
             StartCoroutine(LevelComplete());
         }
@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour {
             Debug.LogError("Trying to quit level whilst already in level.");
             return;
         }
-        print("StartCurrentLevel");
+        //print("StartCurrentLevel");
 
         StartCoroutine(StartLevel());
     }

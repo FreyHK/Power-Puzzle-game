@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour {
 
     #region Button events
 	public void NextLevel () {
-        print("StartLevel UI Request");
+        //print("StartLevel UI Request");
 		gameController.StartCurrentLevel ();
 	}
 
