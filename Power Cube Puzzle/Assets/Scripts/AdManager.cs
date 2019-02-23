@@ -16,7 +16,7 @@ public class AdManager : MonoBehaviour {
 
     void Start() {
 	    if (Advertisement.isSupported) {
-            Advertisement.Initialize (gameId, true);
+            Advertisement.Initialize (gameId, false);
         }
         cooldown = (float)PlayerPrefs.GetInt("AdCooldown", 0);
     }
