@@ -18,7 +18,7 @@ public class SaveDataManager : MonoBehaviour {
     }
 
     public void SaveLevelIndex (int lvl) {
-        print("SaveLevelIndex: " + lvl);
+        //print("SaveLevelIndex: " + lvl);
 
         levelIndex = lvl;
         PlayerPrefs.SetInt("CurrentLevelIndex", levelIndex);

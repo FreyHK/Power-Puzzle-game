@@ -6,13 +6,13 @@ using UnityEngine.Advertisements;
 
 public class AdManager : MonoBehaviour {
 
-    #if UNITY_IOS
+#if UNITY_IOS
     private string gameId = "2710323";
-    #elif UNITY_ANDROID
+#else
     private string gameId = "2710324";
-    #endif
-    
-    public const float AdWaitTime = 300f;
+#endif
+
+    public const float AdWaitTime = 100f;
 
     void Start() {
 	    if (Advertisement.isSupported) {
