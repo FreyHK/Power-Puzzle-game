@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Controls data for a certain type of levels in the game.
-/// </summary>
 public class LevelCollection : MonoBehaviour {
 
     [System.Serializable]
@@ -25,12 +22,7 @@ public class LevelCollection : MonoBehaviour {
             return new LevelInfo(levelIndex);
         }
 
-        int i = levelIndex;
-        if (i > levelPresets.Length-1)
-            i = levelPresets.Length-1;
-
-
-        //print("GetLevel: " + levelIndex.ToString() + " using preset " + i.ToString());
+        int i = Mathf.Clamp(levelIndex, 0, levelPresets.Length - 1);
 
 		//Just a number
 		float fillAmount = .8f;

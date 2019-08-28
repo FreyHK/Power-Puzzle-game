@@ -1,17 +1,38 @@
 ﻿<Properties StartupConfiguration="{BF630CE2-0403-A8C0-77C5-599E49F332F2}|">
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AdManager.cs">
     <Files>
       <File FileName="Assets/Scripts/AdManager.cs" Line="19" Column="53" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="99" Column="36" />
-      <File FileName="Assets/Scripts/UI/UIManager.cs" Line="13" Column="5" />
-      <File FileName="Assets/TODO BEFORE UPLOAD.txt" Line="3" Column="35" />
+      <File FileName="Assets/Scripts/GameController.cs" />
+      <File FileName="Assets/Scripts/UI/UIManager.cs" />
+      <File FileName="Assets/Scripts/SoundManager.cs" />
+      <File FileName="Assets/Scripts/Level/TileController.cs" />
+      <File FileName="Assets/Scripts/Visual/TileVisualController.cs" />
+      <File FileName="Assets/Scripts/Model/Level/LevelCollection.cs" />
+      <File FileName="Assets/Scripts/UI/PrivacyPolicyButton.cs" Line="19" Column="27" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Power Cube Puzzle" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Model" expanded="True">
+                  <Node name="Level" expanded="True" />
+                </Node>
+                <Node name="UI" expanded="True" />
+                <Node name="AdManager.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="197a84a9-b4c8-44b0-a8c5-74238e32a295" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

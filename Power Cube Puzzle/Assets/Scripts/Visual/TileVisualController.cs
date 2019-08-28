@@ -71,7 +71,7 @@ public class TileVisualController : MonoBehaviour {
 		}
 
         if (tile.tileType == TileType.Lamp && powered && !poweredLastUpdate)
-            SoundManager.Instance.Play("PowerUp");
+            SoundManager.Instance.Play("LampPowerUp");
 
         poweredLastUpdate = powered;
 	}

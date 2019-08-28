@@ -11,21 +11,24 @@ public class SoundManager : MonoBehaviour {
     class SoundClip {
         public string name = "Click";
         public AudioClip[] clips = new AudioClip[1];
+        [HideInInspector] public AudioSource source;
     }
 
-    [SerializeField] SoundClip[] sounds;
-    
-    [SerializeField] AudioSource MasterSource;
+    [SerializeField] SoundClip[] clips;
     
     [SerializeField] Image soundToggleImage;
     [SerializeField] Sprite[] soundToggleSprites;
 
-    bool musicOn = true;
     bool soundOn = true;
 
     void Start () {
 		Instance = this;
-        
+
+        for (int i = 0; i < clips.Length; i++)
+        {
+            clips[i].source = gameObject.AddComponent<AudioSource>();
+        }
+
         soundOn = PlayerPrefs.GetInt("SoundOn", 0) == 0;
         UpdateSound();
     }
@@ -42,20 +45,25 @@ public class SoundManager : MonoBehaviour {
 
     public void Play(string name) {
         //Find sound
-        for (int i = 0; i < sounds.Length; i++) {
-            if (sounds[i].name == name) {
-                //Play
-                MasterSource.PlayOneShot(sounds[i].clips[Random.Range(0, sounds[i].clips.Length - 1)]);
-                return;
+        for (int i = 0; i < clips.Length; i++) {
+            if (clips[i].name == name) {
+                //Choose random clip
+                int clipIndex = Random.Range(0, clips[i].clips.Length);
+                //Assign clip
+                clips[i].source.clip = clips[i].clips[clipIndex];
+
+                clips[i].source.Play();
             }
         }
     }
 
     void UpdateSound()
     {
-        if (MasterSource != null)
-            MasterSource.mute = !soundOn;
-        
+        for (int i = 0; i < clips.Length; i++)
+        {
+            clips[i].source.mute = !soundOn;
+        }
+
         soundToggleImage.sprite = soundToggleSprites[soundOn ? 0 : 1];
     }
 }

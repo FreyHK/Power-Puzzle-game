@@ -74,7 +74,7 @@ public class TileController : MonoBehaviour {
 		if (tileGameObjects.ContainsKey (t)) {
             toRotate.Enqueue (t);
             //Play sound
-            SoundManager.Instance.Play("RotateTile");
+            SoundManager.Instance.Play("TileClick");
         } else
 			Debug.LogError ("Tile doesn't exist in dictionary");
 	}
@@ -107,7 +107,7 @@ public class TileController : MonoBehaviour {
                 
                 //Play sound(s)
                 if (currentTileRotating.GetConnectedNeighbors().Length > 0) {
-                   SoundManager.Instance.Play("SwitchTile");
+                   SoundManager.Instance.Play("TilePlugIn");
                 }
 
                 //Set current tile to null to mark that we need a new one
