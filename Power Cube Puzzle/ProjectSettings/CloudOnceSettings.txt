@@ -1,0 +1,23 @@
+{
+	"AchievementIDs":[],
+	"LeaderboardIDs":[
+		{
+			"InternalID":"BestTime",
+			"AppleID":"grp.best.time",
+			"GoogleID":"CgkI5bGF2oADEAIQAA"
+		},
+		{
+			"InternalID":"LevelProgress",
+			"AppleID":"grp.level.progress",
+			"GoogleID":"CgkI5bGF2oADEAIQAQ"
+		}
+	],
+	"CloudVariables":[],
+	"AppleSupported":true,
+	"GoogleSupported":true,
+	"GoogleAppID":"103268047077",
+	"GoogleSetupRun":true,
+	"DebugModeEnabled":false,
+	"Version":"2.6.8",
+	"SettingsLocation":"0"
+}

@@ -13,30 +13,15 @@ public class CameraController : MonoBehaviour {
 		
 	}
     
-    public void ZoomOut (int width, int height) {
+    public void SetTargetZoom (int width, int height, bool addMargin = false) {
         float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
 
         //Make sure camera starts ZOOMED IN
         //cam.orthographicSize = size;
 
         //We want to zoom out
-        LerpToViewSize(size * (1f + zoomedOutPercentage));
-    }
-
-    public void ZoomIn(int width, int height) {
-        float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
-
-        //We want to zoom in
-        LerpToViewSize(size);
-    }
-
-    public void SetZoom (int width, int height, bool zoomIn) {
-        float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
-
-        if (!zoomIn)
-            size *= 1f + zoomedOutPercentage;
-        //print("Set zoom: zoomIn:" + zoomIn);
-        cam.orthographicSize = size;
+        float scale = addMargin ? (1f + zoomedOutPercentage) : 1f;
+        LerpToViewSize(size * scale);
     }
 
 	float GetOrthographicSize (float minViewWidth, float minViewHeight) {

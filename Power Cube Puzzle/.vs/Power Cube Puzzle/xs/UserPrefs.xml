@@ -1,14 +1,11 @@
 ﻿<Properties StartupConfiguration="{BF630CE2-0403-A8C0-77C5-599E49F332F2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AdManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Model/Level/LevelCollection.cs">
     <Files>
-      <File FileName="Assets/Scripts/AdManager.cs" Line="19" Column="53" />
-      <File FileName="Assets/Scripts/GameController.cs" />
+      <File FileName="Assets/Scripts/Model/Level/LevelCollection.cs" Line="29" Column="26" />
       <File FileName="Assets/Scripts/UI/UIManager.cs" />
-      <File FileName="Assets/Scripts/SoundManager.cs" />
-      <File FileName="Assets/Scripts/Level/TileController.cs" />
-      <File FileName="Assets/Scripts/Visual/TileVisualController.cs" />
-      <File FileName="Assets/Scripts/Model/Level/LevelCollection.cs" />
-      <File FileName="Assets/Scripts/UI/PrivacyPolicyButton.cs" Line="19" Column="27" />
+      <File FileName="Assets/Scripts/UI/PauseMenu.cs" />
+      <File FileName="Assets/Scripts/GameController.cs" />
+      <File FileName="Assets/Scripts/SaveDataManager.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,11 +13,14 @@
           <Node name="Power Cube Puzzle" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
+                <Node name="Level" expanded="True" />
                 <Node name="Model" expanded="True">
-                  <Node name="Level" expanded="True" />
+                  <Node name="Level" expanded="True">
+                    <Node name="LevelCollection.cs" selected="True" />
+                  </Node>
                 </Node>
+                <Node name="Services" expanded="True" />
                 <Node name="UI" expanded="True" />
-                <Node name="AdManager.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -30,7 +30,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="197a84a9-b4c8-44b0-a8c5-74238e32a295" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b18b02ff-cdd5-4682-a32b-66a9f5e11485" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

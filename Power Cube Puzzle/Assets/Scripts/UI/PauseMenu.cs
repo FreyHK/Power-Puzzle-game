@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PauseMenu : MonoBehaviour {
 
@@ -49,15 +50,20 @@ public class PauseMenu : MonoBehaviour {
         timerText.text = "TIME: " + min + ":" + sec;
     }
 
-	public void SetButtonEnabled (bool v) {
+	public void SetOpenButtonEnabled (bool v) {
         OpenButton.interactable = v;
     }
 
-    /*
-    //Called by the open/close button
-    public void ToggleOpen () {
-        SetOpen(!isOpen, false);
+    public RectTransform BestTimeMarker;
+
+    public void ShowBestTimeMarker()
+    {
+        BestTimeMarker.gameObject.SetActive(true);
     }
-    */
+
+    public void HideBestTimeMarker()
+    {
+        BestTimeMarker.gameObject.SetActive(false);
+    }
 }
 

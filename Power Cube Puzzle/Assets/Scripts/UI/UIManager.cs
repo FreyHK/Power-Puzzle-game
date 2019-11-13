@@ -19,14 +19,21 @@ public class UIManager : MonoBehaviour {
 
     #region Game Events
     public void HidePausePanel () {
-		pauseMenu.SetButtonEnabled(true);
-	}
+		pauseMenu.SetOpenButtonEnabled(true);
+        pauseMenu.HideBestTimeMarker();
+    }
 
 	public void ShowPausePanel () {
 		//Lock UI elements
-		pauseMenu.SetButtonEnabled(false);
+		pauseMenu.SetOpenButtonEnabled(false);
         pauseMenu.SetOpen(true, true);
     }
+
+    public void ShowNewBestTimeMarker()
+    {
+        pauseMenu.ShowBestTimeMarker();
+    }
+
     #endregion
 
     #region Button events
@@ -43,10 +50,10 @@ public class UIManager : MonoBehaviour {
 
         if (pauseMenu.IsOpen) {
             pauseMenu.SetOpen(false, false);
-            cameraController.ZoomIn(gameController.curLevel.Width, gameController.curLevel.Height);
+            cameraController.SetTargetZoom(gameController.curLevel.Width, gameController.curLevel.Height, false);
         } else {
             pauseMenu.SetOpen(true, false);
-            cameraController.ZoomOut(gameController.curLevel.Width, gameController.curLevel.Height);
+            cameraController.SetTargetZoom(gameController.curLevel.Width, gameController.curLevel.Height, true);
         }
 
     }

@@ -7,7 +7,15 @@ public class SaveDataManager : MonoBehaviour {
 
     int levelIndex;
 
+    [SerializeField] bool PlayMaxLevel = false;
+
     private void Start() {
+        if (PlayMaxLevel)
+        {
+            PlayerPrefs.SetInt("CurrentLevelIndex", 25);
+            return;
+        }
+
         GetLevelIndex();
     }
 
@@ -18,8 +26,6 @@ public class SaveDataManager : MonoBehaviour {
     }
 
     public void SaveLevelIndex (int lvl) {
-        //print("SaveLevelIndex: " + lvl);
-
         levelIndex = lvl;
         PlayerPrefs.SetInt("CurrentLevelIndex", levelIndex);
     }

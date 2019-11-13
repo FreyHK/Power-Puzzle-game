@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] UIManager uiManager;
 	[SerializeField] PlayerInputController playerInput;
     [Header("Data")]
+    [SerializeField] LeaderBoardController leaderBoardController;
     [SerializeField] SaveDataManager saveData;
     [SerializeField] LevelCollection levelCollection;
     [Space()]
@@ -69,8 +70,6 @@ public class GameController : MonoBehaviour {
         CurrentLevelTime += Time.deltaTime;
 
         if (worldController.IsGameOver() || Input.GetKeyDown(KeyCode.Space)) {
-            //print("Finished level");
-
             StartCoroutine(LevelComplete());
         }
     }
@@ -80,8 +79,6 @@ public class GameController : MonoBehaviour {
             Debug.LogError("Trying to quit level whilst already in level.");
             return;
         }
-        //print("StartCurrentLevel");
-
         StartCoroutine(StartLevel());
     }
 
@@ -103,7 +100,7 @@ public class GameController : MonoBehaviour {
         worldController.InitializeLevel(curLevel);
 
         //Camera needs to be zoomed out (in order to reset correctly)
-        cameraController.SetZoom(curLevel.Width, curLevel.Height, false);
+        cameraController.SetTargetZoom(curLevel.Width, curLevel.Height, true);
 
         //Broadcast event
         Hashtable data = new Hashtable() {
@@ -112,13 +109,16 @@ public class GameController : MonoBehaviour {
         NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
 
         //Show level (takes 2 sec.)
-        levelSlide.SlideIn(); 
+        levelSlide.SlideIn();
 
         //Wait
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
 
         //Camera zoom in
-        cameraController.ZoomIn(curLevel.Width, curLevel.Height);
+        cameraController.SetTargetZoom(curLevel.Width, curLevel.Height);
+
+        //Set low-pass off
+        SoundManager.Instance.SetAudioFilter(false);
 
         //Set correct state
         state = GameState.InGame;
@@ -135,17 +135,23 @@ public class GameController : MonoBehaviour {
                 };
         NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelComplete, data);
 
+        //Update leaderboard
+        leaderBoardController.SubmitScores(CurrentLevelTime, saveData.GetLevelIndex());
+
         //Increase level index
         saveData.SaveLevelIndex(saveData.GetLevelIndex() + 1);
 
         //Wait for animations
         yield return new WaitForSeconds(2f);
         //Zoom out
-        cameraController.ZoomOut(curLevel.Width, curLevel.Height);
+        cameraController.SetTargetZoom(curLevel.Width, curLevel.Height, true);
         //Wait for zoom
         yield return new WaitForSeconds(1f);
         //Inform UI (opens panel)
         uiManager.ShowPausePanel();
+
+        //Change audio filter
+        SoundManager.Instance.SetAudioFilter(true);
 
         //Show ad?
         adManager.TryShowAd();
@@ -156,9 +162,11 @@ public class GameController : MonoBehaviour {
             Debug.LogError("Trying to quit level whilst not in game.");
             return;
         }
-        print("QuitLevel");
         worldController.DestroyLevel ();
 
         state = GameState.InMenu;
+
+        //Change audio filter
+        SoundManager.Instance.SetAudioFilter(false);
     }
 }
