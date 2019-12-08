@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb68d159ea33b9441b6721caa05679ec, type: 3}
+  m_Name: PurpleTheme
+  m_EditorClassIdentifier: Assembly-CSharp::GameColorTheme
+  BoardColor: {r: 0.7058824, g: 0.72156864, b: 0.92941177, a: 1}
+  WireUnlit: {r: 0.44705883, g: 0.8666667, b: 0.96862745, a: 1}
+  WireUnlitShadow: {r: 0.5019608, g: 0.5764706, b: 0.94509804, a: 1}
+  WireLit: {r: 0.96862745, g: 0.68235296, b: 0.972549, a: 1}
+  WireLitShadow: {r: 0.7019608, g: 0.53333336, b: 0.92156863, a: 1}
+  LampHandle: {r: 0.22797456, g: 0.27842796, b: 0.44099998, a: 1}
+  LampHandleShadow: {r: 0.1571593, g: 0.18912391, b: 0.301, a: 1}
+  ParticleColor: {r: 0.99607843, g: 0.8496549, b: 0.9773062, a: 1}
+  ButtonSmall: {r: 0.81960785, g: 0.8509804, b: 0.972549, a: 1}
+  TextRegular: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}

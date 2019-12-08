@@ -5,12 +5,13 @@ using UnityEngine;
 public class TileController : MonoBehaviour {
 
 	[SerializeField] TilePrefabManager prefabManager;
-	[SerializeField] TileColorData tileColors;
 
 	Dictionary<Tile, TileVisualController> tileGameObjects = new Dictionary<Tile, TileVisualController>();
 
-	public void CreateTiles (TileGrid tileGrid, Transform environmentRoot) {
-		ClearTileGameObjects ();
+	public void CreateTiles (TileGrid tileGrid, ColorThemeScriptableObject colorTheme, Transform environmentRoot) {
+        this.colorTheme = colorTheme;
+
+        ClearTileGameObjects ();
 
 		float halfWidth = (tileGrid.Width - 1) / 2f;
 		float halfHeight = (tileGrid.Height - 1) / 2f;
@@ -31,12 +32,28 @@ public class TileController : MonoBehaviour {
 
                 TileVisualController colorController = t.GetComponentInChildren<TileVisualController>();
 				if (colorController != null) {
-					colorController.Initialize (tileColors, tile);
+					colorController.Initialize (colorTheme, tile);
 					tileGameObjects.Add (tile, colorController);
 				}
 			}
 		}
-	}
+    }
+
+    ColorThemeScriptableObject colorTheme;
+
+    public void ApplyColorTheme(ColorThemeScriptableObject colorTheme)
+    {
+        this.colorTheme = colorTheme;
+
+        if (tileGameObjects != null)
+        {
+            //Destroy gameobjects
+            foreach (KeyValuePair<Tile, TileVisualController> pair in tileGameObjects)
+            {
+                pair.Value.ApplyColorTheme(colorTheme);
+            }
+        }
+    }
 
 	public void ClearTileGameObjects () {
 		//Clear old level

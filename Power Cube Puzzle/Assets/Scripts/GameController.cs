@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +11,13 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	[SerializeField] WorldController worldController;
-	[SerializeField] TileController tileController;
     [SerializeField] TutorialController tutorialController;
     [Space()]
 	[SerializeField] CameraController cameraController;
 	[SerializeField] UIManager uiManager;
 	[SerializeField] PlayerInputController playerInput;
     [Header("Data")]
+    [SerializeField] ColorThemeScriptableObject colorTheme;
     [SerializeField] LeaderBoardController leaderBoardController;
     [SerializeField] SaveDataManager saveData;
     [SerializeField] LevelCollection levelCollection;
@@ -39,29 +40,30 @@ public class GameController : MonoBehaviour {
     public LevelInfo curLevel { get; private set; }
     public static float CurrentLevelTime { get; private set; }
 
+    //Callback actions
+    public static Action<LevelInfo> OnLevelStart;
+    public static Action<LevelInfo> OnLevelComplete;
+
     void Start () {
 		//Initialization
-		worldController.Initialize (tileController);
         playerInput.Init(worldController);
         tutorialController.Init(saveData);
         
-		cameraController.Initialize ();
-
         state = GameState.InMenu;
+
+        ApplyColorTheme(colorTheme);
+    }
+
+    public void ApplyColorTheme(ColorThemeScriptableObject colorTheme)
+    {
+        this.colorTheme = colorTheme;
+
+        worldController.ApplyColorTheme(colorTheme);
     }
 
     void Update () {
-        switch (state) {
-            case GameState.InMenu:
-                
-                break;
-            case GameState.InGame:
-                State_InGame();
-                break;
-            case GameState.FinishedLevel:
-                
-                break;
-        }
+        if (state == GameState.InGame)
+            State_InGame();
 	}
 
     void State_InGame () {
@@ -69,7 +71,7 @@ public class GameController : MonoBehaviour {
         worldController.UpdateBoard();
         CurrentLevelTime += Time.deltaTime;
 
-        if (worldController.IsGameOver() || Input.GetKeyDown(KeyCode.Space)) {
+        if (worldController.IsGameOver()) {
             StartCoroutine(LevelComplete());
         }
     }
@@ -102,11 +104,9 @@ public class GameController : MonoBehaviour {
         //Camera needs to be zoomed out (in order to reset correctly)
         cameraController.SetTargetZoom(curLevel.Width, curLevel.Height, true);
 
-        //Broadcast event
-        Hashtable data = new Hashtable() {
-            { "level", curLevel }
-        };
-        NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelStart, data);
+        //Event callback
+        if (OnLevelStart != null)
+            OnLevelStart(curLevel);
 
         //Show level (takes 2 sec.)
         levelSlide.SlideIn();
@@ -129,11 +129,9 @@ public class GameController : MonoBehaviour {
     IEnumerator LevelComplete () {
         state = GameState.FinishedLevel;
 
-        //Post notification
-        Hashtable data = new Hashtable() {
-                    { "level", curLevel }
-                };
-        NotificationCenter.DefaultCenter.PostNotification(this, NotificationMessage.OnLevelComplete, data);
+        //Event callback
+        if (OnLevelComplete != null)
+            OnLevelComplete(curLevel);
 
         //Update leaderboard
         leaderBoardController.SubmitScores(CurrentLevelTime, saveData.GetLevelIndex());

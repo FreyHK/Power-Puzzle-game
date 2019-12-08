@@ -33,7 +33,6 @@ public class UIManager : MonoBehaviour {
     {
         pauseMenu.ShowBestTimeMarker();
     }
-
     #endregion
 
     #region Button events
@@ -57,6 +56,5 @@ public class UIManager : MonoBehaviour {
         }
 
     }
-
     #endregion
 }

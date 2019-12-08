@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LerpSprite : MonoBehaviour
 {
-
     SpriteRenderer sprite;
 
     Color lastColor;
@@ -35,7 +34,6 @@ public class LerpSprite : MonoBehaviour
 
     void Update()
     {
-
         if (sprite.color != targetColor)
         {
             sprite.color = Color.Lerp(sprite.color, targetColor, Time.deltaTime * 15f);

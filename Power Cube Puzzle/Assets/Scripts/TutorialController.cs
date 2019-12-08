@@ -9,14 +9,22 @@ public class TutorialController : MonoBehaviour {
     public void Init(SaveDataManager saveData) {
         this.saveData = saveData;
 
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+        GameController.OnLevelStart += OnLevelStart;
+        GameController.OnLevelComplete += OnLevelComplete;
+        //NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
+        //NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
 
         //Hide all
         for (int i = 0; i < tutorials.Length; i++)
         {
             tutorials[i].gameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameController.OnLevelStart -= OnLevelStart;
+        GameController.OnLevelComplete -= OnLevelComplete;
     }
 
     public SpriteFader[] tutorials;
@@ -26,7 +34,7 @@ public class TutorialController : MonoBehaviour {
     // - - - Events - - -
     
     //Player starts a level
-    void OnLevelStart(Notification note)
+    void OnLevelStart(LevelInfo level)
     {
         i = saveData.GetLevelIndex();
         //Check if tutorial for this level
@@ -39,7 +47,7 @@ public class TutorialController : MonoBehaviour {
     }
 
     //Player finished a level
-    void OnLevelComplete(Notification note)
+    void OnLevelComplete(LevelInfo level)
     {
         //Hide current tutorial
         if (i < tutorials.Length)

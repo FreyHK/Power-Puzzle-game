@@ -12,69 +12,95 @@ public class TileVisualController : MonoBehaviour {
 	{
 		public SpriteRenderer sprite;
 		public LerpSprite lerpSprite;
-		public bool useDefaultColors = true;
-		public Color litColor = Color.black;
-		public Color unlitColor;
 	}
 
 	[SerializeField] SpriteColor[] mainSprites;
 	[SerializeField] SpriteColor[] shadowSprites;
-	[SerializeField] ParticleSystem gameoverSparks;
+    [SerializeField] SpriteRenderer LampHandle;
+    [SerializeField] SpriteRenderer LampHandleShadow;
+    [Space()]
+    [SerializeField] ParticleSystem gameOverBubbles;
+    [SerializeField] ParticleSystem poweredSparks;
 
-    //Color
-	Color defaultLitColor;
-	Color defaultUnlitColor;
-	Color defaultLitHighlightColor;
-	Color defaultUnlitHighlightColor;
 
     //Rotating
-    public Animator anim;
-    public Transform graphics;
+    [SerializeField] Animator anim;
+    [SerializeField] Transform graphics;
 
     Tile tile;
 
-	public void Initialize (TileColorData tileColors, Tile tile) {
-        //Subscribe
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+	public void Initialize (ColorThemeScriptableObject colorTheme, Tile tile) {
 
         this.tile = tile;
-        //Color
-		this.defaultLitColor = tileColors.litWireColor;
-		this.defaultUnlitColor = tileColors.unlitWireColor;
-		this.defaultLitHighlightColor = tileColors.litHighlightColor;
-		this.defaultUnlitHighlightColor = tileColors.shadowColor;
+
+        GameController.OnLevelComplete += OnLevelComplete;
 
         //Rotation
         //Match transform rotation with tile rotation
         if (graphics != null)
             graphics.rotation = Quaternion.Euler(0f, 0f, TileMetrics.GetWireRotation(tile.outlets));
+
+        ApplyColorTheme(colorTheme);
+    }
+
+    private void OnDestroy()
+    {
+        GameController.OnLevelComplete -= OnLevelComplete;
+    }
+
+    ColorThemeScriptableObject colorTheme;
+
+    public void ApplyColorTheme(ColorThemeScriptableObject colorTheme)
+    {
+        this.colorTheme = colorTheme;
+
+        if (tile.tileType == TileType.Lamp)
+        {
+            LampHandle.color = colorTheme.LampHandle;
+            LampHandleShadow.color = colorTheme.LampHandleShadow;
+        }
     }
 
     bool poweredLastUpdate = false;
 
 	public void UpdateVisuals (bool powered) {
 		foreach (SpriteColor sc in mainSprites) {
-			if (sc.useDefaultColors)
-				//sc.sprite.color = powered ? defaultLitColor : defaultUnlitColor;
-				sc.lerpSprite.SetColor(powered ? defaultLitColor : defaultUnlitColor);
-			else
-				//sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
-				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
-		}
-		foreach (SpriteColor sc in shadowSprites) {
-			if (sc.useDefaultColors)
-				//sc.sprite.color = powered ? defaultLitHighlightColor : defaultUnlitHighlightColor;
-				sc.lerpSprite.SetColor(powered ? defaultLitHighlightColor : defaultUnlitHighlightColor);
-			else
-				//sc.sprite.color = powered ? sc.litColor : sc.unlitColor;
-				sc.lerpSprite.SetColor(powered ? sc.litColor : sc.unlitColor);
+			sc.lerpSprite.SetColor(powered ? colorTheme.WireLit : colorTheme.WireUnlit);
 		}
 
-        if (tile.tileType == TileType.Lamp && powered && !poweredLastUpdate)
-            SoundManager.Instance.Play("LampPowerUp");
+        foreach (SpriteColor sc in shadowSprites) {
+			sc.lerpSprite.SetColor(powered ? colorTheme.WireLitShadow : colorTheme.WireUnlitShadow);
+		}
 
+        if (tile.tileType == TileType.Lamp)
+        {
+            if (powered && !poweredLastUpdate)
+                OnLampPowerUp();
+            else if (!powered && poweredLastUpdate)
+                OnLampPowerOff();
+            var main = poweredSparks.main;
+            main.startColor = colorTheme.ParticleColor;
+            main = gameOverBubbles.main;
+            main.startColor = colorTheme.ParticleColor;
+        }
+            
         poweredLastUpdate = powered;
 	}
+
+    /// <summary>
+    /// Called when this tile (lamp) is powered
+    /// </summary>
+    void OnLampPowerUp()
+    {
+        SoundManager.Instance.Play("LampPowerUp");
+        poweredSparks.Play();
+    }
+
+    void OnLampPowerOff()
+    {
+        SoundManager.Instance.Play("LampPowerOff");
+        poweredSparks.Play();
+    }
 
     public bool IsRotating = false;
 
@@ -102,9 +128,9 @@ public class TileVisualController : MonoBehaviour {
         graphics.Rotate(0f, 0f, 90f);
     }
 
-    //Called by event callback
-    void OnLevelComplete() {
+    //Triggered by event callback
+    void OnLevelComplete(LevelInfo level) {
         if (tile.tileType == TileType.Lamp)
-            gameoverSparks.Play();
+            gameOverBubbles.Play();
     }
 }

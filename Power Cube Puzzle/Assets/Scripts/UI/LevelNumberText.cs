@@ -10,16 +10,24 @@ public class LevelNumberText : MonoBehaviour {
     public TextMeshPro text;
 
     void Start() {
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
-        NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
+        GameController.OnLevelStart += OnLevelStart;
+        GameController.OnLevelComplete += OnLevelComplete;
+        //NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelStart);
+        //NotificationCenter.DefaultCenter.AddObserver(this, NotificationMessage.OnLevelComplete);
     }
 
-    void OnLevelStart () {
+    private void OnDestroy()
+    {
+        GameController.OnLevelStart -= OnLevelStart;
+        GameController.OnLevelComplete -= OnLevelComplete;
+    }
+
+    void OnLevelStart (LevelInfo level) {
         text.enabled = true;
         text.text = (saveData.GetLevelIndex() + 1).ToString();
     }
 
-    void OnLevelComplete () {
+    void OnLevelComplete (LevelInfo level) {
         text.enabled = false;
     }
 }

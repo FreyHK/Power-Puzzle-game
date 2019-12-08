@@ -310,10 +310,16 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 4dbec06637df4a041816f7a47f123320, type: 3}
     source: {fileID: 0}
   - name: BackgroundTrack
-    volume: 0.47
+    volume: 0.35
     looping: 1
     clips:
     - {fileID: 8300000, guid: 3cc75bd540be041699780c5fcb4e86a6, type: 3}
+    source: {fileID: 0}
+  - name: LampPowerOff
+    volume: 0.35
+    looping: 0
+    clips:
+    - {fileID: 8300000, guid: 587f8bca76bd340a0896588439e8afb0, type: 3}
     source: {fileID: 0}
   mixerGroup: {fileID: 24300002, guid: 8a584a9fad0d94f6d85b16065aa09c89, type: 2}
   defaultSnapshot: {fileID: 245938379453983332, guid: 8a584a9fad0d94f6d85b16065aa09c89,
@@ -551,7 +557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabManager: {fileID: 114013739055755442}
-  tileColors: {fileID: 11400000, guid: 0cc9f6deeb2034de5880faade099412b, type: 2}
+  tileColors: {fileID: 11400000, guid: ac68b2355ad0641d7a3f752bf4b8040c, type: 2}
 --- !u!1 &1852417622922890
 GameObject:
   m_ObjectHideFlags: 0

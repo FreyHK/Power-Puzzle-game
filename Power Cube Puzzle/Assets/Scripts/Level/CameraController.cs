@@ -9,15 +9,8 @@ public class CameraController : MonoBehaviour {
 	float zoomedOutPercentage = .5f; //We add a little extra margin
 	float viewMargin = 1.1f; //1.25f;
 
-	public void Initialize () {
-		
-	}
-    
     public void SetTargetZoom (int width, int height, bool addMargin = false) {
         float size = GetOrthographicSize(width + viewMargin, height + viewMargin);
-
-        //Make sure camera starts ZOOMED IN
-        //cam.orthographicSize = size;
 
         //We want to zoom out
         float scale = addMargin ? (1f + zoomedOutPercentage) : 1f;

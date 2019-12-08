@@ -33,7 +33,6 @@ public class PauseMenu : MonoBehaviour {
     }
 
     private void Update() {
-        //Show timer
         if (IsOpen)
             UpdateTimer();
     }

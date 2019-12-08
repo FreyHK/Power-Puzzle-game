@@ -9,24 +9,27 @@ using UnityEngine;
 /// </summary>
 public class WorldController : MonoBehaviour {
 
-	[SerializeField] Transform environmentRoot;
+    [SerializeField] TileController tileController;
+    [SerializeField] Transform environmentRoot;
 	[SerializeField] SpriteRenderer background;
-
-	TileController tileController;
+    
 	TileGrid tileGrid;
 
 	float halfGridWidth;
 	float halfGridHeight;
 
 	LevelInfo currentLevel;
+    ColorThemeScriptableObject colorTheme;
 
-	/// <summary>
-	/// Sets up callbacks
-	/// </summary>
-	public void Initialize (TileController tileController) {
-		this.tileController = tileController;
-
+    public void Awake()
+    {
         background.enabled = false;
+    }
+
+    public void ApplyColorTheme(ColorThemeScriptableObject colorTheme)
+    {
+        this.colorTheme = colorTheme;
+        tileController.ApplyColorTheme(colorTheme);
     }
 
 	/// <summary>
@@ -42,6 +45,7 @@ public class WorldController : MonoBehaviour {
 		//Make background board correct size
 		background.size = new Vector2(levelInfo.Width + 1f, levelInfo.Height + 1f);
 		background.enabled = true;
+        background.color = colorTheme.BoardColor;
 
         //Create grid (generates level too)
         tileGrid = new TileGrid (levelInfo);
@@ -56,7 +60,7 @@ public class WorldController : MonoBehaviour {
         tileGrid.UpdateTilePower ();
 
 		//Setup board
-		tileController.CreateTiles (tileGrid, environmentRoot);
+		tileController.CreateTiles (tileGrid, colorTheme, environmentRoot);
 		tileController.UpdateTileColors (tileGrid);
 	}
 
