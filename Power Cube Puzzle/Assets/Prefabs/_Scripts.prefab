@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde2857a44467004283f669d8d7a296a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileController: {fileID: 114577536907280102}
   environmentRoot: {fileID: 0}
   background: {fileID: 0}
 --- !u!1 &1181517144380466
@@ -557,7 +558,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabManager: {fileID: 114013739055755442}
-  tileColors: {fileID: 11400000, guid: ac68b2355ad0641d7a3f752bf4b8040c, type: 2}
 --- !u!1 &1852417622922890
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,11 +602,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldController: {fileID: 114974869936439768}
-  tileController: {fileID: 114577536907280102}
   tutorialController: {fileID: 0}
   cameraController: {fileID: 0}
   uiManager: {fileID: 114587193408082878}
   playerInput: {fileID: 114006710973604382}
+  colorTheme: {fileID: 11400000, guid: ac68b2355ad0641d7a3f752bf4b8040c, type: 2}
   leaderBoardController: {fileID: 903894729}
   saveData: {fileID: 114016179148244758}
   levelCollection: {fileID: 114000221235022324}

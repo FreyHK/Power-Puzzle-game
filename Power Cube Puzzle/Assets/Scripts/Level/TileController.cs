@@ -85,8 +85,6 @@ public class TileController : MonoBehaviour {
     Queue<Tile> toRotate = new Queue<Tile>();
 	Tile currentTileRotating = null;
 
-	float tileRotateSpeed = 360;
-
 	public void RotateTile (Tile t) {
 		if (tileGameObjects.ContainsKey (t)) {
             toRotate.Enqueue (t);

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -107981364, guid: 741884b37a0234d86bb740e55081cd5f, type: 3}
+  m_Name: UDP Settings
+  m_EditorClassIdentifier: 
+  UnityProjectID: 42169406-9d31-413f-a174-08c643ec8190
+  UnityClientID: ENY1rJ2SS8XoNp_IVndaow
+  UnityClientKey: JChyqrIV90350EMiCXj1HG8wUYZ9w5ie9PctLZ51xks
+  UnityClientRSAPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAin/x3pD1IzkHGCIPbVcpfA8hMVubMFItH5oE1dH2QkxOCouESwNctyNRwJ+qCM7yWZmIs6xL1xWZss0az6cYkL1bfD/xelV2XNrt8Bbc/RLfhDCzzynvPj4bSJCaIX9GliNO4CGC6myYwI6dEXMYMH5XbOuIyc66rGZSLUGt8f8IK/ehJDoBBqX0bZqGWPiDF0dqd/AA5R4RXeK2xUYYq+riHC/ATzdscy7fd+rfSJ9eG7fxbthv0Jz8GijnKnV/a70qKwKuRs6WBibu5pdEqmHDyHghcDpa4Lifmd62Eihu8d+jUxi98HcwMd94qRw5hVBDH5T9VjwOTpXUvCKGNQIDAQAB
+  AppName: Broken Circuit
+  AppSlug: 792f46b3-4178-4d2d-980f-04451a2ff485
+  AppItemId: 5f9fede5f651e6001fd7cbbe
+  Permission: 
